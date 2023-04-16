@@ -39,12 +39,12 @@ class _MyLocationState extends State<MyLocation> {
                     height: 10.0,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Obx(
                       () => Text(
                         controller.message.value,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20.0),
+                            fontWeight: FontWeight.bold, fontSize: 25.0),
                         textAlign: TextAlign.center,
                       ),
                     ),
