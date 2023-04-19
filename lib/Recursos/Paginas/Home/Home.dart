@@ -68,7 +68,7 @@ class HomePage extends GetView<HomeController> {
       padding: const EdgeInsets.all(16.0),
       children: [
         const SizedBox(
-          height: 100.0,
+          height: 50.0,
         ),
         ...cardModelsList.map((cardModel) => CardList(
               cardModelList: cardModel,
