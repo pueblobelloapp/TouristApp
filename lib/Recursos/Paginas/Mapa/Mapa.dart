@@ -6,13 +6,14 @@ import '../../Widget/Gradient_Header.dart';
 import 'MapaController.dart';
 
 class MapaPage extends GetView<MapaController> {
+  final MapaController mapaController = Get.put(MapaController());
   @override
   Widget build(BuildContext context) {
-    final MapaController mapaController = Get.put(MapaController());
     return Scaffold(
         body: GoogleMap(
       initialCameraPosition: mapaController.initialPosition,
       onMapCreated: mapaController.onMapCreated,
+      mapType: MapType.normal,
     ));
   }
 }

@@ -44,7 +44,7 @@ class _MyLocationState extends State<MyLocation> {
                       () => Text(
                         controller.message.value,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25.0),
+                            fontWeight: FontWeight.bold, fontSize: 30.0),
                         textAlign: TextAlign.center,
                       ),
                     ),

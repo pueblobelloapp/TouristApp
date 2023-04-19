@@ -1,4 +1,5 @@
 import 'package:app_turismo_usuario/Recursos/Modelos/Card/card_image_list.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Sitio/sitio_controller.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Bton_heart_container.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
@@ -6,12 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Widget/Constans.dart';
 import '../../Widget/CustomHeader.dart';
+import '../Mapa/MapaController.dart';
 
 class SitioPage extends GetView<SitioController> {
-  const SitioPage({super.key});
+  SitioPage({super.key});
+
+  final MapaController mapaController = Get.put(MapaController());
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +237,10 @@ class SitioPage extends GetView<SitioController> {
   Widget _btonIrSitio() {
     return ElevatedButton(
         style: Constants.buttonPrimary,
-        onPressed: () {},
+        onPressed: () {
+          // mapaController.goToLocation(const LatLng(10.4127663, -73.5866711));
+          Get.to(MapaPage());
+        },
         child: const Text('Ir al sitio'));
   }
 
