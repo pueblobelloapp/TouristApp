@@ -2,7 +2,6 @@ import 'package:app_turismo_usuario/Recursos/Paginas/Arhuaco/arhuaco.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Home/Home.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/Login.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Menu/Menu.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/My_location/my_location.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/Perfil.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/SplashScreen/splashScreen.dart';

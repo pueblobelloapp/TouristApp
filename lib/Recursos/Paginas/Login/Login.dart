@@ -1,5 +1,5 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Menu/Menu.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Navigation_bar/navigation_bar.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Gradient_Header.dart';
 import 'package:flutter/material.dart';
@@ -171,7 +171,7 @@ class _LoginState extends State<Login> {
                             .then((value) => {
                                   if (controllerLogin.email != 'Sin Registro' &&
                                       controllerLogin.password != "")
-                                    {Get.to(() => Menu())}
+                                    {Get.to(navigationBar())}
                                   else
                                     {
                                       _messageInformation(
