@@ -40,7 +40,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   fonts:
-    - family: Ubuntu
+    - family: Century
       fonts:
         - asset: fonts/Century Gothic.ttf
         - asset: fonts/CenturyGothic.ttf
