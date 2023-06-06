@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'App Turismo',
-      theme: ThemeData(fontFamily: 'Ubuntu'),
+      theme: ThemeData(fontFamily: 'Century'),
       routes: {
         '/SplashScreen': (context) => SplashScreen(),
         /*'/MyLocation': (context) => MyLocation(),

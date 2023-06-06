@@ -42,11 +42,13 @@ flutter:
   fonts:
     - family: Ubuntu
       fonts:
-        - asset: fonts/Ubuntu-Bold.ttf
-        - asset: fonts/Ubuntu-Italic.ttf
-        - asset: fonts/Ubuntu-Light.ttf
-        - asset: fonts/Ubuntu-Medium.ttf
-        - asset: fonts/Ubuntu-Regular.ttf
+        - asset: fonts/Century Gothic.ttf
+        - asset: fonts/CenturyGothic.ttf
+        - asset: fonts/GOTHIC.TTF
+        - asset: fonts/GOTHICB.TTF
+        - asset: fonts/GOTHICB0.TTF
+        - asset: fonts/GOTHICBI.TTF
+        - asset: fonts/GOTHICI.TTF
 
   #   - family: Trajan Pro
   #     fonts:
