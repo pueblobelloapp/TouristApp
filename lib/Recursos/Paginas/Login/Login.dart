@@ -152,7 +152,7 @@ class _LoginState extends State<Login> {
                                     if (controllerLogin.email !=
                                             'Sin Registro' &&
                                         controllerLogin.password != "")
-                                      {Get.to(Principal())}
+                                      {Get.to(const Principal())}
                                     else
                                       {
                                         _messageInformation(

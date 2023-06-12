@@ -2,7 +2,6 @@ import 'package:app_turismo_usuario/Recursos/Paginas/Arhuaco/arhuaco.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Home/Home.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Navigation_bar/NavigationController.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/Perfil.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,7 +35,7 @@ class _NavigationBarState extends State<navigationBar> {
             HomePage(),
             MapaPage(),
             ArhuacoPage(),
-            PerfilPage(),
+            //PerfilPage(),
           ],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

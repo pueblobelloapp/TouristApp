@@ -23,4 +23,14 @@ class ControllerLogin extends GetxController {
       }
     }
   }
+
+  Future<void> logout() async {
+    try {
+      await firebaseAuth.signOut();
+      _uid.value = "";
+      _email.value = "Sin Registro";
+    } catch (e) {
+      throw 'Error al cerrar sesión: $e';
+    }
+  }
 }
