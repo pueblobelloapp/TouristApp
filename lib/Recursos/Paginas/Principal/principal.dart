@@ -1,5 +1,7 @@
+import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/Perfil.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principalController.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Recuperar_contrase%C3%B1a/RecuperarContrasena.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,7 +19,7 @@ class Principal extends GetView<PrincipalController> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 9.0),
-              child: _search(),
+              child: _search(context),
             )
           ],
         ),
@@ -26,7 +28,7 @@ class Principal extends GetView<PrincipalController> {
   }
 }
 
-Widget _search() {
+Widget _search(BuildContext context) {
   final controller = Get.put<PrincipalController>(PrincipalController());
   return SafeArea(
       child: Row(
@@ -53,20 +55,125 @@ Widget _search() {
         width: 5.0,
       ),
       Container(
-        height: 30.0,
-        width: 30.0,
-        decoration: const BoxDecoration(
-            color: Color.fromRGBO(45, 52, 54, 1),
-            borderRadius: BorderRadius.all(Radius.circular(5.0))),
-        child: IconButton(
-            icon: const FaIcon(FontAwesomeIcons.user,
-                color: AppBasicColors.white, size: 15.0),
-            onPressed: () {
-              Get.to(PerfilPage());
-            }),
-      ),
+          height: 30.0,
+          width: 30.0,
+          decoration: const BoxDecoration(
+              color: Color.fromRGBO(45, 52, 54, 1),
+              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          child: _popupMenuProfile(context)),
     ],
   ));
+}
+
+Widget _popupMenuProfile(context) {
+  return PopupMenuButton(
+    icon: const FaIcon(FontAwesomeIcons.user,
+        color: AppBasicColors.white, size: 15.0),
+    itemBuilder: (BuildContext context) {
+      return <PopupMenuEntry>[
+        PopupMenuItem(
+          value: 1,
+          child: Container(
+            color: const Color.fromRGBO(255, 255, 255, 1),
+            child: ListTile(
+              leading: Container(
+                  height: 30.0,
+                  width: 30.0,
+                  decoration: const BoxDecoration(
+                      color: Color.fromRGBO(45, 52, 54, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: FaIcon(
+                      FontAwesomeIcons.user,
+                      color: AppBasicColors.white,
+                      size: 15.0,
+                    ),
+                  )),
+              title: const Text(
+                'Mi perfil',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        PopupMenuItem(
+          value: 2,
+          child: Container(
+            color: const Color.fromRGBO(255, 255, 255, 1),
+            child: ListTile(
+              leading: Container(
+                  height: 30.0,
+                  width: 30.0,
+                  decoration: const BoxDecoration(
+                      color: Color.fromRGBO(45, 52, 54, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: FaIcon(
+                      FontAwesomeIcons.lock,
+                      color: AppBasicColors.white,
+                      size: 15.0,
+                    ),
+                  )),
+              title: const Text(
+                'Cambiar clave',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        PopupMenuItem(
+          value: 3,
+          child: Container(
+            color: const Color.fromRGBO(255, 255, 255, 1),
+            child: ListTile(
+              leading: Container(
+                  height: 30.0,
+                  width: 30.0,
+                  decoration: const BoxDecoration(
+                      color: Color.fromRGBO(45, 52, 54, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: FaIcon(
+                      FontAwesomeIcons.powerOff,
+                      color: AppBasicColors.white,
+                      size: 15.0,
+                    ),
+                  )),
+              title: const Text(
+                'Cerrar sesión',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+      ];
+    },
+    onSelected: (value) {
+      switch (value) {
+        case 1:
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const ProfileDialog();
+              });
+          break;
+        case 2:
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const RecoveryPassword();
+              });
+          break;
+        case 3:
+          //ControllerLogin().logout();
+          //Get.find<ControllerLogin>().logout();
+          break;
+      }
+    },
+  );
 }
 
 Widget _textFormFielWidget(TextEditingController controlador, FaIcon icono,
