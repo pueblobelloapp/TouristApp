@@ -82,7 +82,7 @@ class _NavigationBarState extends State<navigationBar> {
                             height: 2,
                             decoration: BoxDecoration(
                                 color: controller.tabIndex == 0
-                                    ? AppBasicColors.lightGreen
+                                    ? AppBasicColors.rgb
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(10)),
                           )),
@@ -104,7 +104,7 @@ class _NavigationBarState extends State<navigationBar> {
                               FontAwesomeIcons.house,
                               size: iconSize,
                               color: controller.tabIndex == 0
-                                  ? AppBasicColors.lightGreen
+                                  ? AppBasicColors.rgb
                                   : AppBasicColors.lightGrey,
                             ),
                             Text(
@@ -112,7 +112,7 @@ class _NavigationBarState extends State<navigationBar> {
                               style: TextStyle(
                                   fontSize: fontSize,
                                   color: controller.tabIndex == 0
-                                      ? AppBasicColors.green
+                                      ? AppBasicColors.rgb
                                       : AppBasicColors.lightGrey),
                             ),
                           ],
@@ -137,7 +137,7 @@ class _NavigationBarState extends State<navigationBar> {
                             height: 2,
                             decoration: BoxDecoration(
                                 color: controller.tabIndex == 1
-                                    ? AppBasicColors.lightGreen
+                                    ? AppBasicColors.rgb
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(10)),
                           )),
@@ -159,7 +159,7 @@ class _NavigationBarState extends State<navigationBar> {
                               FontAwesomeIcons.mapLocation,
                               size: iconSize,
                               color: controller.tabIndex == 1
-                                  ? AppBasicColors.lightGreen
+                                  ? AppBasicColors.rgb
                                   : AppBasicColors.lightGrey,
                             ),
                             Text(
@@ -167,7 +167,7 @@ class _NavigationBarState extends State<navigationBar> {
                               style: TextStyle(
                                   fontSize: fontSize,
                                   color: controller.tabIndex == 1
-                                      ? AppBasicColors.green
+                                      ? AppBasicColors.rgb
                                       : AppBasicColors.lightGrey),
                             ),
                           ],
@@ -192,7 +192,7 @@ class _NavigationBarState extends State<navigationBar> {
                             height: 2,
                             decoration: BoxDecoration(
                                 color: controller.tabIndex == 2
-                                    ? AppBasicColors.lightGreen
+                                    ? AppBasicColors.rgb
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(10)),
                           )),
@@ -214,7 +214,7 @@ class _NavigationBarState extends State<navigationBar> {
                               FontAwesomeIcons.featherPointed,
                               size: iconSize,
                               color: controller.tabIndex == 2
-                                  ? AppBasicColors.lightGreen
+                                  ? AppBasicColors.rgb
                                   : AppBasicColors.lightGrey,
                             ),
                             Text(
@@ -222,7 +222,7 @@ class _NavigationBarState extends State<navigationBar> {
                               style: TextStyle(
                                   fontSize: fontSize,
                                   color: controller.tabIndex == 2
-                                      ? AppBasicColors.green
+                                      ? AppBasicColors.rgb
                                       : AppBasicColors.lightGrey),
                             ),
                           ],
@@ -242,7 +242,7 @@ class _NavigationBarState extends State<navigationBar> {
                             height: 2,
                             decoration: BoxDecoration(
                                 color: controller.tabIndex == 3
-                                    ? AppBasicColors.lightGreen
+                                    ? AppBasicColors.rgb
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(10)),
                           )),
@@ -264,7 +264,7 @@ class _NavigationBarState extends State<navigationBar> {
                               FontAwesomeIcons.userGear,
                               size: iconSize,
                               color: controller.tabIndex == 3
-                                  ? AppBasicColors.lightGreen
+                                  ? AppBasicColors.rgb
                                   : AppBasicColors.lightGrey,
                             ),
                             Text(
@@ -272,7 +272,7 @@ class _NavigationBarState extends State<navigationBar> {
                               style: TextStyle(
                                   fontSize: fontSize,
                                   color: controller.tabIndex == 3
-                                      ? AppBasicColors.green
+                                      ? AppBasicColors.rgb
                                       : AppBasicColors.lightGrey),
                             ),
                           ],

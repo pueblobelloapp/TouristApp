@@ -23,17 +23,18 @@ class _MyLocationState extends State<MyLocation> {
         return false;
       },
       child: Scaffold(
+        backgroundColor: const Color.fromRGBO(0, 184, 148, 1),
         body: Stack(
           children: [
-            const GradientHeader(),
+            //const GradientHeader(),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FaIcon(
+                  const FaIcon(
                     FontAwesomeIcons.locationDot,
                     size: 60,
-                    color: AppBasicColors.green,
+                    color: AppBasicColors.white,
                   ),
                   const SizedBox(
                     height: 10.0,
