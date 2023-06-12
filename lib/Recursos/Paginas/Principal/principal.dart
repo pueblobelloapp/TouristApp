@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Modelos/Catergoria/CategoriaBtonRow.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/Perfil.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principalController.dart';
@@ -6,6 +7,7 @@ import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import '../../Modelos/Catergoria/CategoriaBtonRowController.dart';
 
 class Principal extends GetView<PrincipalController> {
   const Principal({super.key});
@@ -20,7 +22,7 @@ class Principal extends GetView<PrincipalController> {
             Padding(
               padding: const EdgeInsets.only(top: 9.0),
               child: _search(context),
-            )
+            ),
           ],
         ),
       ),
@@ -30,37 +32,44 @@ class Principal extends GetView<PrincipalController> {
 
 Widget _search(BuildContext context) {
   final controller = Get.put<PrincipalController>(PrincipalController());
+  Get.put(CategoryButtonRowController());
   return SafeArea(
-      child: Row(
-    children: <Widget>[
-      Expanded(
-        child: Container(
-          height: 30.0,
-          /*decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          ),*/
-          child: _textFormFielWidget(
-              controller.search,
-              const FaIcon(
-                FontAwesomeIcons.magnifyingGlass,
-                color: AppBasicColors.white,
-                size: 15.0,
-              ),
-              'Buscar...',
-              false,
-              TextInputType.name),
-        ),
+      child: Column(
+    children: [
+      Row(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              height: 30.0,
+              /*decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              ),*/
+              child: _textFormFielWidget(
+                  controller.search,
+                  const FaIcon(
+                    FontAwesomeIcons.magnifyingGlass,
+                    color: AppBasicColors.white,
+                    size: 15.0,
+                  ),
+                  'Buscar...',
+                  false,
+                  TextInputType.name),
+            ),
+          ),
+          const SizedBox(
+            width: 5.0,
+          ),
+          Container(
+              height: 30.0,
+              width: 30.0,
+              decoration: const BoxDecoration(
+                  color: Color.fromRGBO(45, 52, 54, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
+              child: _popupMenuProfile(context)),
+        ],
       ),
-      const SizedBox(
-        width: 5.0,
-      ),
-      Container(
-          height: 30.0,
-          width: 30.0,
-          decoration: const BoxDecoration(
-              color: Color.fromRGBO(45, 52, 54, 1),
-              borderRadius: BorderRadius.all(Radius.circular(5.0))),
-          child: _popupMenuProfile(context)),
+      const SizedBox(height: 22.0),
+      const CategoryButtonRow()
     ],
   ));
 }
