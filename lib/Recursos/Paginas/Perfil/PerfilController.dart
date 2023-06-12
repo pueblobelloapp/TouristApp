@@ -30,6 +30,18 @@ class PerfilController extends GetxController {
     String nombre = nameControllerP.text;
     String fechaNacimiento = birthdateControllerP.text;
 
+    // Verifica si hay cambios realizados
+    /*bool changesMade = false;
+    if (correo.isNotEmpty || nombre.isNotEmpty || fechaNacimiento.isNotEmpty) {
+      changesMade = true;
+    }*/
+
+    // Si no hay cambios realizados, no muestra la notificación
+    /*if (!changesMade) {
+      Get.back();
+      return;
+    }*/
+
     Get.back(); // Cierra el diálogo
 
     Get.snackbar(
