@@ -3,18 +3,45 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../Widget/Constans.dart';
+import '../../theme/app_theme.dart';
 import 'PerfilController.dart';
 
 class PerfilPage extends GetView<PerfilController> {
-  String _generoValue = "";
-  final lista = ['Masculino', 'Femenino'];
+  //String _generoValue = "";
+  //final lista = ['Masculino', 'Femenino'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.all(12.0),
-        child: SingleChildScrollView(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        /* decoration: BoxDecoration(
+          image: DecorationImage(
+              image: const AssetImage('Assets/Img/background-login.png'),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.6), BlendMode.srcOver)),
+        ),*/
+        //padding: const EdgeInsets.all(12.0),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 62.0,
+                  ),
+                  _containerPhoto(),
+                  const SizedBox(
+                    height: 49.0,
+                  ),
+                  _formProfile()
+                ],
+              ),
+            )
+          ],
+        ) /*SingleChildScrollView(
           child: Column(
             children: <Widget>[
               const Center(
@@ -351,8 +378,134 @@ class PerfilPage extends GetView<PerfilController> {
               )
             ],
           ),
-        ),
+        )*/
+        ,
       ),
     );
   }
+}
+
+Widget _containerPhoto() {
+  return Center(
+      child: Container(
+          width: 148.0,
+          height: 151.0,
+          color: AppBasicColors.rgb,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              FaIcon(
+                FontAwesomeIcons.user,
+                color: AppBasicColors.white,
+                size: 50.0,
+              ),
+            ],
+          )));
+}
+
+Widget _formProfile() {
+  final controller = Get.put<PerfilController>(PerfilController());
+  return Container(
+    margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+    child: Form(
+        child: Column(
+      children: <Widget>[
+        //TextFormField Email
+        _textFormFielWidget(
+            controller.emailP,
+            const FaIcon(
+              FontAwesomeIcons.user,
+              color: AppBasicColors.rgb,
+            ),
+            'Correo',
+            false,
+            'Error, el campo no puede estar vacio',
+            TextInputType.emailAddress),
+        const SizedBox(
+          height: 13,
+        ),
+        //TextFormField nombre completo
+        _textFormFielWidget(
+            controller.nameP,
+            const FaIcon(
+              FontAwesomeIcons.user,
+              color: AppBasicColors.rgb,
+            ),
+            'Nombre Completo',
+            false,
+            'Error, el campo no puede estar vacio',
+            TextInputType.text),
+        const SizedBox(
+          height: 13,
+        ),
+        //TextFormField fecha de nacimiento
+        _textFormFielWidget(
+            controller.dateOfBirthP,
+            const FaIcon(
+              FontAwesomeIcons.calendar,
+              color: AppBasicColors.rgb,
+            ),
+            'Fecha de nacimiento',
+            false,
+            'Error, el campo no puede estar vacio',
+            TextInputType.datetime),
+        const SizedBox(
+          height: 26.0,
+        ),
+        _btonSaveChanges()
+      ],
+    )),
+  );
+}
+
+Widget _textFormFielWidget(
+    TextEditingController controlador,
+    FaIcon icono,
+    String textGuide,
+    bool estate,
+    String msgError,
+    TextInputType textInputType) {
+  return TextFormField(
+    controller: controlador,
+    keyboardType: textInputType,
+    obscureText: estate,
+    decoration: InputDecoration(
+      prefixIcon: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: icono,
+      ),
+      fillColor: const Color(0xFFDFE6E9),
+      filled: true,
+      enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+      focusedBorder: InputBorder.none,
+      border: InputBorder.none,
+      hintText: textGuide,
+      disabledBorder: InputBorder.none,
+      contentPadding: const EdgeInsets.all(16.0),
+      hintStyle: const TextStyle(color: Colors.black26),
+      labelStyle: const TextStyle(color: Colors.green),
+    ),
+    validator: (value) {
+      if (value!.isEmpty) {
+        return msgError;
+      }
+    },
+    cursorColor: Colors.black,
+  );
+}
+
+Widget _btonSaveChanges() {
+  return Container(
+    width: double.infinity,
+    height: 50.0,
+    child: ElevatedButton(
+        style: Constants.buttonPrimary,
+        onPressed: () {
+          //Get.to(const Opinion());
+        },
+        child: const Text(
+          'Guardar cambios',
+          style: TextStyle(fontSize: 20.0),
+        )),
+  );
 }
