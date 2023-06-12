@@ -1,11 +1,17 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Navigation_bar/navigation_bar.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principal.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Gradient_Header.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+
+import '../../theme/app_theme.dart';
+import '../Registrar/Registrar.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -34,9 +40,17 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: [
-        const GradientHeader(),
+        body: Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: const AssetImage('Assets/Img/background-login.png'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.6), BlendMode.srcOver)),
+      ),
+      child: Stack(children: [
         SingleChildScrollView(
           child: Column(
             children: [
@@ -44,161 +58,157 @@ class _LoginState extends State<Login> {
                 height: 30.0,
               ),
               _tituloLogin(),
-              _imagenLogo(),
-              _formLogin()
+              _formLogin(),
             ],
           ),
         )
-      ],
+      ]),
     ));
   }
 
-  Widget _imagenLogo() {
-    return SafeArea(
-      top: false,
+  /*Widget _imagenLogo() {
+    return Container(
       child: Image.asset(
-        'Assets/Img/Logo.png',
+        'Assets/Img/background-login.png',
         //width: MediaQuery.of(context).size.width * 0.85,
         width: 260,
         height: 260,
       ),
     );
-  }
+  }*/
 
   Widget _tituloLogin() {
-    return const SafeArea(
-      //minimum: EdgeInsets.only(top: 20.0,),
-      child: Text(
-        'App Turismo',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
-      ),
-    );
+    return SafeArea(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Text(
+          'IKU',
+          style: TextStyle(
+              color: AppBasicColors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 72.0),
+        ),
+        Text(
+          'Pueblo Bello',
+          style: TextStyle(
+              color: AppBasicColors.white,
+              //fontWeight: FontWeight.bold,
+              fontSize: 24.0),
+        )
+      ],
+    ));
   }
 
   Widget _formLogin() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(25, 0, 25, 5),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        elevation: 8,
-        shadowColor: Colors.black,
-        child: Form(
+    return Container(
+      child: Form(
           key: _formkey,
           child: Container(
-            margin: const EdgeInsets.fromLTRB(15, 5, 15, 15),
+            //color: Colors.white,
+            margin: const EdgeInsets.fromLTRB(10, 240, 10, 0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                const Text(
-                  'Bienvenido',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  'Digite datos para Iniciar Sesión',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 15.0,
-                ),
-                //Titulo email
-                Row(
-                  children: const [
-                    Text(
-                      'Email',
-                      style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 5.0,
-                ),
                 //TextFormField Email
                 _textFormFielWidget(
                     _emailL,
                     const FaIcon(
                       FontAwesomeIcons.envelope,
-                      color: Colors.green,
+                      color: AppBasicColors.black,
                     ),
-                    'Ingrese Email',
+                    'Correo',
                     false,
                     'Error, compruebe el correo',
                     TextInputType.emailAddress),
                 const SizedBox(
-                  height: 8.0,
+                  height: 13,
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                //titulo contraseña
-                Row(
-                  children: const [
-                    Text('Contraseña',
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.bold))
-                  ],
-                ),
-                const SizedBox(
-                  height: 5.0,
-                ),
-                //TextFormField contraseña
+                //TextFormField Contraseña
                 _textFormFielWidget(
                     _passwordL,
                     const FaIcon(
                       FontAwesomeIcons.lock,
-                      color: Colors.green,
+                      color: AppBasicColors.black,
                     ),
-                    'Ingrese la contraseña',
+                    'Contraseña',
                     true,
                     'Error, Digite una contraseña',
                     TextInputType.text),
                 const SizedBox(
-                  height: 5.0,
+                  height: 13,
                 ),
-                //registrarme y olvido contraseña
-                _optionSesion(),
+                //boton login
+                Container(
+                  //color: Colors.white,
+                  width: double.infinity,
+                  height: 50.0,
+                  child: ElevatedButton(
+                      style: Constants.buttonPrimary,
+                      onPressed: () {
+                        if (_formkey.currentState!.validate()) {
+                          controllerLogin
+                              .getLogin(_emailL.text, _passwordL.text)
+                              .then((value) => {
+                                    if (controllerLogin.email !=
+                                            'Sin Registro' &&
+                                        controllerLogin.password != "")
+                                      {Get.to(Principal())}
+                                    else
+                                      {
+                                        _messageInformation(
+                                            'Validación de usuario',
+                                            'No se encuentra registrado',
+                                            const Icon(Icons.person),
+                                            Colors.red)
+                                      }
+                                  })
+                              .catchError((onerror) {
+                            print('Recibido: ' + onerror);
+                            if (onerror == 'wrong-password') {
+                              mensajeNotificacion = 'Contraseña incorrecta';
+                            } else if (onerror == 'user-not-founf') {
+                              mensajeNotificacion = "Email no existe";
+                            }
+                            _messageInformation('Ups!', mensajeNotificacion,
+                                const Icon(Icons.error), Colors.white);
+                          });
+                        }
+                      },
+                      child: const Text(
+                        'Iniciar',
+                        style: TextStyle(fontSize: 20),
+                      )),
+                ),
                 const SizedBox(
-                  height: 25.0,
+                  height: 13,
                 ),
-                ElevatedButton(
-                    style: Constants.buttonPrimary,
-                    onPressed: () {
-                      if (_formkey.currentState!.validate()) {
-                        controllerLogin
-                            .getLogin(_emailL.text, _passwordL.text)
-                            .then((value) => {
-                                  if (controllerLogin.email != 'Sin Registro' &&
-                                      controllerLogin.password != "")
-                                    {Get.to(navigationBar())}
-                                  else
-                                    {
-                                      _messageInformation(
-                                          'Validación de usuario',
-                                          'No se encuentra registrado',
-                                          const Icon(Icons.person),
-                                          Colors.red)
-                                    }
-                                })
-                            .catchError((onerror) {
-                          print('Recibido: ' + onerror);
-                          if (onerror == 'wrong-password') {
-                            mensajeNotificacion = 'Contraseña incorrecta';
-                          } else if (onerror == 'user-not-founf') {
-                            mensajeNotificacion = "Email no existe";
-                          }
-                          _messageInformation('Ups!', mensajeNotificacion,
-                              const Icon(Icons.error), Colors.red);
-                        });
-                      }
-                    },
-                    child: const Text('Iniciar Sesión')),
-                const Padding(padding: EdgeInsets.all(10)),
+                Row(
+                  children: [_optionSesion()],
+                ),
+                Positioned(child: _btnGoogle())
+                /* const SizedBox(
+                  height: 95.0,
+                ),*/
               ],
             ),
-          ),
+          )),
+    );
+  }
+
+  Widget _btnGoogle() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 90, 0, 0),
+      width: double.infinity,
+      height: 50.0,
+      decoration: BoxDecoration(
+          // borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppBasicColors.rgb, width: 2.0)),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.transparent,
         ),
+        onPressed: () {},
+        child: const Text('Iniciar con Google'),
       ),
     );
   }
@@ -221,9 +231,16 @@ class _LoginState extends State<Login> {
         ),
         fillColor: Colors.grey.shade200,
         filled: true,
-        enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
-        focusedBorder: InputBorder.none,
-        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(5.0)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(5.0)),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+          //borderRadius: BorderRadius.circular(5.0)
+        ),
         hintText: textGuide,
         disabledBorder: InputBorder.none,
         contentPadding: const EdgeInsets.all(16.0),
@@ -235,7 +252,7 @@ class _LoginState extends State<Login> {
           return msgError;
         }
       },
-      cursorColor: Colors.green.shade300,
+      cursorColor: Colors.black,
     );
   }
 
@@ -245,18 +262,14 @@ class _LoginState extends State<Login> {
       children: <Widget>[
         InkWell(
           onTap: () {
-            // Get.to(Registrar());
+            Get.to(const Registrar());
           },
           child: const Text(
             'Registrarme',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
-          ),
-        ),
-        const InkWell(
-          onTap: null,
-          child: Text(
-            '¿Olvidaste contraseña?',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: AppBasicColors.white,
+                fontSize: 18.0),
           ),
         ),
       ],
@@ -274,20 +287,3 @@ class _LoginState extends State<Login> {
     ));
   }
 }
-
-    /* Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        //border: Border.all(color: Colors.green, width: 0),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10.0))),
-                    child: _textFormFielWidget(
-                        _passwordL,
-                        const FaIcon(
-                          FontAwesomeIcons.lock,
-                          color: Colors.green,
-                        ),
-                        'Ingrese la contraseña',
-                        true,
-                        'Error, Digite una contraseña',
-                        TextInputType.text))*/
