@@ -1,10 +1,15 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'package:app_turismo_usuario/Recursos/DataSource/DataFirebaseLogin.dart';
+import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Navigation_bar/navigation_bar.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principal.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Gradient_Header.dart';
+import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
+import 'package:app_turismo_usuario/main.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -28,6 +33,13 @@ class _LoginState extends State<Login> {
   ControllerLogin controllerLogin = Get.find();
   String mensajeNotificacion = "Error";
 
+  final FirebaseLogin _firebaseLogin = getIt();
+  UserLogin userLogin = UserLogin();
+  String mensajeNotification = "Error";
+  bool isLoading = false;
+
+  final GetxUtils messageController = Get.put(GetxUtils());
+
   bool _processing = false;
 
   @override
@@ -40,47 +52,44 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: const AssetImage('Assets/Img/background-login.png'),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.6), BlendMode.srcOver)),
-      ),
-      child: Stack(children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30.0,
-              ),
-              _tituloLogin(),
-              _formLogin(),
-            ],
-          ),
-        )
-      ]),
-    ));
+      body: bodyLogin(),
+    );
   }
 
-  /*Widget _imagenLogo() {
-    return Container(
-      child: Image.asset(
-        'Assets/Img/background-login.png',
-        //width: MediaQuery.of(context).size.width * 0.85,
-        width: 260,
-        height: 260,
+  Widget bodyLogin() {
+    return SingleChildScrollView(
+      child: Stack(
+        children: [
+          Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('Assets/Img/background-login.png'),
+                      fit: BoxFit.cover)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: titleLogin(),
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: _formLogin()),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: _btnGoogle(),
+                  )
+                ],
+              ))
+        ],
       ),
     );
-  }*/
+  }
 
-  Widget _tituloLogin() {
-    return SafeArea(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget titleLogin() {
+    return Column(
       children: const [
         Text(
           'IKU',
@@ -97,102 +106,103 @@ class _LoginState extends State<Login> {
               fontSize: 24.0),
         )
       ],
-    ));
+    );
   }
 
   Widget _formLogin() {
-    return Container(
-      child: Form(
-          key: _formkey,
-          child: Container(
-            //color: Colors.white,
-            margin: const EdgeInsets.fromLTRB(10, 240, 10, 0),
-            child: Column(
-              children: <Widget>[
-                //TextFormField Email
-                _textFormFielWidget(
-                    _emailL,
-                    const FaIcon(
-                      FontAwesomeIcons.envelope,
-                      color: AppBasicColors.black,
-                    ),
-                    'Correo',
-                    false,
-                    'Error, compruebe el correo',
-                    TextInputType.emailAddress),
-                const SizedBox(
-                  height: 13,
+    return Form(
+        key: _formkey,
+        child: Column(
+          children: [
+            _textFormFielWidget(
+                _emailL,
+                const FaIcon(
+                  FontAwesomeIcons.envelope,
+                  color: AppBasicColors.black,
                 ),
-                //TextFormField Contraseña
-                _textFormFielWidget(
-                    _passwordL,
-                    const FaIcon(
-                      FontAwesomeIcons.lock,
-                      color: AppBasicColors.black,
-                    ),
-                    'Contraseña',
-                    true,
-                    'Error, Digite una contraseña',
-                    TextInputType.text),
-                const SizedBox(
-                  height: 13,
-                ),
-                //boton login
-                Container(
-                  //color: Colors.white,
-                  width: double.infinity,
-                  height: 50.0,
-                  child: ElevatedButton(
-                      style: Constants.buttonPrimary,
-                      onPressed: () {
-                        if (_formkey.currentState!.validate()) {
-                          controllerLogin
-                              .getLogin(_emailL.text, _passwordL.text)
-                              .then((value) => {
-                                    if (controllerLogin.email !=
-                                            'Sin Registro' &&
-                                        controllerLogin.password != "")
-                                      {Get.to(const Principal())}
-                                    else
-                                      {
-                                        _messageInformation(
-                                            'Validación de usuario',
-                                            'No se encuentra registrado',
-                                            const Icon(Icons.person),
-                                            Colors.red)
-                                      }
-                                  })
-                              .catchError((onerror) {
-                            print('Recibido: ' + onerror);
-                            if (onerror == 'wrong-password') {
-                              mensajeNotificacion = 'Contraseña incorrecta';
-                            } else if (onerror == 'user-not-founf') {
-                              mensajeNotificacion = "Email no existe";
-                            }
-                            _messageInformation('Ups!', mensajeNotificacion,
-                                const Icon(Icons.error), Colors.white);
-                          });
-                        }
-                      },
-                      child: const Text(
-                        'Iniciar',
-                        style: TextStyle(fontSize: 20),
-                      )),
-                ),
-                const SizedBox(
-                  height: 13,
-                ),
-                Row(
-                  children: [_optionSesion()],
-                ),
-                Positioned(child: _btnGoogle())
-                /* const SizedBox(
-                  height: 95.0,
-                ),*/
-              ],
+                'Correo',
+                false,
+                'Error, compruebe el correo',
+                TextInputType.emailAddress),
+            const SizedBox(
+              height: 13,
             ),
-          )),
-    );
+            //TextFormField Contraseña
+            _textFormFielWidget(
+                _passwordL,
+                const FaIcon(
+                  FontAwesomeIcons.lock,
+                  color: AppBasicColors.black,
+                ),
+                'Contraseña',
+                true,
+                'Error, Digite una contraseña',
+                TextInputType.text),
+            const SizedBox(
+              height: 13,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 50.0,
+              child: ElevatedButton(
+                  style: Constants.buttonPrimary,
+                  onPressed: () {
+                    getLoginUser(_emailL.text, _passwordL.text);
+                  },
+                  child: isLoading
+                      ? Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          SizedBox(
+                            height: 20.0,
+                            width: 20.0,
+                            child: CircularProgressIndicator(
+                                color: Colors.white),
+                          ),
+                          SizedBox(width: 10.5),
+                          Text("Iniciando sesion")
+                        ],
+                      ))
+                      : Center(child: Text("Iniciar"))),
+            ),
+            _optionSesion()
+          ],
+        ));
+  }
+
+  getLoginUser(String correo, String contrasena) {
+    final bool isValidEmail = EmailValidator.validate(correo);
+
+    if (_formkey.currentState!.validate() && isValidEmail) {
+      setState(() {
+        isLoading = true;
+      });
+
+      userLogin.correo = correo;
+      userLogin.contrasena = contrasena;
+      _firebaseLogin.getLogin(userLogin)
+          .then((value) => {
+        print("Inicio de sesion Correcto.")
+
+      })
+          .catchError((onError) {
+        if (onError == "wrong-password") {
+          mensajeNotification = "Contraseña incorrecta";
+        } else if (onError == "user-not-found") {
+          mensajeNotification = "Email no existe.";
+        } else {
+          mensajeNotification = onError.toString();
+        }
+
+        print("Error: $onError");
+        messageController.messageError("Validacion", mensajeNotification);
+      });
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Widget _btnGoogle() {
@@ -201,7 +211,7 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       height: 50.0,
       decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(20),
+        // borderRadius: BorderRadius.circular(20),
           border: Border.all(color: AppBasicColors.rgb, width: 2.0)),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

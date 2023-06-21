@@ -2,7 +2,7 @@ import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-
+import 'package:email_validator/email_validator.dart';
 import '../../theme/app_theme.dart';
 import 'RegistrarController.dart';
 
@@ -239,7 +239,9 @@ Widget _btonRegistration() {
     height: 50.0,
     child: ElevatedButton(
         style: Constants.buttonPrimary,
-        onPressed: () {},
+        onPressed: () {
+
+        },
         child: const Text(
           'Registrarme',
           style: TextStyle(fontSize: 20.0),

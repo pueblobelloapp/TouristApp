@@ -26,6 +26,8 @@ dependencies:
   location: ^4.4.0
   google_maps_flutter: ^2.2.5
   image_picker: ^0.8.8
+  email_validator: ^2.1.17
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
@@ -38,7 +40,6 @@ flutter:
 
   assets:
     - Assets/Img/
-  #   - images/a_dot_ham.jpeg
 
   fonts:
     - family: Century

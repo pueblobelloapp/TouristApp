@@ -24,18 +24,16 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'App Turismo',
       theme: ThemeData(fontFamily: 'Century'),
+      initialRoute: 'SplashScreen',
       routes: {
-        '/SplashScreen': (context) => SplashScreen(),
-        /*'/MyLocation': (context) => MyLocation(),
-        '/Login': (context) => Login(),
-        '/Menu': (context) => Menu(),
-        '/Home': (context) => HomePage(),
-        '/Mapa': (context) => MapaPage(),
-        '/Arhuaco': (context) => ArhuacoPage(),
-        '/Perfil': (context) => PerfilPage(),
-        '/Sitio Turistico': (context) => SitiosTuristicoPage()*/
+        'SplashScreen': (context) => SplashScreen(),
+        'MyLocation': (context) => MyLocation(),
+        'Login': (context) => Login(),
+        'Home': (context) => HomePage(),
+        'Mapa': (context) => MapaPage(),
+        'Arhuaco': (context) => ArhuacoPage(),
+        'Sitio Turistico': (context) => SitiosTuristicoPage()
       },
-      home: SplashScreen(),
     );
   }
 }
