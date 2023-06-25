@@ -26,6 +26,8 @@ dependencies:
   location: ^4.4.0
   google_maps_flutter: ^2.2.5
   image_picker: ^0.8.8
+  transparent_image: ^2.0.1
+  bootstrap_icons: ^1.10.5+2
 
 dev_dependencies:
   flutter_test:

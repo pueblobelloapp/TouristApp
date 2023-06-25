@@ -5,8 +5,8 @@ import 'package:app_turismo_usuario/Recursos/Paginas/Navigation_bar/navigation_b
 import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principal.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Gradient_Header.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -112,8 +112,8 @@ class _LoginState extends State<Login> {
                 //TextFormField Email
                 _textFormFielWidget(
                     _emailL,
-                    const FaIcon(
-                      FontAwesomeIcons.envelope,
+                    const Icon(
+                      BootstrapIcons.envelope_check,
                       color: AppBasicColors.black,
                     ),
                     'Correo',
@@ -126,8 +126,8 @@ class _LoginState extends State<Login> {
                 //TextFormField Contraseña
                 _textFormFielWidget(
                     _passwordL,
-                    const FaIcon(
-                      FontAwesomeIcons.lock,
+                    const Icon(
+                      BootstrapIcons.lock,
                       color: AppBasicColors.black,
                     ),
                     'Contraseña',
@@ -215,7 +215,7 @@ class _LoginState extends State<Login> {
 
   Widget _textFormFielWidget(
       TextEditingController controlador,
-      FaIcon icono,
+      Icon icono,
       String textGuide,
       bool estate,
       String msgError,

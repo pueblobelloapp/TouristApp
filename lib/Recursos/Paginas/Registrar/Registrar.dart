@@ -1,4 +1,5 @@
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -36,9 +37,6 @@ class Registrar extends GetView<RegistrarController> {
                     ],
                   ),
                   _title(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
                   _containerPhoto(),
                   _formRegistration()
                 ],
@@ -53,40 +51,45 @@ class Registrar extends GetView<RegistrarController> {
 
 Widget _btnArrowBack() {
   return SafeArea(
-      minimum: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 11.0),
+      minimum: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 11.0),
       child: Container(
-        height: 28.0,
-        width: 28.0,
-        //padding: const EdgeInsets.only(left: 11.0),
-        decoration: const BoxDecoration(
+          height: 30.0,
+          width: 30.0,
+          decoration: const BoxDecoration(
             color: Color.fromRGBO(178, 190, 195, 1),
-            borderRadius: BorderRadius.all(Radius.circular(10.0))),
-        child: IconButton(
-            onPressed: () {
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          ),
+          child: InkWell(
+            onTap: () {
               Get.back();
             },
-            icon: const FaIcon(
-              FontAwesomeIcons.arrowLeft,
-              size: 15.0,
-            )),
-      ));
+            child: const Center(
+              child: Icon(
+                BootstrapIcons.arrow_left,
+                color: AppBasicColors.black,
+                size: 20.0,
+              ),
+            ),
+          )));
 }
 
 Widget _title() {
   return SafeArea(
+      top: false,
+      bottom: false,
       child: Column(
-    children: const [
-      Center(
-        child: Text(
-          'IKU',
-          style: TextStyle(
-              color: AppBasicColors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 72.0),
-        ),
-      ),
-    ],
-  ));
+        children: const [
+          Center(
+            child: Text(
+              'IKU',
+              style: TextStyle(
+                  color: AppBasicColors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 72.0),
+            ),
+          ),
+        ],
+      ));
 }
 
 Widget _containerPhoto() {
@@ -98,8 +101,8 @@ Widget _containerPhoto() {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              FaIcon(
-                FontAwesomeIcons.user,
+              Icon(
+                BootstrapIcons.person,
                 color: AppBasicColors.white,
                 size: 50.0,
               ),
@@ -117,8 +120,8 @@ Widget _formRegistration() {
         //TextFormField Email
         _textFormFielWidget(
             controller.emailR,
-            const FaIcon(
-              FontAwesomeIcons.user,
+            const Icon(
+              BootstrapIcons.envelope,
               color: AppBasicColors.black,
             ),
             'Correo',
@@ -131,8 +134,8 @@ Widget _formRegistration() {
         //TextFormField contraseña
         _textFormFielWidget(
             controller.passwordR,
-            const FaIcon(
-              FontAwesomeIcons.lock,
+            const Icon(
+              BootstrapIcons.lock,
               color: AppBasicColors.black,
             ),
             'Contraseña',
@@ -145,8 +148,8 @@ Widget _formRegistration() {
         //TextFormField confirmar Contraseña
         _textFormFielWidget(
             controller.passwordConfR,
-            const FaIcon(
-              FontAwesomeIcons.lock,
+            const Icon(
+              BootstrapIcons.lock,
               color: AppBasicColors.black,
             ),
             'Confirmar contraseña',
@@ -159,8 +162,8 @@ Widget _formRegistration() {
         //TextFormField Nombre Completo
         _textFormFielWidget(
             controller.nameR,
-            const FaIcon(
-              FontAwesomeIcons.user,
+            const Icon(
+              BootstrapIcons.person,
               color: AppBasicColors.black,
             ),
             'Nombre completo',
@@ -173,8 +176,8 @@ Widget _formRegistration() {
         //TextFormField fecha de nacimiento
         _textFormFielWidget(
             controller.dateOfBirthR,
-            const FaIcon(
-              FontAwesomeIcons.calendar,
+            const Icon(
+              BootstrapIcons.calendar2_day,
               color: AppBasicColors.black,
             ),
             'Fecha de nacimiento',
@@ -192,7 +195,7 @@ Widget _formRegistration() {
 
 Widget _textFormFielWidget(
     TextEditingController controlador,
-    FaIcon icono,
+    Icon icono,
     String textGuide,
     bool estate,
     String msgError,

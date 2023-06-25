@@ -1,4 +1,5 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/Login.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 
@@ -14,10 +15,8 @@ class MyLocationController extends GetxController {
     _checkLocationEnabled();
 
     GetPlatform.isAndroid
-        ? message.value =
-            "Esta aplicación recopila datos de ubicación, para habilitar la ubicación precisa, aproximada y en segundo plano, haga clic en 'Solicitar acceso' "
-        : message.value =
-            "Esta aplicación recopila datos de ubicación, para habilitar la ubicación precisa, aproximada y en segundo plano, haga clic en 'Solicitar acceso' ";
+        ? message.value = "Necesitamos acceso a tu ubicación"
+        : message.value = "Necesitamos acceso a tu ubicación";
 
     // verificar si la ubicación ya está habilitada
     /* if (locationEnabled.value) {
@@ -48,13 +47,29 @@ class MyLocationController extends GetxController {
         bool serviceEnabled = await location.requestService();
         if (serviceEnabled) {
           locationEnabled.value = true;
-          await Get.off(Login()); // ridirigir al login
-          //locationAuthorized.value = false;
+          await Get.to(() => Login(),
+              transition: Transition.rightToLeft,
+              duration: const Duration(milliseconds: 1800),
+              opaque: false, binding: BindingsBuilder.put(() {
+            return PageRouteBuilder(
+                pageBuilder: (context, animation, secondatyAnimaniton) =>
+                    Login(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  var begin = const Offset(1.0, 0.0);
+                  var end = Offset.zero;
+                  var curve = Curves.ease;
+
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                });
+          })); //
         }
       }
-    } /*else {
-      locationAuthorized.value = true;
-      await Get.offAllNamed('/Login');
-    }*/
+    }
   }
 }
