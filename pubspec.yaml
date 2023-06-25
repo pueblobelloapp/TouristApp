@@ -28,6 +28,8 @@ dependencies:
   image_picker: ^0.8.8
   transparent_image: ^2.0.1
   bootstrap_icons: ^1.10.5+2
+  email_validator: ^2.1.17
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
