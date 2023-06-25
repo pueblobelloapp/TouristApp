@@ -1,15 +1,14 @@
-import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
-import 'package:app_turismo_usuario/main.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import '../../theme/app_theme.dart';
 import 'RegistrarController.dart';
 
 class Registrar extends GetView<RegistrarController> {
-  Registrar({super.key});
+  const Registrar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +37,6 @@ class Registrar extends GetView<RegistrarController> {
                     ],
                   ),
                   _title(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
                   _containerPhoto(),
                   _formRegistration()
                 ],
@@ -55,40 +51,45 @@ class Registrar extends GetView<RegistrarController> {
 
 Widget _btnArrowBack() {
   return SafeArea(
-      minimum: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 11.0),
+      minimum: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 11.0),
       child: Container(
-        height: 28.0,
-        width: 28.0,
-        //padding: const EdgeInsets.only(left: 11.0),
-        decoration: const BoxDecoration(
+          height: 30.0,
+          width: 30.0,
+          decoration: const BoxDecoration(
             color: Color.fromRGBO(178, 190, 195, 1),
-            borderRadius: BorderRadius.all(Radius.circular(10.0))),
-        child: IconButton(
-            onPressed: () {
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          ),
+          child: InkWell(
+            onTap: () {
               Get.back();
             },
-            icon: const FaIcon(
-              FontAwesomeIcons.arrowLeft,
-              size: 15.0,
-            )),
-      ));
+            child: const Center(
+              child: Icon(
+                BootstrapIcons.arrow_left,
+                color: AppBasicColors.black,
+                size: 20.0,
+              ),
+            ),
+          )));
 }
 
 Widget _title() {
   return SafeArea(
+      top: false,
+      bottom: false,
       child: Column(
         children: const [
-        Center(
-          child: Text(
-            'IKU',
-           style: TextStyle(
-              color: AppBasicColors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 72.0),
+          Center(
+            child: Text(
+              'IKU',
+              style: TextStyle(
+                  color: AppBasicColors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 72.0),
+            ),
           ),
-        ),
-     ],
-  ));
+        ],
+      ));
 }
 
 Widget _containerPhoto() {
@@ -100,8 +101,8 @@ Widget _containerPhoto() {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              FaIcon(
-                FontAwesomeIcons.user,
+              Icon(
+                BootstrapIcons.person,
                 color: AppBasicColors.white,
                 size: 50.0,
               ),
@@ -111,64 +112,82 @@ Widget _containerPhoto() {
 
 Widget _formRegistration() {
   final controller = Get.put<RegistrarController>(RegistrarController());
-
   return Container(
     margin: const EdgeInsets.fromLTRB(10, 29, 10, 0),
     child: Form(
-        key: controller.formKey,
         child: Column(
       children: <Widget>[
-          _textFormFielWidget(
+        //TextFormField Email
+        _textFormFielWidget(
             controller.emailR,
-            const FaIcon(
-              FontAwesomeIcons.user,
+            const Icon(
+              BootstrapIcons.envelope,
               color: AppBasicColors.black,
             ),
             'Correo',
             false,
+            'Error,digite un correo',
             TextInputType.emailAddress),
-          const SizedBox(height: 13),
+        const SizedBox(
+          height: 13,
+        ),
         //TextFormField contraseña
-          _textFormFielWidget(
+        _textFormFielWidget(
             controller.passwordR,
-            const FaIcon(FontAwesomeIcons.lock, color: AppBasicColors.black),
-            'Contraseña', true,
+            const Icon(
+              BootstrapIcons.lock,
+              color: AppBasicColors.black,
+            ),
+            'Contraseña',
+            true,
+            'Error,digite una Contraseña',
             TextInputType.text),
-          const SizedBox(height: 13),
+        const SizedBox(
+          height: 13,
+        ),
         //TextFormField confirmar Contraseña
-          _textFormFielWidget(
+        _textFormFielWidget(
             controller.passwordConfR,
-            const FaIcon(
-              FontAwesomeIcons.lock,
+            const Icon(
+              BootstrapIcons.lock,
               color: AppBasicColors.black,
             ),
             'Confirmar contraseña',
             true,
+            'Error,digite una Contraseña',
             TextInputType.text),
-          const SizedBox(height: 13),
+        const SizedBox(
+          height: 13,
+        ),
         //TextFormField Nombre Completo
-          _textFormFielWidget(
+        _textFormFielWidget(
             controller.nameR,
-            const FaIcon(
-              FontAwesomeIcons.user,
+            const Icon(
+              BootstrapIcons.person,
               color: AppBasicColors.black,
             ),
             'Nombre completo',
             false,
+            'Error,digite nombre completo',
             TextInputType.text),
-          const SizedBox(height: 13),
+        const SizedBox(
+          height: 13,
+        ),
         //TextFormField fecha de nacimiento
-          _textFormFielWidget(
+        _textFormFielWidget(
             controller.dateOfBirthR,
-            const FaIcon(
-              FontAwesomeIcons.calendar,
+            const Icon(
+              BootstrapIcons.calendar2_day,
               color: AppBasicColors.black,
             ),
             'Fecha de nacimiento',
             false,
+            'Error,digite fecha de nacimiento',
             TextInputType.datetime),
-          const SizedBox(height: 45.0),
-           _btonRegistration()
+        const SizedBox(
+          height: 45.0,
+        ),
+        _btonRegistration()
       ],
     )),
   );
@@ -176,9 +195,10 @@ Widget _formRegistration() {
 
 Widget _textFormFielWidget(
     TextEditingController controlador,
-    FaIcon icono,
+    Icon icono,
     String textGuide,
     bool estate,
+    String msgError,
     TextInputType textInputType) {
   return TextFormField(
     controller: controlador,
@@ -207,37 +227,22 @@ Widget _textFormFielWidget(
       hintStyle: const TextStyle(color: Colors.black26),
       labelStyle: const TextStyle(color: Colors.green),
     ),
+    validator: (value) {
+      if (value!.isEmpty) {
+        return msgError;
+      }
+    },
     cursorColor: Colors.black,
   );
 }
 
 Widget _btonRegistration() {
-  return SizedBox(
+  return Container(
     width: double.infinity,
     height: 50.0,
     child: ElevatedButton(
         style: Constants.buttonPrimary,
-        onPressed: () {
-
-          final controller = Get.put<RegistrarController>(RegistrarController());
-          final ControllerLogin _controllerLogin = getIt();
-
-          print("Valido campos");
-          Map<String, String> dataRegister = {
-            "name" : controller.nameR.text,
-            "email" : controller.emailR.text,
-            "pass" : controller.passwordR.text,
-            "passVerify" : controller.passwordConfR.text,
-            "birthDate" : controller.dateOfBirthR.text
-          };
-
-          _controllerLogin.validateRegisterUser(dataRegister);
-
-
-          //Modificar la captura de la fecha
-          //Validar registro. ---En ejecucion
-          //Validar mensajes de error personales
-        },
+        onPressed: () {},
         child: const Text(
           'Registrarme',
           style: TextStyle(fontSize: 20.0),

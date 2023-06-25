@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/material.dart';
 
 class CategoryButton {
-  final FaIcon icon;
+  final Icon icon;
   final VoidCallback onPressed;
 
   CategoryButton({required this.icon, required this.onPressed});

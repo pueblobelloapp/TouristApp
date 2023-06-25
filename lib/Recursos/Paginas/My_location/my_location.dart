@@ -23,7 +23,7 @@ class _MyLocationState extends State<MyLocation> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(0, 184, 148, 1),
+        //backgroundColor: const Color.fromRGBO(0, 184, 148, 1),
         body: Stack(
           children: [
             //const GradientHeader(),
@@ -31,13 +31,10 @@ class _MyLocationState extends State<MyLocation> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const FaIcon(
-                    FontAwesomeIcons.locationDot,
-                    size: 60,
-                    color: AppBasicColors.white,
-                  ),
-                  const SizedBox(
-                    height: 10.0,
+                  Image.asset(
+                    'Assets/Img/location.gif',
+                    width: 197.0,
+                    height: 197.0,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -53,12 +50,23 @@ class _MyLocationState extends State<MyLocation> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  ElevatedButton(
-                      style: Constants.buttonPrimary,
-                      onPressed: () {
-                        controller.activeteLocation();
-                      },
-                      child: const Text('Solicitar acceso'))
+                  SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: ElevatedButton(
+                          style: Constants.buttonPrimary,
+                          onPressed: () {
+                            controller.activeteLocation();
+                          },
+                          child: const Text(
+                            'Aceptar',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ),
+                  )
                 ],
               ),
             ),

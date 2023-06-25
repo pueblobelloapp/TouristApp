@@ -1,11 +1,11 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'dart:async';
-
 import 'package:app_turismo_usuario/Recursos/Paginas/My_location/my_location.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -47,13 +47,16 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void dispose() {
     super.dispose();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     _animationController.dispose();
     //_timer.cancel();
   }
 
   void _onShowLogin() {
     if (mounted) {
-      Get.to(MyLocation());
+      Get.to(
+        MyLocation(),
+      );
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Recuperar_contrase%C3%B1a/RecuperarContrasenaController.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -22,8 +23,8 @@ class RecoveryPassword extends GetView<RecoveryPasswordController> {
             children: [
               _textFormFielWidget(
                   controller.currentPasswordController,
-                  const FaIcon(
-                    FontAwesomeIcons.lock,
+                  const Icon(
+                    BootstrapIcons.lock,
                     color: AppBasicColors.black,
                   ),
                   'Clave actual',
@@ -33,8 +34,8 @@ class RecoveryPassword extends GetView<RecoveryPasswordController> {
               const SizedBox(height: 10.0),
               _textFormFielWidget(
                   controller.newPasswordController,
-                  const FaIcon(
-                    FontAwesomeIcons.lock,
+                  const Icon(
+                    BootstrapIcons.lock,
                     color: AppBasicColors.black,
                   ),
                   'Nueva clave',
@@ -44,8 +45,8 @@ class RecoveryPassword extends GetView<RecoveryPasswordController> {
               const SizedBox(height: 10.0),
               _textFormFielWidget(
                   controller.confirmPasswordController,
-                  const FaIcon(
-                    FontAwesomeIcons.lock,
+                  const Icon(
+                    BootstrapIcons.lock,
                     color: AppBasicColors.black,
                   ),
                   'Confirmar clave',
@@ -77,7 +78,7 @@ class RecoveryPassword extends GetView<RecoveryPasswordController> {
 
 Widget _textFormFielWidget(
     TextEditingController controlador,
-    FaIcon icono,
+    Icon icono,
     String textGuide,
     bool estate,
     String msgError,

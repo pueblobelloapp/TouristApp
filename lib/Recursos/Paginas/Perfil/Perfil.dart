@@ -1,5 +1,6 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -35,9 +36,9 @@ class ProfileDialog extends GetView<PerfilController> {
                           controller.selectedPhoto!,
                           fit: BoxFit.cover,
                         )
-                      : const FaIcon(
-                          FontAwesomeIcons.user,
-                          size: 50.0,
+                      : const Icon(
+                          BootstrapIcons.person,
+                          size: 60.0,
                           color: AppBasicColors.white,
                         ),
                 ),
@@ -47,8 +48,8 @@ class ProfileDialog extends GetView<PerfilController> {
             // Campo de texto para el correo
             _textFormFielWidget(
                 controller.emailControllerP,
-                const FaIcon(
-                  FontAwesomeIcons.envelope,
+                const Icon(
+                  BootstrapIcons.envelope,
                   color: AppBasicColors.black,
                 ),
                 'Correo',
@@ -59,8 +60,8 @@ class ProfileDialog extends GetView<PerfilController> {
             // Campo de texto para nombre completo
             _textFormFielWidget(
                 controller.nameControllerP,
-                const FaIcon(
-                  FontAwesomeIcons.user,
+                const Icon(
+                  BootstrapIcons.person,
                   color: AppBasicColors.black,
                 ),
                 'Nombre Completo',
@@ -71,8 +72,8 @@ class ProfileDialog extends GetView<PerfilController> {
             // Campo de texto para la fecha de nacimiento
             _textFormFielWidget(
                 controller.birthdateControllerP,
-                const FaIcon(
-                  FontAwesomeIcons.calendar,
+                const Icon(
+                  BootstrapIcons.calendar,
                   color: AppBasicColors.black,
                 ),
                 'Fecha de nacimiento',
@@ -101,7 +102,7 @@ class ProfileDialog extends GetView<PerfilController> {
 
 Widget _textFormFielWidget(
     TextEditingController controlador,
-    FaIcon icono,
+    Icon icono,
     String textGuide,
     bool estate,
     String msgError,
