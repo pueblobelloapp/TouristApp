@@ -18,4 +18,10 @@ class RepositoryLoginImp extends RepositoryLogin {
     // TODO: implement signOut
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> registerUser(UserLogin user) {
+    // TODO: implement validateRegisterUser
+    return _firebaseLogin.registerUser(user);
+  }
 }

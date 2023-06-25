@@ -1,13 +1,15 @@
+import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
+import 'package:app_turismo_usuario/main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:email_validator/email_validator.dart';
 import '../../theme/app_theme.dart';
 import 'RegistrarController.dart';
 
 class Registrar extends GetView<RegistrarController> {
-  const Registrar({super.key});
+  Registrar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +77,17 @@ Widget _btnArrowBack() {
 Widget _title() {
   return SafeArea(
       child: Column(
-    children: const [
-      Center(
-        child: Text(
-          'IKU',
-          style: TextStyle(
+        children: const [
+        Center(
+          child: Text(
+            'IKU',
+           style: TextStyle(
               color: AppBasicColors.white,
               fontWeight: FontWeight.bold,
               fontSize: 72.0),
+          ),
         ),
-      ),
-    ],
+     ],
   ));
 }
 
@@ -109,13 +111,14 @@ Widget _containerPhoto() {
 
 Widget _formRegistration() {
   final controller = Get.put<RegistrarController>(RegistrarController());
+
   return Container(
     margin: const EdgeInsets.fromLTRB(10, 29, 10, 0),
     child: Form(
+        key: controller.formKey,
         child: Column(
       children: <Widget>[
-        //TextFormField Email
-        _textFormFielWidget(
+          _textFormFielWidget(
             controller.emailR,
             const FaIcon(
               FontAwesomeIcons.user,
@@ -123,27 +126,17 @@ Widget _formRegistration() {
             ),
             'Correo',
             false,
-            'Error,digite un correo',
             TextInputType.emailAddress),
-        const SizedBox(
-          height: 13,
-        ),
+          const SizedBox(height: 13),
         //TextFormField contraseña
-        _textFormFielWidget(
+          _textFormFielWidget(
             controller.passwordR,
-            const FaIcon(
-              FontAwesomeIcons.lock,
-              color: AppBasicColors.black,
-            ),
-            'Contraseña',
-            true,
-            'Error,digite una Contraseña',
+            const FaIcon(FontAwesomeIcons.lock, color: AppBasicColors.black),
+            'Contraseña', true,
             TextInputType.text),
-        const SizedBox(
-          height: 13,
-        ),
+          const SizedBox(height: 13),
         //TextFormField confirmar Contraseña
-        _textFormFielWidget(
+          _textFormFielWidget(
             controller.passwordConfR,
             const FaIcon(
               FontAwesomeIcons.lock,
@@ -151,13 +144,10 @@ Widget _formRegistration() {
             ),
             'Confirmar contraseña',
             true,
-            'Error,digite una Contraseña',
             TextInputType.text),
-        const SizedBox(
-          height: 13,
-        ),
+          const SizedBox(height: 13),
         //TextFormField Nombre Completo
-        _textFormFielWidget(
+          _textFormFielWidget(
             controller.nameR,
             const FaIcon(
               FontAwesomeIcons.user,
@@ -165,13 +155,10 @@ Widget _formRegistration() {
             ),
             'Nombre completo',
             false,
-            'Error,digite nombre completo',
             TextInputType.text),
-        const SizedBox(
-          height: 13,
-        ),
+          const SizedBox(height: 13),
         //TextFormField fecha de nacimiento
-        _textFormFielWidget(
+          _textFormFielWidget(
             controller.dateOfBirthR,
             const FaIcon(
               FontAwesomeIcons.calendar,
@@ -179,12 +166,9 @@ Widget _formRegistration() {
             ),
             'Fecha de nacimiento',
             false,
-            'Error,digite fecha de nacimiento',
             TextInputType.datetime),
-        const SizedBox(
-          height: 45.0,
-        ),
-        _btonRegistration()
+          const SizedBox(height: 45.0),
+           _btonRegistration()
       ],
     )),
   );
@@ -195,7 +179,6 @@ Widget _textFormFielWidget(
     FaIcon icono,
     String textGuide,
     bool estate,
-    String msgError,
     TextInputType textInputType) {
   return TextFormField(
     controller: controlador,
@@ -224,23 +207,36 @@ Widget _textFormFielWidget(
       hintStyle: const TextStyle(color: Colors.black26),
       labelStyle: const TextStyle(color: Colors.green),
     ),
-    validator: (value) {
-      if (value!.isEmpty) {
-        return msgError;
-      }
-    },
     cursorColor: Colors.black,
   );
 }
 
 Widget _btonRegistration() {
-  return Container(
+  return SizedBox(
     width: double.infinity,
     height: 50.0,
     child: ElevatedButton(
         style: Constants.buttonPrimary,
         onPressed: () {
 
+          final controller = Get.put<RegistrarController>(RegistrarController());
+          final ControllerLogin _controllerLogin = getIt();
+
+          print("Valido campos");
+          Map<String, String> dataRegister = {
+            "name" : controller.nameR.text,
+            "email" : controller.emailR.text,
+            "pass" : controller.passwordR.text,
+            "passVerify" : controller.passwordConfR.text,
+            "birthDate" : controller.dateOfBirthR.text
+          };
+
+          _controllerLogin.validateRegisterUser(dataRegister);
+
+
+          //Modificar la captura de la fecha
+          //Validar registro. ---En ejecucion
+          //Validar mensajes de error personales
         },
         child: const Text(
           'Registrarme',

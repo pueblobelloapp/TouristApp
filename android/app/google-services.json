@@ -1,62 +1,33 @@
 {
   "project_info": {
-    "project_number": "333219146621",
-    "project_id": "ft-pueblo-bello",
-    "storage_bucket": "ft-pueblo-bello.appspot.com"
+    "project_number": "134305885557",
+    "project_id": "pueblobello-turismo",
+    "storage_bucket": "pueblobello-turismo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:333219146621:android:ecc8756bb0916ebe77fa14",
-        "android_client_info": {
-          "package_name": "app.app_turismo_admin"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "333219146621-vkum7j97md02bp577a3dstmp0bpdujou.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDd0IRjvWvhUBjYJRgUWetx_g-Do7-lXhM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "333219146621-vkum7j97md02bp577a3dstmp0bpdujou.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:333219146621:android:fad9ff33ccc5874e77fa14",
+        "mobilesdk_app_id": "1:134305885557:android:ff26b637829d6ae336773c",
         "android_client_info": {
           "package_name": "com.example.app_turismo_usuario"
         }
       },
       "oauth_client": [
         {
-          "client_id": "333219146621-vkum7j97md02bp577a3dstmp0bpdujou.apps.googleusercontent.com",
+          "client_id": "134305885557-1744l6i5mf3husvfjvv1tiqlre88ou01.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDd0IRjvWvhUBjYJRgUWetx_g-Do7-lXhM"
+          "current_key": "AIzaSyDl_iCRLXgOD44bcCAQAI0YNzVfsKN9Cuo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "333219146621-vkum7j97md02bp577a3dstmp0bpdujou.apps.googleusercontent.com",
+              "client_id": "134305885557-1744l6i5mf3husvfjvv1tiqlre88ou01.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

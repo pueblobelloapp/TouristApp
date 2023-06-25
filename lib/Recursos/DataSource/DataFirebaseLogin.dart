@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 class FirebaseLogin extends GetxController {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  late final Rx<User> _userLogin;
 
   User get currentUser {
     final myUsers = FirebaseAuth.instance.currentUser;
@@ -22,45 +21,52 @@ class FirebaseLogin extends GetxController {
   FirebaseFirestore get firebaseFiresTore => FirebaseFirestore.instance;
   FirebaseStorage get storage => FirebaseStorage.instance;
 
-  Future<void> registerUser(
-      String email, String password, String nombre, String contacto) async {
+  Future<void> registerUser(UserLogin userLogin) async {
     try {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+          email: userLogin.email, password: userLogin.password);
 
-      print("Credenciales: " + credential.toString());
+      print("Credenciales: $credential");
+      postDetailsToFirestore(userLogin, credential).then((value) {
+        print("Objeto guardado correctamente.");
+      });
+
     } on FirebaseException catch (e) {
       if (e.code == "email-already-in-use") {
-        messageController.messageError(
-            "Validacion email", "Correo electronico, se encuentra registrado.");
+        print("Correo electronico, se encuentra registrado.");
+      } else if (e.code == "invalid-email") {
+          //Correo invalido invalid-email
+        print("Correo invalido Invalid-email");
+      } else if (e.code == "weak-password") {
+          //Contraseña es debil.
+        print("Contraseña es debil");
+      } else {
+        //Error desconocido.
+        print("Error inesperado: $e.code");
       }
     }
   }
 
-  Future<void> postDetailsToFirestore(String nombre, String contacto) async {
+  Future<void> postDetailsToFirestore(UserLogin userLogin,
+      UserCredential userCredential) async {
     var user = _auth.currentUser;
     final ref = firebaseFiresTore.doc('users/${user!.uid}');
 
     await ref.set(
         ({
           'uid': user.uid,
-          'nombre': nombre,
-          'edad': '0',
-          'genero': 'Sin Definir',
-          'correo': user.email,
-          'contacto': contacto,
-          'foto': 'assets/img/user.jpg'
-        }),
-        SetOptions(merge: false));
+          'email': userLogin.email,
+          'birthDate': userLogin.birthDate,
+          'name': userLogin.name,
+          'image': 'assets/img/user.jpg'
+        }), SetOptions(merge: false));
     messageController.messageInfo("Registro", "Se registro exitoso.");
   }
 
   Future<void> getLogin(UserLogin userLogin) async {
     try {
       UserCredential userCredential = await firebaseAuth.signInWithEmailAndPassword(
-          email: userLogin.correo, password: userLogin.contrasena);
-
-      _userLogin = userCredential.user as Rx<User>;
+          email: userLogin.email, password: userLogin.password);
 
     } on FirebaseException catch (e) {
       if (e.code == 'user-not-found') {

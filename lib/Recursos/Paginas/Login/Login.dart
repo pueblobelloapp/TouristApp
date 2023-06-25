@@ -1,25 +1,19 @@
-// ignore_for_file: sized_box_for_whitespace
 
-import 'package:app_turismo_usuario/Recursos/DataSource/DataFirebaseLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Navigation_bar/navigation_bar.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principal.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
-import 'package:app_turismo_usuario/Recursos/Widget/Gradient_Header.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../theme/app_theme.dart';
 import '../Registrar/Registrar.dart';
 
 class Login extends StatefulWidget {
-  Login({Key? key}) : super(key: key);
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
@@ -28,19 +22,17 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formkey = GlobalKey<FormState>();
 
-  TextEditingController _emailL = TextEditingController();
-  TextEditingController _passwordL = TextEditingController();
-  ControllerLogin controllerLogin = Get.find();
+  final TextEditingController _emailL = TextEditingController();
+  final TextEditingController _passwordL = TextEditingController();
+
   String mensajeNotificacion = "Error";
 
-  final FirebaseLogin _firebaseLogin = getIt();
+  final ControllerLogin _controllerLogin = getIt();
   UserLogin userLogin = UserLogin();
   String mensajeNotification = "Error";
   bool isLoading = false;
 
   final GetxUtils messageController = Get.put(GetxUtils());
-
-  bool _processing = false;
 
   @override
   void dispose() {
@@ -70,14 +62,14 @@ class _LoginState extends State<Login> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.5,
                     child: titleLogin(),
                   ),
-                  Container(
+                  SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: _formLogin()),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: _btnGoogle(),
                   )
@@ -164,7 +156,7 @@ class _LoginState extends State<Login> {
                           Text("Iniciando sesion")
                         ],
                       ))
-                      : Center(child: Text("Iniciar"))),
+                      : const Center(child: Text("Iniciar"))),
             ),
             _optionSesion()
           ],
@@ -179,12 +171,11 @@ class _LoginState extends State<Login> {
         isLoading = true;
       });
 
-      userLogin.correo = correo;
-      userLogin.contrasena = contrasena;
-      _firebaseLogin.getLogin(userLogin)
+      userLogin.email = correo;
+      userLogin.password = contrasena;
+      _controllerLogin.validateLoginUser(userLogin)
           .then((value) => {
         print("Inicio de sesion Correcto.")
-
       })
           .catchError((onError) {
         if (onError == "wrong-password") {
@@ -195,7 +186,6 @@ class _LoginState extends State<Login> {
           mensajeNotification = onError.toString();
         }
 
-        print("Error: $onError");
         messageController.messageError("Validacion", mensajeNotification);
       });
     }
@@ -272,7 +262,7 @@ class _LoginState extends State<Login> {
       children: <Widget>[
         InkWell(
           onTap: () {
-            Get.to(const Registrar());
+            Get.to(() => Registrar());
           },
           child: const Text(
             'Registrarme',
@@ -284,16 +274,5 @@ class _LoginState extends State<Login> {
         ),
       ],
     );
-  }
-
-  void _messageInformation(
-      String titulo, String mensaje, Icon icono, Color color) {
-    Get.showSnackbar(GetSnackBar(
-      title: titulo,
-      message: mensaje,
-      icon: icono,
-      duration: const Duration(seconds: 4),
-      backgroundColor: color,
-    ));
   }
 }
