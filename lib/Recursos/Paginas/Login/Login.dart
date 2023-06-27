@@ -1,12 +1,12 @@
-
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principal.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../theme/app_theme.dart';
@@ -55,22 +55,26 @@ class _LoginState extends State<Login> {
           Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('Assets/Img/background-login.png'),
-                      fit: BoxFit.cover)),
+                      image: const AssetImage(
+                        'Assets/Img/background-login.png',
+                      ),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.5), BlendMode.darken))),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.5,
                     child: titleLogin(),
                   ),
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.9,
+                      //width: MediaQuery.of(context).size.width * 0.9,
                       child: _formLogin()),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
+                    //width: MediaQuery.of(context).size.width * 0.9,
                     child: _btnGoogle(),
                   )
                 ],
@@ -81,86 +85,83 @@ class _LoginState extends State<Login> {
   }
 
   Widget titleLogin() {
-    return Column(
-      children: const [
-        Text(
-          'IKU',
-          style: TextStyle(
-              color: AppBasicColors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 72.0),
-        ),
-        Text(
-          'Pueblo Bello',
-          style: TextStyle(
-              color: AppBasicColors.white,
-              //fontWeight: FontWeight.bold,
-              fontSize: 24.0),
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(94.0, 70.0, 94.0, 0),
+      child: Column(
+        children: const [
+          Text(
+            'IKU',
+            style: TextStyle(
+                color: AppBasicColors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 72.0),
+          ),
+          Text(
+            'Pueblo Bello',
+            style: TextStyle(
+                color: AppBasicColors.white,
+                //fontWeight: FontWeight.bold,
+                fontSize: 24.0),
+          )
+        ],
+      ),
     );
   }
 
   Widget _formLogin() {
-    return Form(
-        key: _formkey,
-        child: Column(
-          children: [
-            _textFormFielWidget(
-                _emailL,
-                const FaIcon(
-                  FontAwesomeIcons.envelope,
-                  color: AppBasicColors.black,
-                ),
-                'Correo',
-                false,
-                'Error, compruebe el correo',
-                TextInputType.emailAddress),
-            const SizedBox(
-              height: 13,
-            ),
-            //TextFormField Contraseña
-            _textFormFielWidget(
-                _passwordL,
-                const FaIcon(
-                  FontAwesomeIcons.lock,
-                  color: AppBasicColors.black,
-                ),
-                'Contraseña',
-                true,
-                'Error, Digite una contraseña',
-                TextInputType.text),
-            const SizedBox(
-              height: 13,
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 50.0,
-              child: ElevatedButton(
-                  style: Constants.buttonPrimary,
-                  onPressed: () {
-                    getLoginUser(_emailL.text, _passwordL.text);
-                  },
-                  child: isLoading
-                      ? Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            height: 20.0,
-                            width: 20.0,
-                            child: CircularProgressIndicator(
-                                color: Colors.white),
-                          ),
-                          SizedBox(width: 10.5),
-                          Text("Iniciando sesion")
-                        ],
-                      ))
-                      : const Center(child: Text("Iniciar"))),
-            ),
-            _optionSesion()
-          ],
-        ));
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: Form(
+          key: _formkey,
+          child: Column(
+            children: [
+              _textFormFielWidget(
+                  _emailL,
+                  BootstrapIcons.envelope,
+                  'Correo',
+                  false,
+                  'Error, compruebe el correo',
+                  TextInputType.emailAddress),
+              const SizedBox(
+                height: 13,
+              ),
+              //TextFormField Contraseña
+              _textFormFielWidget(_passwordL, BootstrapIcons.lock, 'Contraseña',
+                  true, 'Error, Digite una contraseña', TextInputType.text),
+              const SizedBox(
+                height: 13,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 50.0,
+                child: ElevatedButton(
+                    style: Constants.buttonPrimary,
+                    onPressed: () {
+                      getLoginUser(_emailL.text, _passwordL.text);
+                      Get.to(const Principal());
+                    },
+                    child: isLoading
+                        ? Center(
+                            child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              SizedBox(
+                                height: 20.0,
+                                width: 20.0,
+                                child: CircularProgressIndicator(
+                                    color: Colors.white),
+                              ),
+                              SizedBox(width: 10.5),
+                              Text("Iniciando sesion")
+                            ],
+                          ))
+                        : const Center(child: Text("Iniciar"))),
+              ),
+              const SizedBox(height: 18.0),
+              _optionSesion()
+            ],
+          )),
+    );
   }
 
   getLoginUser(String correo, String contrasena) {
@@ -173,10 +174,9 @@ class _LoginState extends State<Login> {
 
       userLogin.email = correo;
       userLogin.password = contrasena;
-      _controllerLogin.validateLoginUser(userLogin)
-          .then((value) => {
-        print("Inicio de sesion Correcto.")
-      })
+      _controllerLogin
+          .validateLoginUser(userLogin)
+          .then((value) => {print("Inicio de sesion Correcto.")})
           .catchError((onError) {
         if (onError == "wrong-password") {
           mensajeNotification = "Contraseña incorrecta";
@@ -197,11 +197,11 @@ class _LoginState extends State<Login> {
 
   Widget _btnGoogle() {
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 90, 0, 0),
+      margin: const EdgeInsets.fromLTRB(10, 90, 10, 0),
       width: double.infinity,
       height: 50.0,
       decoration: BoxDecoration(
-        // borderRadius: BorderRadius.circular(20),
+          // borderRadius: BorderRadius.circular(20),
           border: Border.all(color: AppBasicColors.rgb, width: 2.0)),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -215,7 +215,7 @@ class _LoginState extends State<Login> {
 
   Widget _textFormFielWidget(
       TextEditingController controlador,
-      FaIcon icono,
+      IconData icono,
       String textGuide,
       bool estate,
       String msgError,
@@ -225,28 +225,31 @@ class _LoginState extends State<Login> {
       keyboardType: textInputType,
       obscureText: estate,
       decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: icono,
-        ),
-        fillColor: Colors.grey.shade200,
-        filled: true,
-        enabledBorder: OutlineInputBorder(
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Icon(
+              icono,
+              color: AppBasicColors.black,
+            ),
+          ),
+          fillColor: Colors.grey.shade200,
+          filled: true,
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(5.0)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(5.0)),
+          border: const OutlineInputBorder(
             borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(5.0)),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(5.0)),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide.none,
-          //borderRadius: BorderRadius.circular(5.0)
-        ),
-        hintText: textGuide,
-        disabledBorder: InputBorder.none,
-        contentPadding: const EdgeInsets.all(16.0),
-        hintStyle: const TextStyle(color: Colors.black26),
-        labelStyle: const TextStyle(color: Colors.green),
-      ),
+            //borderRadius: BorderRadius.circular(5.0)
+          ),
+          hintText: textGuide,
+          disabledBorder: InputBorder.none,
+          contentPadding: const EdgeInsets.all(16.0),
+          hintStyle: const TextStyle(color: Colors.black26),
+          labelStyle: const TextStyle(color: Colors.green),
+          errorStyle: const TextStyle(color: AppBasicColors.white)),
       validator: (value) {
         if (value!.isEmpty) {
           return msgError;
@@ -262,7 +265,7 @@ class _LoginState extends State<Login> {
       children: <Widget>[
         InkWell(
           onTap: () {
-            Get.to(() => Registrar());
+            Get.to(() => const Registrar());
           },
           child: const Text(
             'Registrarme',
