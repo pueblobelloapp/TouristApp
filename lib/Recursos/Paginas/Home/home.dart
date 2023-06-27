@@ -1,7 +1,4 @@
 import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica/tarjeta_turistica.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/Perfil.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principalController.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Recuperar_contrase%C3%B1a/RecuperarContrasena.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/ContainerText.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Custom_row_button.dart';
@@ -10,9 +7,11 @@ import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Modelos/Tarjeta_turistica/tarjeta_turistica_controller.dart';
+import '../Perfil/Perfil.dart';
+import 'HomeController.dart';
 
-class Principal extends GetView<PrincipalController> {
-  const Principal({super.key});
+class Home extends GetView<HomeController> {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class Principal extends GetView<PrincipalController> {
 }
 
 Widget _bodyContainer(BuildContext context) {
-  final controller = Get.put<PrincipalController>(PrincipalController());
+  final controller = Get.put<HomeController>(HomeController());
 
   return SafeArea(
     child: Column(

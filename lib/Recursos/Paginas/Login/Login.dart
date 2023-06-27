@@ -1,6 +1,6 @@
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principal.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Home/home.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
@@ -138,7 +138,7 @@ class _LoginState extends State<Login> {
                     style: Constants.buttonPrimary,
                     onPressed: () {
                       getLoginUser(_emailL.text, _passwordL.text);
-                      Get.to(const Principal());
+                      Get.to(const Home());
                     },
                     child: isLoading
                         ? Center(
