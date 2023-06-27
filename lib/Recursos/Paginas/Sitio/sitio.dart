@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Widget/Constans.dart';
-import '../../Widget/CustomHeader.dart';
+//import '../../Widget/CustomHeader.dart';
 import '../Mapa/MapaController.dart';
 
 class SitioPage extends GetView<SitioController> {
@@ -45,7 +45,7 @@ class SitioPage extends GetView<SitioController> {
         children: [
           ListView(
             children: [
-              _headerImage(),
+              // _headerImage(),
             ],
           ),
           const CardImageList(),
@@ -268,10 +268,10 @@ class SitioPage extends GetView<SitioController> {
     );
   }
 
-  Widget _headerImage() {
+  /*Widget _headerImage() {
     return Container(
       height: 100,
       child: CustomHeader(100),
     );
-  }
+  }*/
 }

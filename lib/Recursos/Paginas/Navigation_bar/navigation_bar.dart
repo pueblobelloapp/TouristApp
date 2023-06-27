@@ -1,5 +1,5 @@
-import 'package:app_turismo_usuario/Recursos/Paginas/Arhuaco/arhuaco.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Home/Home.dart';
+//import 'package:app_turismo_usuario/Recursos/Paginas/Arhuaco/arhuaco.dart';
+//import 'package:app_turismo_usuario/Recursos/Paginas/Home/Home.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Navigation_bar/NavigationController.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
@@ -18,8 +18,8 @@ class _NavigationBarState extends State<navigationBar> {
   final NavigationController navigationController =
       Get.put(NavigationController());
 
-  final bucket = PageStorageBucket();
-  Widget currentScreen = HomePage();
+  /*final bucket = PageStorageBucket();
+  Widget currentScreen = HomePage();*/
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,9 @@ class _NavigationBarState extends State<navigationBar> {
             child: IndexedStack(
           index: controller.tabIndex,
           children: [
-            HomePage(),
+            //HomePage(),
             MapaPage(),
-            ArhuacoPage(),
+            //ArhuacoPage(),
             //PerfilPage(),
           ],
         )),
