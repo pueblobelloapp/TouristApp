@@ -1,16 +1,14 @@
-import 'package:app_turismo_usuario/Recursos/Modelos/Catergoria/CategoriaBtonRow.dart';
 import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica/tarjeta_turistica.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/Perfil.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principalController.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Recuperar_contrase%C3%B1a/RecuperarContrasena.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/ContainerText.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_row_button.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import '../../Modelos/Catergoria/CategoriaBtonRowController.dart';
 import '../../Modelos/Tarjeta_turistica/tarjeta_turistica_controller.dart';
 
 class Principal extends GetView<PrincipalController> {
@@ -18,6 +16,8 @@ class Principal extends GetView<PrincipalController> {
 
   @override
   Widget build(BuildContext context) {
+    final TarjetaTuristicaController tarjetaTuristicaController =
+        Get.put(TarjetaTuristicaController());
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -25,8 +25,14 @@ class Principal extends GetView<PrincipalController> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 9.0),
-              child: _search(context),
+              child: _bodyContainer(context),
             ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.height - 145.0,
+                  child: SingleChildScrollView(child: _listTurismo())),
+            )
           ],
         ),
       ),
@@ -34,15 +40,10 @@ class Principal extends GetView<PrincipalController> {
   }
 }
 
-Widget _search(BuildContext context) {
+Widget _bodyContainer(BuildContext context) {
   final controller = Get.put<PrincipalController>(PrincipalController());
-  final TarjetaTuristicaController tarjetaTuristicaController =
-      Get.put(TarjetaTuristicaController());
-
-  Get.put(CategoryButtonRowController());
 
   return SafeArea(
-      child: SingleChildScrollView(
     child: Column(
       children: [
         Row(
@@ -51,8 +52,8 @@ Widget _search(BuildContext context) {
               child: Container(
                 height: 30.0,
                 /*decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),*/
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),*/
                 child: _textFormFielWidget(
                     controller.search,
                     const Icon(
@@ -77,13 +78,43 @@ Widget _search(BuildContext context) {
                 child: _popupMenuProfile(context)),
           ],
         ),
-        const SizedBox(height: 22.0),
-        const CategoryButtonRow(),
-        const SizedBox(height: 21.0),
-        _listTurismo(),
+        const SizedBox(height: 12.0),
+        _buildButtonRow()
       ],
     ),
-  ));
+  );
+}
+
+Widget _buildButtonRow() {
+  final buttons = [
+    CustomRowButton(
+      color: AppBasicColors.greyMun,
+      icon: BootstrapIcons.book,
+      text: 'Información del municipio',
+      onPressed: () {},
+    ),
+    const SizedBox(
+      width: 10.0,
+    ),
+    CustomRowButton(
+      color: AppBasicColors.hellow,
+      icon: BootstrapIcons.brightness_alt_high,
+      text: 'Cultura',
+      onPressed: () {},
+    ),
+    const SizedBox(
+      width: 10.0,
+    ),
+    CustomRowButton(
+        color: AppBasicColors.rgb,
+        icon: BootstrapIcons.bicycle,
+        text: 'Etnoturismo',
+        onPressed: () {})
+  ];
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(children: buttons.map((button) => button).toList()),
+  );
 }
 
 Widget _listTurismo() {

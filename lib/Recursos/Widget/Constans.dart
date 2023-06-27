@@ -1,5 +1,5 @@
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Constants {
   static ButtonStyle buttonPrimary = ElevatedButton.styleFrom(
@@ -30,8 +30,8 @@ class Constants {
       hintStyle: TextStyle(color: Colors.white),
       prefixIcon: Padding(
         padding: EdgeInsets.all(12.0),
-        child: FaIcon(
-          FontAwesomeIcons.houseUser,
+        child: Icon(
+          BootstrapIcons.house,
           color: Colors.green,
         ),
       ));

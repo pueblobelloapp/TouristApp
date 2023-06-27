@@ -3,8 +3,8 @@ import 'package:app_turismo_usuario/Recursos/Modelos/Card_model/card_model_sitio
 import 'package:app_turismo_usuario/Recursos/Paginas/Sitio/sitio.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Sitios_turistico/sitios_turistico_Controller.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/CustomHeader.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class SitiosTuristicoPage extends GetView<SitiosTuristicoController> {
@@ -16,24 +16,24 @@ class SitiosTuristicoPage extends GetView<SitiosTuristicoController> {
       CardModel(
           imagenPath: 'Assets/Img/Helenita.jpeg',
           titulo: 'Helenita',
-          icono: FontAwesomeIcons.eye,
+          icono: BootstrapIcons.eye,
           onPreseed: (() {
             Get.to(() => SitioPage());
           })),
       CardModel(
           imagenPath: 'Assets/Img/Bonita.jpeg',
           titulo: 'Bonita',
-          icono: FontAwesomeIcons.eye,
+          icono: BootstrapIcons.eye,
           onPreseed: (() {})),
       CardModel(
           imagenPath: 'Assets/Img/Bonita.jpeg',
           titulo: 'Hostal',
-          icono: FontAwesomeIcons.eye,
+          icono: BootstrapIcons.eye,
           onPreseed: (() {})),
       CardModel(
           imagenPath: 'Assets/Img/Bonita.jpeg',
           titulo: 'Hostal',
-          icono: FontAwesomeIcons.eye,
+          icono: BootstrapIcons.eye,
           onPreseed: (() {}))
     ];
 
@@ -44,8 +44,8 @@ class SitiosTuristicoPage extends GetView<SitiosTuristicoController> {
           //automaticallyImplyLeading: false,
           elevation: 0,
           leading: IconButton(
-            icon: const FaIcon(
-              FontAwesomeIcons.chevronLeft,
+            icon: const Icon(
+              BootstrapIcons.arrow_left,
               color: Colors.white,
             ),
             onPressed: () {

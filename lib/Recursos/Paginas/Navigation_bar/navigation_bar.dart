@@ -3,8 +3,8 @@ import 'package:app_turismo_usuario/Recursos/Paginas/Home/Home.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Navigation_bar/NavigationController.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class navigationBar extends StatefulWidget {
@@ -99,8 +99,8 @@ class _NavigationBarState extends State<navigationBar> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FaIcon(
-                              FontAwesomeIcons.house,
+                            Icon(
+                              BootstrapIcons.house,
                               size: iconSize,
                               color: controller.tabIndex == 0
                                   ? AppBasicColors.rgb
@@ -154,8 +154,8 @@ class _NavigationBarState extends State<navigationBar> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FaIcon(
-                              FontAwesomeIcons.mapLocation,
+                            Icon(
+                              BootstrapIcons.globe_americas,
                               size: iconSize,
                               color: controller.tabIndex == 1
                                   ? AppBasicColors.rgb
@@ -209,8 +209,8 @@ class _NavigationBarState extends State<navigationBar> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FaIcon(
-                              FontAwesomeIcons.featherPointed,
+                            Icon(
+                              BootstrapIcons.person,
                               size: iconSize,
                               color: controller.tabIndex == 2
                                   ? AppBasicColors.rgb
@@ -259,8 +259,8 @@ class _NavigationBarState extends State<navigationBar> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FaIcon(
-                              FontAwesomeIcons.userGear,
+                            Icon(
+                              BootstrapIcons.person_square,
                               size: iconSize,
                               color: controller.tabIndex == 3
                                   ? AppBasicColors.rgb

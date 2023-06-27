@@ -1,7 +1,6 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Sitio/sitio.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -27,6 +26,7 @@ class TarjetaTuristica extends StatelessWidget {
     return Card(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      //verticalDirection: VerticalDirection.down,
       children: [
         GestureDetector(
           onTap: () {

@@ -1,7 +1,7 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Cultura/cultura_controller.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Gradient_Header.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../Widget/CustomHeader.dart';
@@ -19,8 +19,8 @@ class CulturaPage extends GetView<CulturaController> {
           style: TextStyle(color: Colors.black87),
         ),
         leading: IconButton(
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronLeft,
+          icon: const Icon(
+            BootstrapIcons.arrow_left,
             color: Colors.black87,
           ),
           onPressed: () {

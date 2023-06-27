@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardModelList {
   String title;
@@ -44,7 +43,7 @@ class CardList extends StatelessWidget {
               children: [
                 IconButton(
                     onPressed: cardModelList.onPressed,
-                    icon: FaIcon(cardModelList.iconData))
+                    icon: Icon(cardModelList.iconData))
               ],
             )
           ],

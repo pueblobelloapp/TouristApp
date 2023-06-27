@@ -1,8 +1,8 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Opinion/OpinionController.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class Opinion extends GetView<OpinionController> {
@@ -27,8 +27,8 @@ class Opinion extends GetView<OpinionController> {
                 onPressed: () {
                   Get.back();
                 },
-                icon: const FaIcon(
-                  FontAwesomeIcons.angleLeft,
+                icon: const Icon(
+                  BootstrapIcons.arrow_left,
                   color: AppBasicColors.black,
                 ),
               )),

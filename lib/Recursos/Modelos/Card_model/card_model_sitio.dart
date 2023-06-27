@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardModelSitio {
   String title;
@@ -42,7 +41,7 @@ class CardSitioWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 16.0)),
             trailing: IconButton(
-              icon: FaIcon(
+              icon: Icon(
                 cardModelSitio.iconData,
                 color: Colors.black,
               ),

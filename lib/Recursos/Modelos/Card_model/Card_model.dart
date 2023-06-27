@@ -1,6 +1,5 @@
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardModel {
   final String imagenPath;
@@ -59,7 +58,7 @@ class CardModelWidget extends StatelessWidget {
                       color: AppBasicColors.green),
                   alignment: Alignment.bottomCenter,
                   child: IconButton(
-                      icon: FaIcon(
+                      icon: Icon(
                         cardModel.icono,
                         color: Colors.white,
                         size: 16.0,

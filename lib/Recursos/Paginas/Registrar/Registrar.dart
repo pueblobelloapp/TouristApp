@@ -1,9 +1,8 @@
+import 'package:app_turismo_usuario/Recursos/Widget/custom_back_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-
 import '../../theme/app_theme.dart';
 import 'RegistrarController.dart';
 
@@ -50,27 +49,9 @@ class Registrar extends GetView<RegistrarController> {
 }
 
 Widget _btnArrowBack() {
-  return SafeArea(
-      minimum: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 11.0),
-      child: Container(
-          height: 30.0,
-          width: 30.0,
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(178, 190, 195, 1),
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          ),
-          child: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: const Center(
-              child: Icon(
-                BootstrapIcons.arrow_left,
-                color: AppBasicColors.black,
-                size: 20.0,
-              ),
-            ),
-          )));
+  return CustomBackButton(onPressed: () {
+    Get.back();
+  });
 }
 
 Widget _title() {
