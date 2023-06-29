@@ -62,7 +62,8 @@ class _LoginState extends State<Login> {
                       ),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.5), BlendMode.darken))),
+                          AppBasicColors.black.withOpacity(0.5),
+                          BlendMode.darken))),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -138,7 +139,6 @@ class _LoginState extends State<Login> {
                     style: Constants.buttonPrimary,
                     onPressed: () {
                       getLoginUser(_emailL.text, _passwordL.text);
-                      Get.to(const Home());
                     },
                     child: isLoading
                         ? Center(
@@ -149,7 +149,7 @@ class _LoginState extends State<Login> {
                                 height: 20.0,
                                 width: 20.0,
                                 child: CircularProgressIndicator(
-                                    color: Colors.white),
+                                    color: AppBasicColors.blue),
                               ),
                               SizedBox(width: 10.5),
                               Text("Iniciando sesion")
@@ -165,6 +165,7 @@ class _LoginState extends State<Login> {
   }
 
   getLoginUser(String correo, String contrasena) {
+    bool isDialogShown = false;
     final bool isValidEmail = EmailValidator.validate(correo);
 
     if (_formkey.currentState!.validate() && isValidEmail) {
@@ -172,11 +173,34 @@ class _LoginState extends State<Login> {
         isLoading = true;
       });
 
+      if (!isDialogShown) {
+        showDialog(
+            context: context,
+            builder: (BuildContext contexr) {
+              return AlertDialog(
+                content: Row(
+                  children: const [
+                    CircularProgressIndicator(color: AppBasicColors.blue),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    Text(
+                      'Iniciando sesión',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              );
+            });
+        isDialogShown = false;
+      }
+
       userLogin.email = correo;
       userLogin.password = contrasena;
       _controllerLogin
           .validateLoginUser(userLogin)
-          .then((value) => {print("Inicio de sesion Correcto.")})
+          .then((value) =>
+              {print("Inicio de sesion Correcto."), Get.offAll(const Home())})
           .catchError((onError) {
         if (onError == "wrong-password") {
           mensajeNotification = "Contraseña incorrecta";
@@ -187,6 +211,11 @@ class _LoginState extends State<Login> {
         }
 
         messageController.messageError("Validacion", mensajeNotification);
+      }).whenComplete(() {
+        setState(() {
+          isLoading = false;
+        });
+        isDialogShown = false;
       });
     }
 
@@ -207,7 +236,9 @@ class _LoginState extends State<Login> {
         style: ElevatedButton.styleFrom(
           primary: Colors.transparent,
         ),
-        onPressed: () {},
+        onPressed: () {
+          //Get.find<ControllerLogin>().signInWithGoogle();
+        },
         child: const Text('Iniciar con Google'),
       ),
     );

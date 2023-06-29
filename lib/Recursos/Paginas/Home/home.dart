@@ -1,13 +1,17 @@
 import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica/tarjeta_turistica.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Recuperar_contrase%C3%B1a/RecuperarContrasena.dart';
-import 'package:app_turismo_usuario/Recursos/Widget/ContainerText.dart';
-import 'package:app_turismo_usuario/Recursos/Widget/Custom_row_button.dart';
-import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica_mini/tarjeta_turistica_mini.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_list.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Modelos/Tarjeta_turistica/tarjeta_turistica_controller.dart';
+import '../../Widget/ContainerText.dart';
+import '../../Widget/Custom_row_button.dart';
+import '../../theme/app_theme.dart';
+import '../Login/LoginControllers.dart';
 import '../Perfil/Perfil.dart';
+import '../Recuperar_contrasena/RecuperarContrasena.dart';
 import 'HomeController.dart';
 
 class Home extends GetView<HomeController> {
@@ -15,8 +19,6 @@ class Home extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final TarjetaTuristicaController tarjetaTuristicaController =
-        Get.put(TarjetaTuristicaController());
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -48,23 +50,21 @@ Widget _bodyContainer(BuildContext context) {
         Row(
           children: <Widget>[
             Expanded(
-              child: Container(
-                height: 30.0,
-                /*decoration: const BoxDecoration(
+                child: Container(
+                    height: 30.0,
+                    /*decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),*/
-                child: _textFormFielWidget(
-                    controller.search,
-                    const Icon(
-                      BootstrapIcons.search,
-                      color: AppBasicColors.white,
-                      size: 15.0,
-                    ),
-                    'Buscar...',
-                    false,
-                    TextInputType.name),
-              ),
-            ),
+                    child: CustomTextFormField(
+                        controller: controller.search,
+                        icon: const Icon(
+                          BootstrapIcons.search,
+                          color: AppBasicColors.white,
+                          size: 15.0,
+                        ),
+                        textGuide: 'Buscar...',
+                        obscureText: false,
+                        textInputType: TextInputType.name))),
             const SizedBox(
               width: 5.0,
             ),
@@ -123,52 +123,119 @@ Widget _listTurismo() {
   return Column(
     children: [
       WidgetText(
-          text: 'Sitios turísticos',
+          text: 'Sitios de interés',
           onPressed: () {
-            //Get.to(SitiosTuristicoPage());
+            Get.to(const SiteList());
           }),
-      const SizedBox(
-        child: TarjetaTuristica(
-            titulo: 'Titulo',
-            icono: BootstrapIcons.star_fill,
-            descripcion:
-                'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-            imageUrl: 'Assets/Img/sitiocard.png'),
+      SizedBox(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: const [
+              TarjetaTuristica(
+                  titulo: 'Titulo',
+                  icono: BootstrapIcons.star_fill,
+                  descripcion:
+                      'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+                  imageUrl: 'Assets/Img/sitiocard.png'),
+              TarjetaTuristica(
+                  titulo: 'Titulo',
+                  icono: BootstrapIcons.star_fill,
+                  descripcion:
+                      'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+                  imageUrl: 'Assets/Img/sitiocard.png'),
+              TarjetaTuristica(
+                  titulo: 'Titulo',
+                  icono: BootstrapIcons.star_fill,
+                  descripcion:
+                      'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+                  imageUrl: 'Assets/Img/sitiocard.png'),
+            ],
+          ),
+        ),
       ),
       WidgetText(
-          text: 'Cultura',
+          text: 'Sitios turisticos',
           onPressed: () {
             //Get.to(SitiosTuristicoPage());
           }),
-      const SizedBox(
-        child: TarjetaTuristica(
-            titulo: 'Titulo',
-            icono: BootstrapIcons.star_fill,
-            descripcion:
-                'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-            imageUrl: 'Assets/Img/sitiocard.png'),
-      ),
+      const TarjetaTuristicaMini(
+          imageUrl: 'Assets/Img/sitiocard.png',
+          title: 'Titulo',
+          descripcion:
+              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+          rating: 4),
+      const TarjetaTuristicaMini(
+          imageUrl: 'Assets/Img/sitiocard.png',
+          title: 'Titulo',
+          descripcion:
+              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+          rating: 4),
       WidgetText(
-          text: 'Festividades',
+          text: 'Bienestar',
           onPressed: () {
             //Get.to(SitiosTuristicoPage());
           }),
-      const SizedBox(
-        child: TarjetaTuristica(
-            titulo: 'Titulo',
-            icono: BootstrapIcons.star_fill,
-            descripcion:
-                'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-            imageUrl: 'Assets/Img/sitiocard.png'),
-      ),
+      const TarjetaTuristicaMini(
+          imageUrl: 'Assets/Img/sitiocard.png',
+          title: 'Titulo',
+          descripcion:
+              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+          rating: 4),
+      const TarjetaTuristicaMini(
+          imageUrl: 'Assets/Img/sitiocard.png',
+          title: 'Titulo',
+          descripcion:
+              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+          rating: 4),
+      WidgetText(
+          text: 'Ecoturismo',
+          onPressed: () {
+            //Get.to(SitiosTuristicoPage());
+          }),
+      const TarjetaTuristicaMini(
+          imageUrl: 'Assets/Img/sitiocard.png',
+          title: 'Titulo',
+          descripcion:
+              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+          rating: 4),
+      const TarjetaTuristicaMini(
+          imageUrl: 'Assets/Img/sitiocard.png',
+          title: 'Titulo',
+          descripcion:
+              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+          rating: 4),
+      WidgetText(
+          text: 'Rural',
+          onPressed: () {
+            //Get.to(SitiosTuristicoPage());
+          }),
+      const TarjetaTuristicaMini(
+          imageUrl: 'Assets/Img/sitiocard.png',
+          title: 'Titulo',
+          descripcion:
+              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+          rating: 4),
+      const TarjetaTuristicaMini(
+          imageUrl: 'Assets/Img/sitiocard.png',
+          title: 'Titulo',
+          descripcion:
+              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+          rating: 4)
     ],
   );
 }
 
 Widget _popupMenuProfile(context) {
   return PopupMenuButton(
-    icon: const Icon(BootstrapIcons.person,
-        color: AppBasicColors.white, size: 15.0),
+    icon: Transform.scale(
+      scale: 1.6,
+      child: const Icon(
+        BootstrapIcons.person,
+        color: AppBasicColors.white,
+      ),
+    ),
+    iconSize: 14.0,
     itemBuilder: (BuildContext context) {
       return <PopupMenuEntry>[
         PopupMenuItem(
@@ -260,49 +327,10 @@ Widget _popupMenuProfile(context) {
               });
           break;
         case 3:
-          //ControllerLogin().logout();
+          ControllerLogin().logout();
           //Get.find<ControllerLogin>().logout();
           break;
       }
     },
-  );
-}
-
-Widget _textFormFielWidget(TextEditingController controlador, Icon icono,
-    String textGuide, bool estate, TextInputType textInputType) {
-  return TextFormField(
-    controller: controlador,
-    keyboardType: textInputType,
-    obscureText: estate,
-    decoration: InputDecoration(
-      prefixIcon: Padding(
-        padding: const EdgeInsets.only(left: 6.0, top: 0.0, right: 6.0),
-        child: icono,
-      ),
-      prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-      fillColor: const Color.fromRGBO(178, 190, 195, 1),
-      filled: true,
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5.0)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5.0)),
-      border: const OutlineInputBorder(
-        borderSide: BorderSide.none,
-        //borderRadius: BorderRadius.circular(5.0)
-      ),
-      hintText: textGuide,
-      //disabledBorder: InputBorder.none,
-      contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-      isCollapsed: true,
-      hintStyle: const TextStyle(color: AppBasicColors.white),
-    ),
-    validator: (value) {
-      if (value!.isEmpty) {
-        //return msgError;
-      }
-    },
-    cursorColor: Colors.black,
   );
 }

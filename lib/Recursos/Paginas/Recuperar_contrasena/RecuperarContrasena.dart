@@ -1,10 +1,10 @@
-import 'package:app_turismo_usuario/Recursos/Paginas/Recuperar_contrase%C3%B1a/RecuperarContrasenaController.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Widget/Constans.dart';
+import 'RecuperarContrasenaController.dart';
 
 class RecoveryPassword extends GetView<RecoveryPasswordController> {
   const RecoveryPassword({super.key});

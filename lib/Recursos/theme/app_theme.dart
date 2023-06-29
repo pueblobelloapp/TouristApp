@@ -12,4 +12,5 @@ class AppBasicColors {
   static const hellow = Color.fromRGBO(249, 202, 36, 1);
   static const greyRgba = Color.fromRGBO(179, 190, 195, 1);
   static const greyMun = Color.fromRGBO(223, 230, 233, 1);
+  static const blue = Color.fromRGBO(28, 162, 240, 1);
 }
