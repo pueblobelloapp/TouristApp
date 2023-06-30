@@ -135,7 +135,7 @@ class _LoginState extends State<Login> {
                 height: 13,
               ),
               SizedBox(
-                // width: screenWidth * 0.9,
+                width: double.infinity, //screenWidth * 0.9,
                 height: 50.0,
                 child: ElevatedButton(
                     style: Constants.buttonPrimary,
