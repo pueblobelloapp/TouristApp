@@ -1,15 +1,12 @@
-import 'package:app_turismo_usuario/Recursos/Paginas/Arhuaco/arhuaco.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Home/Home.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/Login.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/My_location/my_location.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/Perfil.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principal.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/SplashScreen/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
-import 'Sitios_turistico/sitios_turistico.dart';
+//import 'Sitios_turistico/sitios_turistico.dart';
 
 class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
@@ -30,11 +27,10 @@ class _MyAppState extends State<MyApp> {
         'SplashScreen': (context) => SplashScreen(),
         'MyLocation': (context) => MyLocation(),
         'Login': (context) => Login(),
-        'Home': (context) => HomePage(),
+        //'Home': (context) => HomePage(),
         'Mapa': (context) => MapaPage(),
-        'Arhuaco': (context) => ArhuacoPage(),
-        'Sitio Turistico': (context) => SitiosTuristicoPage(),
-        'principal' : (context) => Principal()
+        //'Arhuaco': (context) => ArhuacoPage(),
+        //'Sitio Turistico': (context) => SitiosTuristicoPage()
       },
     );
   }

@@ -3,14 +3,14 @@ import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Sitio/sitio_controller.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Bton_heart_container.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Widget/Constans.dart';
-import '../../Widget/CustomHeader.dart';
+//import '../../Widget/CustomHeader.dart';
 import '../Mapa/MapaController.dart';
 
 class SitioPage extends GetView<SitioController> {
@@ -27,8 +27,8 @@ class SitioPage extends GetView<SitioController> {
         automaticallyImplyLeading: false,
         elevation: 0,
         leading: IconButton(
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronLeft,
+          icon: const Icon(
+            BootstrapIcons.arrow_left,
             color: AppBasicColors.white,
           ),
           onPressed: () {
@@ -45,7 +45,7 @@ class SitioPage extends GetView<SitioController> {
         children: [
           ListView(
             children: [
-              _headerImage(),
+              // _headerImage(),
             ],
           ),
           const CardImageList(),
@@ -87,8 +87,8 @@ class SitioPage extends GetView<SitioController> {
                 ),
                 Row(
                   children: [
-                    FaIcon(
-                      FontAwesomeIcons.locationDot,
+                    Icon(
+                      BootstrapIcons.geo,
                       color: AppBasicColors.lightGreen,
                     ),
                     const SizedBox(
@@ -268,10 +268,10 @@ class SitioPage extends GetView<SitioController> {
     );
   }
 
-  Widget _headerImage() {
+  /*Widget _headerImage() {
     return Container(
       height: 100,
       child: CustomHeader(100),
     );
-  }
+  }*/
 }
