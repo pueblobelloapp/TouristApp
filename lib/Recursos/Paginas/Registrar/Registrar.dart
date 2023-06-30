@@ -1,4 +1,6 @@
+import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
+import 'package:app_turismo_usuario/main.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -115,6 +117,7 @@ Widget _formRegistration() {
   return Container(
     margin: const EdgeInsets.fromLTRB(10, 29, 10, 0),
     child: Form(
+      key: controller.formKey,
         child: Column(
       children: <Widget>[
         //TextFormField Email
@@ -242,7 +245,29 @@ Widget _btonRegistration() {
     height: 50.0,
     child: ElevatedButton(
         style: Constants.buttonPrimary,
-        onPressed: () {},
+        onPressed: () {
+          final controller = Get.put<RegistrarController>(RegistrarController());
+          final ControllerLogin _controllerLogin = getIt();
+
+          if (controller.formKey.currentState!.validate()) {
+            print("Valido campos");
+            Map<String, String> dataRegister = {
+              "name" : controller.nameR.text,
+              "email" : controller.emailR.text,
+              "pass" : controller.passwordR.text,
+              "passVerify" : controller.passwordConfR.text,
+              "birthDate" : controller.dateOfBirthR.text
+            };
+
+            _controllerLogin.validateRegisterUser(dataRegister);
+          } else {
+            print("Error validaciones");
+          }
+
+          //Modificar la captura de la fecha
+          //Validar registro. ---En ejecucion
+          //Validar mensajes de error personales
+        },
         child: const Text(
           'Registrarme',
           style: TextStyle(fontSize: 20.0),

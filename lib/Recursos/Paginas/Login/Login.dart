@@ -1,6 +1,7 @@
 
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Principal/principal.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
@@ -55,10 +56,13 @@ class _LoginState extends State<Login> {
           Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('Assets/Img/background-login.png'),
-                      fit: BoxFit.cover)),
+                      image: const AssetImage('Assets/Img/background-login.png'),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.6), BlendMode.srcOver)
+                  )),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -175,17 +179,20 @@ class _LoginState extends State<Login> {
       userLogin.password = contrasena;
       _controllerLogin.validateLoginUser(userLogin)
           .then((value) => {
-        print("Inicio de sesion Correcto.")
+        print("Inicio de sesion Correcto."),
+        Get.to(Principal())
       })
           .catchError((onError) {
         if (onError == "wrong-password") {
           mensajeNotification = "Contraseña incorrecta";
         } else if (onError == "user-not-found") {
           mensajeNotification = "Email no existe.";
+        } else if (onError == "Unexpected format") {
+          mensajeNotification = "CatchatError";
         } else {
           mensajeNotification = onError.toString();
         }
-
+        print("Error de inicio sesion: $onError");
         messageController.messageError("Validacion", mensajeNotification);
       });
     }
