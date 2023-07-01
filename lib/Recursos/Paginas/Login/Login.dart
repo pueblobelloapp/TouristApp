@@ -49,6 +49,7 @@ class _LoginState extends State<Login> {
   }
 
   Widget bodyLogin() {
+    final screenHeight = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       child: Stack(
         children: [
@@ -68,14 +69,14 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.5,
+                    height: screenHeight * 0.4,
                     child: titleLogin(),
                   ),
                   SizedBox(
-                      //width: MediaQuery.of(context).size.width * 0.9,
+                      // height: screenHeight * 0.4,
                       child: _formLogin()),
                   SizedBox(
-                    //width: MediaQuery.of(context).size.width * 0.9,
+                    // height: screenHeight * 0.2,
                     child: _btnGoogle(),
                   )
                 ],
@@ -110,6 +111,7 @@ class _LoginState extends State<Login> {
   }
 
   Widget _formLogin() {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Form(
@@ -133,7 +135,7 @@ class _LoginState extends State<Login> {
                 height: 13,
               ),
               SizedBox(
-                width: double.infinity,
+                width: double.infinity, //screenWidth * 0.9,
                 height: 50.0,
                 child: ElevatedButton(
                     style: Constants.buttonPrimary,
