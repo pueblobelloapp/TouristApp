@@ -1,4 +1,7 @@
+import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
+import 'package:app_turismo_usuario/Recursos/Repository/RepositoryLogin.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
+import 'package:app_turismo_usuario/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +13,7 @@ class RegistrarController extends GetxController {
   TextEditingController dateOfBirthR = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final GetxUtils messageController = Get.put(GetxUtils());
+  final RepositoryLogin _repositoryLogin = getIt();
 
   Future<void> validateRegisterUser(Map<String, String> userRegister) async {
     if (validPassword(userRegister["pass"]!)) {
@@ -25,7 +29,7 @@ class RegistrarController extends GetxController {
         await _repositoryLogin.registerUser(user);
       } else {
         //Error, contraseñas no son iguales
-        print("Contraseñas no son iguals");
+        print("Validar contraseñas");
       }
     } else {
       print("Contraseña no cumple con la validaciones correctas");
@@ -33,7 +37,7 @@ class RegistrarController extends GetxController {
   }
 
   bool validPassword(String password) {
-    if (password.trim() == "") {
+    if (password.isEmpty) {
       return false;
     } else {
       RegExp regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,15}$');

@@ -117,6 +117,7 @@ Widget _formRegistration() {
   return Container(
     margin: const EdgeInsets.fromLTRB(10, 29, 10, 0),
     child: Form(
+      key: controller.formKey,
         child: Column(
       children: <Widget>[
         //TextFormField Email
