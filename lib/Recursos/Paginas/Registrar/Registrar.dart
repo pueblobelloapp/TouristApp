@@ -1,4 +1,6 @@
+import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
+import 'package:app_turismo_usuario/main.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -242,7 +244,24 @@ Widget _btonRegistration() {
     height: 50.0,
     child: ElevatedButton(
         style: Constants.buttonPrimary,
-        onPressed: () {},
+        onPressed: () {
+          final controller =
+                Get.put<RegistrarController>(RegistrarController());
+
+          if (controller.formKey.currentState!.validate()) {
+            print("Valido campos");
+            Map<String, String> dataRegister = {
+              "name" : controller.nameR.text,
+              "email" : controller.emailR.text,
+              "pass" : controller.passwordR.text,
+              "passVerify" : controller.passwordConfR.text,
+              "birthDate" : controller.dateOfBirthR.text
+            };
+            controller.validateRegisterUser(dataRegister);
+          } else {
+            print("Error validaciones");
+          }
+        },
         child: const Text(
           'Registrarme',
           style: TextStyle(fontSize: 20.0),
