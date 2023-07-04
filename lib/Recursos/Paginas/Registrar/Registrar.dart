@@ -1,13 +1,12 @@
-import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
-import 'package:app_turismo_usuario/main.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../theme/app_theme.dart';
 import 'RegistrarController.dart';
+import 'package:intl/intl.dart';
 
 class Registrar extends GetView<RegistrarController> {
   const Registrar({super.key});
@@ -40,7 +39,7 @@ class Registrar extends GetView<RegistrarController> {
                   ),
                   _title(),
                   _containerPhoto(),
-                  _formRegistration()
+                  _formRegistration(context)
                 ],
               ),
             )
@@ -112,130 +111,115 @@ Widget _containerPhoto() {
           )));
 }
 
-Widget _formRegistration() {
+Widget _formRegistration(BuildContext context) {
   final controller = Get.put<RegistrarController>(RegistrarController());
   return Container(
     margin: const EdgeInsets.fromLTRB(10, 29, 10, 0),
     child: Form(
-      key: controller.formKey,
+        key: controller.formKey,
         child: Column(
-      children: <Widget>[
-        //TextFormField Email
-        _textFormFielWidget(
-            controller.emailR,
-            const Icon(
-              BootstrapIcons.envelope,
-              color: AppBasicColors.black,
+          children: <Widget>[
+            //TextFormField Email
+            CustomTextFormField(
+              controller: controller.emailR,
+              icon: const Icon(
+                BootstrapIcons.envelope,
+                color: AppBasicColors.black,
+              ),
+              textGuide: 'Correo',
+              obscureText: false,
+              msgError: 'Error,digite un correo',
+              textInputType: TextInputType.emailAddress,
+              fillColor: AppBasicColors.colorTextFormField,
             ),
-            'Correo',
-            false,
-            'Error,digite un correo',
-            TextInputType.emailAddress),
-        const SizedBox(
-          height: 13,
-        ),
-        //TextFormField contraseña
-        _textFormFielWidget(
-            controller.passwordR,
-            const Icon(
-              BootstrapIcons.lock,
-              color: AppBasicColors.black,
+            const SizedBox(
+              height: 13.0,
             ),
-            'Contraseña',
-            true,
-            'Error,digite una Contraseña',
-            TextInputType.text),
-        const SizedBox(
-          height: 13,
-        ),
-        //TextFormField confirmar Contraseña
-        _textFormFielWidget(
-            controller.passwordConfR,
-            const Icon(
-              BootstrapIcons.lock,
-              color: AppBasicColors.black,
+            //TextFormField Contraseña
+            CustomTextFormField(
+              controller: controller.passwordR,
+              icon: const Icon(
+                BootstrapIcons.lock,
+                color: AppBasicColors.black,
+              ),
+              textGuide: 'Contraseña',
+              obscureText: true,
+              msgError: 'Error,digite una Contraseña',
+              textInputType: TextInputType.text,
+              fillColor: AppBasicColors.colorTextFormField,
             ),
-            'Confirmar contraseña',
-            true,
-            'Error,digite una Contraseña',
-            TextInputType.text),
-        const SizedBox(
-          height: 13,
-        ),
-        //TextFormField Nombre Completo
-        _textFormFielWidget(
-            controller.nameR,
-            const Icon(
-              BootstrapIcons.person,
-              color: AppBasicColors.black,
+            const SizedBox(
+              height: 13,
             ),
-            'Nombre completo',
-            false,
-            'Error,digite nombre completo',
-            TextInputType.text),
-        const SizedBox(
-          height: 13,
-        ),
-        //TextFormField fecha de nacimiento
-        _textFormFielWidget(
-            controller.dateOfBirthR,
-            const Icon(
-              BootstrapIcons.calendar2_day,
-              color: AppBasicColors.black,
+            //TextFormField confirmar Contraseña
+            CustomTextFormField(
+              controller: controller.passwordConfR,
+              icon: const Icon(
+                BootstrapIcons.lock,
+                color: AppBasicColors.black,
+              ),
+              textGuide: 'Confirmar contraseña',
+              obscureText: true,
+              msgError: 'Error,digite una Contraseña',
+              textInputType: TextInputType.text,
+              fillColor: AppBasicColors.colorTextFormField,
             ),
-            'Fecha de nacimiento',
-            false,
-            'Error,digite fecha de nacimiento',
-            TextInputType.datetime),
-        const SizedBox(
-          height: 45.0,
-        ),
-        _btonRegistration()
-      ],
-    )),
-  );
-}
+            const SizedBox(
+              height: 13,
+            ),
+            //TextFormField Nombre Completo
+            CustomTextFormField(
+              controller: controller.nameR,
+              icon: const Icon(
+                BootstrapIcons.person,
+                color: AppBasicColors.black,
+              ),
+              textGuide: 'Nombre completo',
+              obscureText: false,
+              msgError: 'Error,digite nombre completo',
+              textInputType: TextInputType.text,
+              fillColor: AppBasicColors.colorTextFormField,
+            ),
+            const SizedBox(
+              height: 13,
+            ),
+            //TextFormField fecha de nacimiento
+            CustomTextFormField(
+              controller: controller.dateOfBirthR,
+              icon: const Icon(
+                BootstrapIcons.calendar_week,
+                color: AppBasicColors.black,
+              ),
+              textGuide: 'Fecha de Nacimiento',
+              obscureText: false,
+              msgError: 'Error,digite fecha de nacimiento',
+              textInputType: TextInputType.text,
+              fillColor: AppBasicColors.colorTextFormField,
+              readOnly: true,
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1990),
+                  lastDate: DateTime.now(), //DateTime(2028)
+                );
 
-Widget _textFormFielWidget(
-    TextEditingController controlador,
-    Icon icono,
-    String textGuide,
-    bool estate,
-    String msgError,
-    TextInputType textInputType) {
-  return TextFormField(
-    controller: controlador,
-    keyboardType: textInputType,
-    obscureText: estate,
-    decoration: InputDecoration(
-      prefixIcon: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: icono,
-      ),
-      fillColor: const Color(0xFFDFE6E9),
-      filled: true,
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5.0)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5.0)),
-      border: const OutlineInputBorder(
-        borderSide: BorderSide.none,
-        //borderRadius: BorderRadius.circular(5.0)
-      ),
-      hintText: textGuide,
-      disabledBorder: InputBorder.none,
-      contentPadding: const EdgeInsets.all(16.0),
-      hintStyle: const TextStyle(color: Colors.black26),
-      labelStyle: const TextStyle(color: Colors.green),
-    ),
-    validator: (value) {
-      if (value!.isEmpty) {
-        return msgError;
-      }
-    },
-    cursorColor: Colors.black,
+                if (pickedDate != null) {
+                  print(pickedDate);
+
+                  String formattedDate =
+                      DateFormat('yyyy-MM-dd').format(pickedDate);
+
+                  controller.dateOfBirthR.text = formattedDate;
+                }
+              },
+            ),
+            const SizedBox(
+              height: 35.0,
+            ),
+            _btonRegistration()
+          ],
+        )),
   );
 }
 
@@ -247,16 +231,16 @@ Widget _btonRegistration() {
         style: Constants.buttonPrimary,
         onPressed: () {
           final controller =
-                Get.put<RegistrarController>(RegistrarController());
+              Get.put<RegistrarController>(RegistrarController());
 
           if (controller.formKey.currentState!.validate()) {
             print("Valido campos");
             Map<String, String> dataRegister = {
-              "name" : controller.nameR.text,
-              "email" : controller.emailR.text,
-              "pass" : controller.passwordR.text,
-              "passVerify" : controller.passwordConfR.text,
-              "birthDate" : controller.dateOfBirthR.text
+              "name": controller.nameR.text,
+              "email": controller.emailR.text,
+              "pass": controller.passwordR.text,
+              "passVerify": controller.passwordConfR.text,
+              "birthDate": controller.dateOfBirthR.text
             };
             controller.validateRegisterUser(dataRegister);
           } else {
