@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
@@ -20,40 +21,44 @@ class RecoveryPassword extends GetView<RecoveryPasswordController> {
           //height: 267.0,
           child: Column(
             children: [
-              _textFormFielWidget(
-                  controller.currentPasswordController,
-                  const Icon(
-                    BootstrapIcons.lock,
-                    color: AppBasicColors.black,
-                  ),
-                  'Clave actual',
-                  true,
-                  '',
-                  TextInputType.text),
+              //textFormField clave actual
+              CustomTextFormField(
+                controller: controller.currentPasswordController,
+                icon: const Icon(
+                  BootstrapIcons.lock,
+                  color: AppBasicColors.black,
+                ),
+                textGuide: 'Clave actual',
+                obscureText: true,
+                textInputType: TextInputType.text,
+                fillColor: AppBasicColors.colorTextFormField,
+              ),
               const SizedBox(height: 10.0),
-              _textFormFielWidget(
-                  controller.newPasswordController,
-                  const Icon(
-                    BootstrapIcons.lock,
-                    color: AppBasicColors.black,
-                  ),
-                  'Nueva clave',
-                  true,
-                  '',
-                  TextInputType.text),
+              CustomTextFormField(
+                controller: controller.newPasswordController,
+                icon: const Icon(
+                  BootstrapIcons.lock,
+                  color: AppBasicColors.black,
+                ),
+                textGuide: 'Nueva clave',
+                obscureText: true,
+                textInputType: TextInputType.text,
+                fillColor: AppBasicColors.colorTextFormField,
+              ),
               const SizedBox(height: 10.0),
-              _textFormFielWidget(
-                  controller.confirmPasswordController,
-                  const Icon(
-                    BootstrapIcons.lock,
-                    color: AppBasicColors.black,
-                  ),
-                  'Confirmar clave',
-                  true,
-                  '',
-                  TextInputType.text),
+              CustomTextFormField(
+                controller: controller.confirmPasswordController,
+                icon: const Icon(
+                  BootstrapIcons.lock,
+                  color: AppBasicColors.black,
+                ),
+                textGuide: 'Confirmar clave',
+                obscureText: true,
+                textInputType: TextInputType.text,
+                fillColor: AppBasicColors.colorTextFormField,
+              ),
               const SizedBox(height: 20.0),
-              Container(
+              SizedBox(
                 width: double.infinity,
                 height: 40.0,
                 child: ElevatedButton(
@@ -73,48 +78,4 @@ class RecoveryPassword extends GetView<RecoveryPasswordController> {
       ),
     );
   }
-}
-
-Widget _textFormFielWidget(
-    TextEditingController controlador,
-    Icon icono,
-    String textGuide,
-    bool estate,
-    String msgError,
-    TextInputType textInputType) {
-  return TextFormField(
-    controller: controlador,
-    keyboardType: textInputType,
-    obscureText: estate,
-    decoration: InputDecoration(
-      prefixIcon: Padding(
-        padding: const EdgeInsets.only(left: 6.0, top: 0.0, right: 6.0),
-        child: icono,
-      ),
-      prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-      fillColor: const Color.fromRGBO(223, 230, 233, 1),
-      filled: true,
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5.0)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5.0)),
-      border: const OutlineInputBorder(
-        borderSide: BorderSide.none,
-        //borderRadius: BorderRadius.circular(5.0)
-      ),
-      hintText: textGuide,
-      disabledBorder: InputBorder.none,
-      contentPadding: const EdgeInsets.all(16.0),
-      hintStyle: const TextStyle(color: Colors.black26),
-      //labelStyle: const TextStyle(color: Colors.green),
-    ),
-    validator: (value) {
-      if (value!.isEmpty) {
-        return msgError;
-      }
-    },
-    cursorColor: Colors.black,
-  );
 }

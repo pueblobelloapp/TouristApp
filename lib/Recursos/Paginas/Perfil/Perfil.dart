@@ -1,8 +1,10 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../Widget/Constans.dart';
 
@@ -13,92 +15,132 @@ class ProfileDialog extends GetView<PerfilController> {
   Widget build(BuildContext context) {
     final controller = Get.put<PerfilController>(PerfilController());
     return AlertDialog(
-        /*title: const Text(
-          'Perfil',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),*/
-        content: SingleChildScrollView(
-      child: Container(
-        width: 350.0,
-        //height: 367.0,
-        child: Column(
+      content: SingleChildScrollView(
+        child: Stack(
           children: [
-            GestureDetector(
-              onTap: () => controller.selectPhoto(),
+            Container(
+              width: 350.0,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => controller.selectPhoto(),
+                    child: Container(
+                      width: 148.0,
+                      height: 151.0,
+                      color: AppBasicColors.rgb,
+                      child: Center(
+                        child: controller.selectedPhoto != null
+                            ? Image.file(
+                                controller.selectedPhoto!,
+                                fit: BoxFit.cover,
+                              )
+                            : const Icon(
+                                BootstrapIcons.person,
+                                size: 60.0,
+                                color: AppBasicColors.white,
+                              ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 35.0),
+                  //textFormFiel correo
+                  CustomTextFormField(
+                    controller: controller.emailControllerP,
+                    icon: const Icon(
+                      BootstrapIcons.envelope,
+                      color: AppBasicColors.black,
+                    ),
+                    textGuide: 'Correo',
+                    obscureText: false,
+                    msgError: 'Error, compruebe el correo',
+                    textInputType: TextInputType.emailAddress,
+                    fillColor: AppBasicColors.colorTextFormField,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  //textFormFiel nombre completo
+                  CustomTextFormField(
+                    controller: controller.nameControllerP,
+                    icon: const Icon(
+                      BootstrapIcons.person,
+                      color: AppBasicColors.black,
+                    ),
+                    textGuide: 'Nombre completo',
+                    obscureText: false,
+                    msgError: 'Error, compruebe el nombre',
+                    textInputType: TextInputType.text,
+                    fillColor: AppBasicColors.colorTextFormField,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  //textFormFiel fecha de nacimiento
+                  CustomTextFormField(
+                    controller: controller.birthdateControllerP,
+                    icon: const Icon(
+                      BootstrapIcons.calendar_week,
+                      color: AppBasicColors.black,
+                    ),
+                    textGuide: 'Fecha de nacimiento',
+                    obscureText: false,
+                    msgError: 'Error, compruebe la fecha de nacimiento',
+                    textInputType: TextInputType.datetime,
+                    fillColor: AppBasicColors.colorTextFormField,
+                    readOnly: true,
+                    onTap: () async {
+                      DateTime? pickedDate =
+                          await controller.selectDate(context);
+
+                      if (pickedDate != null) {
+                        print(pickedDate);
+
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                        controller.birthdateControllerP.text = formattedDate;
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 20.0),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 40.0,
+                    child: ElevatedButton(
+                        style: Constants.buttonPrimary,
+                        onPressed: controller.saveChanges,
+                        child: const Text(
+                          'Guardar cambios',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15.0),
+                        )),
+                  )
+                ],
+              ),
+            ),
+            Positioned(
+              right: 38.0,
+              bottom: 250.0,
               child: Container(
-                width: 148.0,
-                height: 151.0,
-                color: AppBasicColors.rgb,
-                child: Center(
-                  child: controller.selectedPhoto != null
-                      ? Image.file(
-                          controller.selectedPhoto!,
-                          fit: BoxFit.cover,
-                        )
-                      : const Icon(
-                          BootstrapIcons.person,
-                          size: 60.0,
-                          color: AppBasicColors.white,
-                        ),
+                width: 59.0,
+                height: 59.0,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppBasicColors.lightGrey,
+                ),
+                child: const Icon(
+                  BootstrapIcons.camera,
+                  color: AppBasicColors.black,
                 ),
               ),
             ),
-            const SizedBox(height: 10.0),
-            // Campo de texto para el correo
-            _textFormFielWidget(
-                controller.emailControllerP,
-                const Icon(
-                  BootstrapIcons.envelope,
-                  color: AppBasicColors.black,
-                ),
-                'Correo',
-                false,
-                'Error, compruebe correo',
-                TextInputType.emailAddress),
-            const SizedBox(height: 10.0),
-            // Campo de texto para nombre completo
-            _textFormFielWidget(
-                controller.nameControllerP,
-                const Icon(
-                  BootstrapIcons.person,
-                  color: AppBasicColors.black,
-                ),
-                'Nombre Completo',
-                false,
-                'Error, compruebe nombre completo',
-                TextInputType.name),
-            const SizedBox(height: 10.0),
-            // Campo de texto para la fecha de nacimiento
-            _textFormFielWidget(
-                controller.birthdateControllerP,
-                const Icon(
-                  BootstrapIcons.calendar,
-                  color: AppBasicColors.black,
-                ),
-                'Fecha de nacimiento',
-                false,
-                'Error, compruebe correo',
-                TextInputType.datetime),
-            const SizedBox(height: 20.0),
-            Container(
-              width: double.infinity,
-              height: 40.0,
-              child: ElevatedButton(
-                  style: Constants.buttonPrimary,
-                  onPressed: controller.saveChanges,
-                  child: const Text(
-                    'Guardar cambios',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-                  )),
-            )
           ],
         ),
       ),
-    ));
+    );
   }
 }
 
+/*
 Widget _textFormFielWidget(
     TextEditingController controlador,
     Icon icono,
@@ -142,3 +184,6 @@ Widget _textFormFielWidget(
     cursorColor: Colors.black,
   );
 }
+ */
+
+

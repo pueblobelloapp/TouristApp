@@ -197,12 +197,7 @@ Widget _formRegistration(BuildContext context) {
               fillColor: AppBasicColors.colorTextFormField,
               readOnly: true,
               onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1990),
-                  lastDate: DateTime.now(), //DateTime(2028)
-                );
+                DateTime? pickedDate = await controller.selectDate(context);
 
                 if (pickedDate != null) {
                   print(pickedDate);

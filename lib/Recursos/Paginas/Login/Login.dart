@@ -259,7 +259,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget _textFormFielWidget(
+  /* Widget _textFormFielWidget(
       TextEditingController controlador,
       IconData icono,
       String textGuide,
@@ -303,7 +303,7 @@ class _LoginState extends State<Login> {
       },
       cursorColor: Colors.black,
     );
-  }
+  }*/
 
   Widget _optionSesion() {
     return Row(
