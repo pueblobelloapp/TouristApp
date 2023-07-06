@@ -55,15 +55,18 @@ Widget __bodyContainer(BuildContext context) {
               child: Container(
             height: 30.0,
             child: CustomTextFormField(
-                controller: controller.search,
-                icon: const Icon(
-                  BootstrapIcons.search,
-                  color: AppBasicColors.white,
-                  size: 15.0,
-                ),
-                textGuide: 'Buscar...',
-                obscureText: false,
-                textInputType: TextInputType.name),
+              controller: controller.search,
+              icon: const Icon(
+                BootstrapIcons.search,
+                color: AppBasicColors.white,
+                size: 15.0,
+              ),
+              textGuide: 'Buscar...',
+              obscureText: false,
+              textInputType: TextInputType.name,
+              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+              fillColor: const Color.fromRGBO(178, 190, 195, 1),
+            ),
           )),
           const SizedBox(
             width: 5.0,

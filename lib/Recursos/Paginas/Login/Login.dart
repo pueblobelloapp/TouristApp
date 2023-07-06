@@ -2,6 +2,7 @@ import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Home/home.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -118,19 +119,31 @@ class _LoginState extends State<Login> {
           key: _formkey,
           child: Column(
             children: [
-              _textFormFielWidget(
-                  _emailL,
-                  BootstrapIcons.envelope,
-                  'Correo',
-                  false,
-                  'Error, compruebe el correo',
-                  TextInputType.emailAddress),
+              //TextFormField correo
+              CustomTextFormField(
+                  controller: _emailL,
+                  icon: const Icon(
+                    BootstrapIcons.envelope,
+                    color: AppBasicColors.black,
+                  ),
+                  textGuide: 'Correo',
+                  obscureText: false,
+                  msgError: 'Error, compruebe el correo',
+                  textInputType: TextInputType.emailAddress),
               const SizedBox(
                 height: 13,
               ),
               //TextFormField Contraseña
-              _textFormFielWidget(_passwordL, BootstrapIcons.lock, 'Contraseña',
-                  true, 'Error, Digite una contraseña', TextInputType.text),
+              CustomTextFormField(
+                  controller: _passwordL,
+                  icon: const Icon(
+                    BootstrapIcons.lock,
+                    color: AppBasicColors.black,
+                  ),
+                  textGuide: 'Contraseña',
+                  obscureText: true,
+                  msgError: 'Error, Digite una contraseña',
+                  textInputType: TextInputType.text),
               const SizedBox(
                 height: 13,
               ),
@@ -246,7 +259,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget _textFormFielWidget(
+  /* Widget _textFormFielWidget(
       TextEditingController controlador,
       IconData icono,
       String textGuide,
@@ -290,7 +303,7 @@ class _LoginState extends State<Login> {
       },
       cursorColor: Colors.black,
     );
-  }
+  }*/
 
   Widget _optionSesion() {
     return Row(

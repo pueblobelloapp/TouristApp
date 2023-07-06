@@ -51,4 +51,12 @@ class PerfilController extends GetxController {
       colorText: AppBasicColors.white,
     );
   }
+
+  Future<DateTime?> selectDate(BuildContext context) async {
+    return showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2006),
+        lastDate: DateTime.now());
+  }
 }
