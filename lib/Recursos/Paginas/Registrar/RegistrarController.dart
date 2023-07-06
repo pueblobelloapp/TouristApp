@@ -11,14 +11,17 @@ class RegistrarController extends GetxController {
   TextEditingController passwordConfR = TextEditingController();
   TextEditingController nameR = TextEditingController();
   TextEditingController dateOfBirthR = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
   final GetxUtils messageController = Get.put(GetxUtils());
   final RepositoryLogin _repositoryLogin = getIt();
 
+  List<String> listErrors = <String>[];
+
   Future<void> validateRegisterUser(Map<String, String> userRegister) async {
-    if (validPassword(userRegister["pass"]!)) {
-      if (validPasswordEqual(
-          userRegister["pass"]!, userRegister["passVerify"]!)) {
+
+    if (validPassword(userRegister)) {
+      if (validPasswordEqual(userRegister)) {
         print("Todo Ok");
         UserLogin user = UserLogin();
         user.password = userRegister["pass"]!;
@@ -36,7 +39,10 @@ class RegistrarController extends GetxController {
     }
   }
 
-  bool validPassword(String password) {
+  bool validPassword(Map<String, String> userRegister) {
+
+    final String password = userRegister["pass"]!;
+
     if (password.isEmpty) {
       return false;
     } else {
@@ -45,7 +51,11 @@ class RegistrarController extends GetxController {
     }
   }
 
-  bool validPasswordEqual(String password, String passwordVerify) {
+  bool validPasswordEqual(Map<String, String> userRegister) {
+
+    final password = userRegister["pass"]!;
+    final passwordVerify = userRegister["passVerify"]!;
+
     if (0 == password.compareTo(passwordVerify) && password.isNotEmpty)
       return true;
 
