@@ -1,5 +1,6 @@
 import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica/tarjeta_turistica.dart';
 import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica_mini/tarjeta_turistica_mini.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Detalles/detail.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_list.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -22,18 +23,16 @@ class Home extends GetView<HomeController> {
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        child: Stack(
+        child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 9.0),
               child: _bodyContainer(context),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SizedBox(
-                  height: MediaQuery.of(context).size.height - 145.0,
-                  child: SingleChildScrollView(child: _listTurismo())),
-            )
+            Expanded(child: SingleChildScrollView(child: _listTurismo()))
+            /*SizedBox(
+                height: MediaQuery.of(context).size.height, //- 145.0,
+                child: SingleChildScrollView(child: _listTurismo())),*/
           ],
         ),
       ),
@@ -44,47 +43,51 @@ class Home extends GetView<HomeController> {
 Widget _bodyContainer(BuildContext context) {
   final controller = Get.put<HomeController>(HomeController());
 
-  return SafeArea(
-    child: Column(
-      children: [
-        Row(
-          children: <Widget>[
-            Expanded(
-                child: Container(
-                    height: 30.0,
-                    /*decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  ),*/
-                    child: CustomTextFormField(
-                      controller: controller.search,
-                      icon: const Icon(
-                        BootstrapIcons.search,
-                        color: AppBasicColors.white,
-                        size: 15.0,
-                      ),
-                      textGuide: 'Buscar...',
-                      obscureText: false,
-                      textInputType: TextInputType.name,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-                      fillColor: const Color.fromRGBO(178, 190, 195, 1),
-                    ))),
-            const SizedBox(
-              width: 5.0,
-            ),
-            Container(
-                height: 30.0,
-                width: 30.0,
-                decoration: const BoxDecoration(
-                    color: Color.fromRGBO(45, 52, 54, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                child: _popupMenuProfile(context)),
-          ],
-        ),
-        const SizedBox(height: 12.0),
-        _buildButtonRow()
-      ],
+  return Stack(children: [
+    SafeArea(
+      child: Column(
+        children: [
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child: SizedBox(
+                      height: 30.0,
+                      /*decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      ),*/
+                      child: CustomTextFormField(
+                        controller: controller.search,
+                        icon: const Icon(
+                          BootstrapIcons.search,
+                          color: AppBasicColors.white,
+                          size: 15.0,
+                        ),
+                        textGuide: 'Buscar...',
+                        obscureText: false,
+                        textInputType: TextInputType.name,
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 5.0),
+                        fillColor: const Color.fromRGBO(178, 190, 195, 1),
+                      ))),
+              const SizedBox(
+                width: 5.0,
+              ),
+              Container(
+                  height: 30.0,
+                  width: 30.0,
+                  decoration: const BoxDecoration(
+                      color: Color.fromRGBO(45, 52, 54, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  child: _popupMenuProfile(context)),
+            ],
+          ),
+          const SizedBox(height: 12.0),
+          _buildButtonRow(),
+          const SizedBox(height: 12.0),
+        ],
+      ),
     ),
-  );
+  ]);
 }
 
 Widget _buildButtonRow() {
@@ -93,7 +96,9 @@ Widget _buildButtonRow() {
       color: AppBasicColors.greyMun,
       icon: BootstrapIcons.book,
       text: 'Información del municipio',
-      onPressed: () {},
+      onPressed: () {
+        Get.to(const Detail());
+      },
     ),
     const SizedBox(
       width: 10.0,
@@ -102,7 +107,9 @@ Widget _buildButtonRow() {
       color: AppBasicColors.hellow,
       icon: BootstrapIcons.brightness_alt_high,
       text: 'Cultura',
-      onPressed: () {},
+      onPressed: () {
+        Get.to(const Detail());
+      },
     ),
     const SizedBox(
       width: 10.0,
@@ -111,7 +118,9 @@ Widget _buildButtonRow() {
         color: AppBasicColors.rgb,
         icon: BootstrapIcons.bicycle,
         text: 'Etnoturismo',
-        onPressed: () {})
+        onPressed: () {
+          Get.to(const Detail());
+        })
   ];
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,

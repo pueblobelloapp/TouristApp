@@ -24,19 +24,23 @@ class SiteList extends GetView<SiteListController> {
         //backgroundColor: AppBasicColors.greyMun,
         body: Container(
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      child: Stack(
+      child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 9.0),
             child: __bodyContainer(context),
           ),
-          Align(
+          Expanded(
+              child: SingleChildScrollView(
+            child: _listTurismo(),
+          ))
+          /* Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               height: MediaQuery.of(context).size.height - 145.0,
               child: SingleChildScrollView(child: _listTurismo()),
             ),
-          )
+          )*/
         ],
       ),
     ));
@@ -46,45 +50,48 @@ class SiteList extends GetView<SiteListController> {
 Widget __bodyContainer(BuildContext context) {
   final controller = Get.put<SiteListController>(SiteListController());
 
-  return SafeArea(
-      child: Column(
-    children: [
-      Row(
-        children: <Widget>[
-          Expanded(
-              child: Container(
-            height: 30.0,
-            child: CustomTextFormField(
-              controller: controller.search,
-              icon: const Icon(
-                BootstrapIcons.search,
-                color: AppBasicColors.white,
-                size: 15.0,
-              ),
-              textGuide: 'Buscar...',
-              obscureText: false,
-              textInputType: TextInputType.name,
-              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-              fillColor: const Color.fromRGBO(178, 190, 195, 1),
-            ),
-          )),
-          const SizedBox(
-            width: 5.0,
-          ),
-          Container(
+  return Stack(children: [
+    SafeArea(
+        child: Column(
+      children: [
+        Row(
+          children: <Widget>[
+            Expanded(
+                child: SizedBox(
               height: 30.0,
-              width: 30.0,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(45, 52, 54, 1),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              child: CustomTextFormField(
+                controller: controller.search,
+                icon: const Icon(
+                  BootstrapIcons.search,
+                  color: AppBasicColors.white,
+                  size: 15.0,
+                ),
+                textGuide: 'Buscar...',
+                obscureText: false,
+                textInputType: TextInputType.name,
+                contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                fillColor: const Color.fromRGBO(178, 190, 195, 1),
               ),
-              child: _popupMenuProfile(context))
-        ],
-      ),
-      const SizedBox(height: 12.0),
-      _buildButtonRow()
-    ],
-  ));
+            )),
+            const SizedBox(
+              width: 5.0,
+            ),
+            Container(
+                height: 30.0,
+                width: 30.0,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(45, 52, 54, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                ),
+                child: _popupMenuProfile(context))
+          ],
+        ),
+        const SizedBox(height: 12.0),
+        _buildButtonRow(),
+        const SizedBox(height: 12.0),
+      ],
+    )),
+  ]);
 }
 
 Widget _listTurismo() {
@@ -99,13 +106,16 @@ Widget _listTurismo() {
             Get.back();
           }),
           Container(
-            margin: const EdgeInsets.only(top: 12),
+            margin: const EdgeInsets.only(top: 0, left: 5.0),
             child: const Text(
               'Nombre de la categoria',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
             ),
           )
         ],
+      ),
+      const SizedBox(
+        height: 5.0,
       ),
       const SizedBox(
         child: TarjetaTuristica(

@@ -19,11 +19,14 @@ class CustomRowButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(color),
-          minimumSize: MaterialStateProperty.all(const Size(250.0, 48.0))),
+      style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          //shadowColor: AppBasicColors.black,
+          fixedSize: const Size(250.0, 45.0),
+          elevation: 3.0),
       onPressed: onPressed,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (icon != null)
             Icon(

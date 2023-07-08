@@ -10,8 +10,10 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      minimum: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 11.0),
+    return Positioned(
+      top: 40.0,
+      left: 10.0,
+      /* minimum: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 11.0),*/
       child: Container(
         height: 30.0,
         width: 30.0,
