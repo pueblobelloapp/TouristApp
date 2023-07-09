@@ -104,7 +104,7 @@ Widget _buildButtonRow() {
       width: 10.0,
     ),
     CustomRowButton(
-      color: AppBasicColors.hellow,
+      color: AppBasicColors.yellow,
       icon: BootstrapIcons.brightness_alt_high,
       text: 'Cultura',
       onPressed: () {
@@ -135,10 +135,12 @@ Widget _listTurismo() {
   return Column(
     children: [
       WidgetText(
-          text: 'Sitios de interés',
-          onPressed: () {
-            Get.to(const SiteList());
-          }),
+        text: 'Sitios de interés',
+        onPressed: () {
+          Get.to(const SiteList());
+        },
+        buttonText: 'Ver más',
+      ),
       SizedBox(
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -167,10 +169,12 @@ Widget _listTurismo() {
         ),
       ),
       WidgetText(
-          text: 'Sitios turisticos',
-          onPressed: () {
-            //Get.to(SitiosTuristicoPage());
-          }),
+        text: 'Sitios turisticos',
+        onPressed: () {
+          //Get.to(SitiosTuristicoPage());
+        },
+        buttonText: 'Ver más',
+      ),
       const TarjetaTuristicaMini(
           imageUrl: 'Assets/Img/sitiocard.png',
           title: 'Titulo',
@@ -184,10 +188,12 @@ Widget _listTurismo() {
               'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
           rating: 4),
       WidgetText(
-          text: 'Bienestar',
-          onPressed: () {
-            //Get.to(SitiosTuristicoPage());
-          }),
+        text: 'Bienestar',
+        onPressed: () {
+          //Get.to(SitiosTuristicoPage());
+        },
+        buttonText: 'Ver más',
+      ),
       const TarjetaTuristicaMini(
           imageUrl: 'Assets/Img/sitiocard.png',
           title: 'Titulo',
@@ -201,10 +207,12 @@ Widget _listTurismo() {
               'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
           rating: 4),
       WidgetText(
-          text: 'Ecoturismo',
-          onPressed: () {
-            //Get.to(SitiosTuristicoPage());
-          }),
+        text: 'Ecoturismo',
+        onPressed: () {
+          //Get.to(SitiosTuristicoPage());
+        },
+        buttonText: 'Ver más',
+      ),
       const TarjetaTuristicaMini(
           imageUrl: 'Assets/Img/sitiocard.png',
           title: 'Titulo',
@@ -218,10 +226,12 @@ Widget _listTurismo() {
               'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
           rating: 4),
       WidgetText(
-          text: 'Rural',
-          onPressed: () {
-            //Get.to(SitiosTuristicoPage());
-          }),
+        text: 'Rural',
+        onPressed: () {
+          //Get.to(SitiosTuristicoPage());
+        },
+        buttonText: 'Ver más',
+      ),
       const TarjetaTuristicaMini(
           imageUrl: 'Assets/Img/sitiocard.png',
           title: 'Titulo',

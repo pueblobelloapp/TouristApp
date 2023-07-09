@@ -1,7 +1,6 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/Login.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/My_location/my_location.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/Perfil.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/SplashScreen/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';

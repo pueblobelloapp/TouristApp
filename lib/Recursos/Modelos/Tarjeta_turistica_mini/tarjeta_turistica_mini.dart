@@ -76,7 +76,7 @@ class TarjetaTuristicaMini extends StatelessWidget {
                           for (int i = 0; i < rating; i++)
                             const Icon(
                               BootstrapIcons.star_fill,
-                              color: AppBasicColors.hellow,
+                              color: AppBasicColors.yellow,
                               size: 20.0,
                             )
                         ],

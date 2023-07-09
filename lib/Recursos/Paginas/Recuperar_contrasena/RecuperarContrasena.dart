@@ -15,8 +15,11 @@ class RecoveryPassword extends GetView<RecoveryPasswordController> {
     final controller =
         Get.put<RecoveryPasswordController>(RecoveryPasswordController());
     return AlertDialog(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      contentPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
       content: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: 350.0,
           //height: 267.0,
           child: Column(

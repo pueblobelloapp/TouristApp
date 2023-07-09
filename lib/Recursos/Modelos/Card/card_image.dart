@@ -8,20 +8,15 @@ class CardImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final card = Container(
-      height: 350.0,
       width: 450.0,
-      margin: const EdgeInsets.only(top: 00.0, left: 0.04, right: 0.04),
+      height: 282.0,
+      //margin: const EdgeInsets.only(left: 0.04, right: 0.04),
       decoration: BoxDecoration(
         image: DecorationImage(fit: BoxFit.cover, image: AssetImage(pathImage)),
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+            bottomLeft: Radius.circular(10.0),
+            bottomRight: Radius.circular(10.0)),
         shape: BoxShape.rectangle,
-        /*boxShadow: const <BoxShadow>[
-            BoxShadow(
-                color: Colors.black38,
-                blurRadius: 15.0,
-                offset: Offset(0.0, 7.0))
-          ]*/
       ),
     );
 

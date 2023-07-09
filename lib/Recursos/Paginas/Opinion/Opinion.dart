@@ -1,6 +1,7 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Opinion/OpinionController.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:app_turismo_usuario/Recursos/utils/NotificationValidation.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,30 +12,14 @@ class Opinion extends GetView<OpinionController> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put<OpinionController>(OpinionController());
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent.withOpacity(0.0),
-          elevation: 0,
-          title: const Text(
-            'Titulo',
-            style: TextStyle(
-                color: AppBasicColors.black, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          leading: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(
-                  BootstrapIcons.arrow_left,
-                  color: AppBasicColors.black,
-                ),
-              )),
-        ),
-        body: Container(
-          margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+    return AlertDialog(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        contentPadding: const EdgeInsets.fromLTRB(10.0, 0.5, 10.0, 9.6),
+        content: SizedBox(
+          height: 358.0,
+          width: 343.0,
+          //margin: const EdgeInsets.fromLTRB(0.5, 10, 0.5, 0),
           child: Column(children: [
             const SizedBox(
               height: 24.0,
@@ -50,7 +35,7 @@ class Opinion extends GetView<OpinionController> {
               ),
             ),
             const SizedBox(
-              height: 24.0,
+              height: 0.0,
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -58,9 +43,9 @@ class Opinion extends GetView<OpinionController> {
                   return Obx(() => IconButton(
                       icon: Icon(
                         controller.filledStars[index]
-                            ? Icons.star
-                            : Icons.star_border,
-                        color: Colors.amber,
+                            ? BootstrapIcons.star_fill
+                            : BootstrapIcons.star,
+                        color: AppBasicColors.yellow,
                         size: 40.0,
                       ),
                       onPressed: () {
@@ -68,26 +53,91 @@ class Opinion extends GetView<OpinionController> {
                       }));
                 })),
             const SizedBox(
-              height: 24.0,
+              height: 10.0,
             ),
             Container(
               color: const Color(0xFFDFE6E9),
               child: TextFormField(
                 controller: controller.opnion,
-                maxLines: null,
+                maxLines: 7,
                 keyboardType: TextInputType.multiline,
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(16.0),
-                  hintText: 'Escribe tu opinion',
+                  hintText: 'Escribe tu opinión',
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.black26),
                 ),
               ),
             ),
             const SizedBox(
-              height: 28.0,
+              height: 14.0,
             ),
-            Container(
+            Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //ElevatedButton cancelar
+                Expanded(
+                  child: SizedBox(
+                    height: 44.4,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                AppBasicColors.colorButtonCancelar),
+                        child: const FittedBox(
+                          child: Text('Cancelar',
+                              style: TextStyle(
+                                  fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        ),
+                        onPressed: () {
+                          /*NotificationMessage notificationMessage =
+                              NotificationMessage(
+                                  imagePath: 'Assets/Img/error.gif',
+                                  title: 'Oops!..',
+                                  message: 'Mensaje',
+                                  flipVertical: false,
+                                  shouldTransform: true,
+                                  onPressed: () {
+                                    Get.back();
+                                  }
+                                  );
+                          notificationMessage.show(context);
+                          */
+                          Get.back();
+                        }),
+                  ),
+                ),
+                const SizedBox(
+                  width: 13.0,
+                ),
+                //ElevatedButton publicar
+                Expanded(
+                  child: SizedBox(
+                    height: 44.4,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppBasicColors.rgb),
+                        child: const FittedBox(
+                          child: Text('Publicar',
+                              style: TextStyle(
+                                  fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        ),
+                        onPressed: () {
+                          NotificationMessage notificationMessage =
+                              NotificationMessage(
+                                  imagePath: 'Assets/Img/thumb-down.gif',
+                                  title: 'Ok',
+                                  message: 'Mensaje',
+                                  flipVertical: true,
+                                  onPressed: () {
+                                    Get.back();
+                                  });
+                          notificationMessage.show(context);
+                        }),
+                  ),
+                )
+              ],
+            )
+            /*SizedBox(
               width: double.infinity,
               height: 50.0,
               child: ElevatedButton(
@@ -98,7 +148,7 @@ class Opinion extends GetView<OpinionController> {
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ),
-            )
+            )*/
           ]),
         ));
   }

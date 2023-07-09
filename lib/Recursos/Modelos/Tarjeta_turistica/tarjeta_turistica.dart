@@ -69,27 +69,27 @@ class TarjetaTuristica extends StatelessWidget {
                               children: [
                                 Icon(
                                   icono,
-                                  color: AppBasicColors.hellow,
+                                  color: AppBasicColors.yellow,
                                   size: 20.0,
                                 ),
                                 Icon(
                                   icono,
-                                  color: AppBasicColors.hellow,
+                                  color: AppBasicColors.yellow,
                                   size: 20.0,
                                 ),
                                 Icon(
                                   icono,
-                                  color: AppBasicColors.hellow,
+                                  color: AppBasicColors.yellow,
                                   size: 20.0,
                                 ),
                                 Icon(
                                   icono,
-                                  color: AppBasicColors.hellow,
+                                  color: AppBasicColors.yellow,
                                   size: 20.0,
                                 ),
                                 Icon(
                                   icono,
-                                  color: AppBasicColors.hellow,
+                                  color: AppBasicColors.yellow,
                                   size: 20.0,
                                 ),
                               ],

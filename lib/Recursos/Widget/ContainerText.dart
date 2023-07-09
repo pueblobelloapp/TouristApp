@@ -4,8 +4,15 @@ import 'package:flutter/material.dart';
 class WidgetText extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final String buttonText;
+  final double? buttonFontSize;
 
-  const WidgetText({super.key, required this.text, required this.onPressed});
+  const WidgetText(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      required this.buttonText,
+      this.buttonFontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +29,10 @@ class WidgetText extends StatelessWidget {
         )),
         TextButton(
             onPressed: onPressed,
-            child: const Text(
-              'Ver más',
+            child: Text(
+              buttonText,
               style: TextStyle(
-                  fontSize: 12.0,
+                  fontSize: buttonFontSize,
                   color: AppBasicColors.rgb,
                   fontWeight: FontWeight.bold),
             ))

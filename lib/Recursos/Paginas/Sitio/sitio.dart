@@ -1,13 +1,15 @@
 import 'package:app_turismo_usuario/Recursos/Modelos/Card/card_image_list.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Opinion/Opinion.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Sitio/sitio_controller.dart';
-import 'package:app_turismo_usuario/Recursos/Widget/Bton_heart_container.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/ContainerText.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_person_container.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/custom_back_button.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Widget/Constans.dart';
 //import '../../Widget/CustomHeader.dart';
@@ -21,220 +23,153 @@ class SitioPage extends GetView<SitioController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green.shade600,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            BootstrapIcons.arrow_left,
-            color: AppBasicColors.white,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: const Text(
-          'Turismo App',
-          style: TextStyle(
-              color: AppBasicColors.white, fontWeight: FontWeight.bold),
+      body: Column(
+        children: [
+          _containerPhoto(),
+          Expanded(
+              child: SingleChildScrollView(
+            child: _containerDescripcion(context),
+          ))
+        ],
+      ),
+      floatingActionButton: SpeedDial(
+        //animatedIcon: AnimatedIcons.view_list,
+        activeIcon: BootstrapIcons.x_lg,
+        activeBackgroundColor: AppBasicColors.redInst,
+        closeManually: true,
+        //buttonSize: 55.0,
+        children: [
+          SpeedDialChild(
+              child: const Icon(
+                BootstrapIcons.whatsapp,
+                color: AppBasicColors.white,
+              ),
+              backgroundColor: AppBasicColors.greenWhat,
+              onTap: () {}),
+          SpeedDialChild(
+              child: const Icon(BootstrapIcons.instagram,
+                  color: AppBasicColors.white),
+              backgroundColor: AppBasicColors.redInst,
+              onTap: () {}),
+          SpeedDialChild(
+              child: const Icon(
+                BootstrapIcons.messenger,
+                color: AppBasicColors.white,
+              ),
+              backgroundColor: AppBasicColors.blueMess,
+              onTap: () {}),
+          SpeedDialChild(
+              child: const Icon(
+                BootstrapIcons.facebook,
+                color: AppBasicColors.white,
+              ),
+              backgroundColor: AppBasicColors.purpFace,
+              onTap: () {}),
+          SpeedDialChild(
+              child: const Icon(
+                BootstrapIcons.twitter,
+                color: AppBasicColors.white,
+              ),
+              backgroundColor: AppBasicColors.blueTwit,
+              onTap: () {})
+        ],
+        backgroundColor: AppBasicColors.rgb,
+        child: const Icon(
+          BootstrapIcons.telephone,
+          color: AppBasicColors.white,
         ),
       ),
-      body: Stack(
+    );
+  }
+
+  Widget _containerPhoto() {
+    return Stack(
+      children: [const SafeArea(child: CardImageList()), _btnArrowBack()],
+    );
+  }
+
+  Widget _btnArrowBack() {
+    return CustomBackButton(onPressed: () {
+      Get.back();
+    });
+  }
+
+  Widget _containerDescripcion(context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListView(
-            children: [
-              // _headerImage(),
-            ],
+          const Text(
+            'Título',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          const CardImageList(),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: _descripcionSitio(context))
+          const SizedBox(
+            height: 8.0,
+          ),
+          const Text(
+            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          _myLocation(),
+          WidgetText(
+            text: 'Opiniones',
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const Align(
+                        //alignment: Alignment.centerLeft,
+                        child: FractionallySizedBox(
+                            widthFactor: 15.0, child: Opinion()));
+                  });
+            },
+            buttonText: 'Calificar',
+            buttonFontSize: 20.0,
+          ),
+          const CustomPersonContainer(
+              icon: BootstrapIcons.person,
+              name: 'Nombre completo',
+              starCount: 5,
+              containerIconColor: AppBasicColors.colorButtonCancelar,
+              starColor: AppBasicColors.yellow),
+          const Text(
+            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+          const CustomPersonContainer(
+              icon: BootstrapIcons.person,
+              name: 'Nombre completo',
+              starCount: 5,
+              containerIconColor: AppBasicColors.colorButtonCancelar,
+              starColor: AppBasicColors.yellow),
+          const Text(
+            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
   }
 
-  Widget _descripcionSitio(context) {
-    return Stack(children: [
-      Container(
-        width: MediaQuery.of(context).size.width,
-        height: 410.0,
-        decoration: const BoxDecoration(
-          color: AppBasicColors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
-        ),
-        child: Container(
-          margin: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: const [
-                    Text(
-                      'Casa Campo Helenita',
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      BootstrapIcons.geo,
-                      color: AppBasicColors.lightGreen,
-                    ),
-                    const SizedBox(
-                      width: 4.0,
-                    ),
-                    const Expanded(
-                      child: Text(
-                        'Pueblo Bello',
-                        style: TextStyle(
-                            color: AppBasicColors.lightGrey, fontSize: 16),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    _btonStars(),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Row(
-                  children: const [
-                    Expanded(
-                      child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ornare felis tristique semper mi, ultrices feugiat',
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: const [
-                    Text(
-                      'Tipo de Turismo:',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0),
-                    ),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Text(
-                      'Rural',
-                      style: TextStyle(fontSize: 18.0),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: const [
-                    Text(
-                      'Actividades:',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0),
-                    ),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Text(
-                      ' Lorem ipsum dolor sit amet',
-                      style: TextStyle(fontSize: 18.0),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                /* Row(
-                  children: const [
-                    Text(
-                      'Ubicación:',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                    ),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Text(
-                      '41° 24' '´' '12.2' '°N2°10' '26.5' 'E ',
-                      style: TextStyle(fontSize: 18.0),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),*/
-                Row(
-                  children: const [
-                    Text(
-                      'Gerente:',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0),
-                    ),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Text(
-                      'Roberto Amaris',
-                      style: TextStyle(fontSize: 18.0),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: const [
-                    Text(
-                      'Contacto:',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0),
-                    ),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Text(
-                      '3025681423',
-                      style: TextStyle(fontSize: 18.0),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 30.0,
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _btonIrSitio(),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      Transform.translate(
-        offset: Offset(MediaQuery.of(context).size.width * 0.9 - 30.0, -25.0),
-        child: Transform.scale(scale: 1.2, child: const ButtonHeartContainer()),
-      )
-    ]);
+  Widget _myLocation() {
+    return SizedBox(
+      width: 450.0,
+      height: 273.0,
+      child: MapaPage(),
+    );
   }
 
-  Widget _btonIrSitio() {
+  /* Widget _btonIrSitio() {
     return ElevatedButton(
         style: Constants.buttonPrimary,
         onPressed: () {
@@ -242,15 +177,15 @@ class SitioPage extends GetView<SitioController> {
           Get.to(MapaPage());
         },
         child: const Text('Ir al sitio'));
-  }
+  }*/
 
-  Widget _btonStars() {
+  /* Widget _btonStars() {
     final stars = Container(
       //color: Colors.black38,
       margin: const EdgeInsets.only(top: 0, right: 3.0),
       child: const Icon(
         Icons.star,
-        color: AppBasicColors.hellow,
+        color: AppBasicColors.yellow,
       ),
     );
 
@@ -259,19 +194,13 @@ class SitioPage extends GetView<SitioController> {
       margin: const EdgeInsets.only(top: 0.0, right: 3.0),
       child: const Icon(
         Icons.star_border,
-        color: AppBasicColors.hellow,
+        color: AppBasicColors.yellow,
       ),
     );
 
     return Row(
       children: [stars, stars, stars, stars, star_border],
     );
-  }
-
-  /*Widget _headerImage() {
-    return Container(
-      height: 100,
-      child: CustomHeader(100),
-    );
   }*/
+
 }

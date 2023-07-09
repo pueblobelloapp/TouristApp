@@ -15,10 +15,13 @@ class ProfileDialog extends GetView<PerfilController> {
   Widget build(BuildContext context) {
     final controller = Get.put<PerfilController>(PerfilController());
     return AlertDialog(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      contentPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
       content: SingleChildScrollView(
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               width: 350.0,
               child: Column(
                 children: [
@@ -118,7 +121,7 @@ class ProfileDialog extends GetView<PerfilController> {
               ),
             ),
             Positioned(
-              right: 38.0,
+              right: 50.0,
               bottom: 250.0,
               child: Container(
                 width: 59.0,
@@ -128,7 +131,7 @@ class ProfileDialog extends GetView<PerfilController> {
                   color: AppBasicColors.lightGrey,
                 ),
                 child: const Icon(
-                  BootstrapIcons.camera,
+                  BootstrapIcons.camera_fill,
                   color: AppBasicColors.black,
                 ),
               ),
@@ -139,51 +142,3 @@ class ProfileDialog extends GetView<PerfilController> {
     );
   }
 }
-
-/*
-Widget _textFormFielWidget(
-    TextEditingController controlador,
-    Icon icono,
-    String textGuide,
-    bool estate,
-    String msgError,
-    TextInputType textInputType) {
-  return TextFormField(
-    controller: controlador,
-    keyboardType: textInputType,
-    obscureText: estate,
-    decoration: InputDecoration(
-      prefixIcon: Padding(
-        padding: const EdgeInsets.only(left: 6.0, top: 0.0, right: 6.0),
-        child: icono,
-      ),
-      prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-      fillColor: const Color.fromRGBO(223, 230, 233, 1),
-      filled: true,
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5.0)),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5.0)),
-      border: const OutlineInputBorder(
-        borderSide: BorderSide.none,
-        //borderRadius: BorderRadius.circular(5.0)
-      ),
-      hintText: textGuide,
-      disabledBorder: InputBorder.none,
-      contentPadding: const EdgeInsets.all(16.0),
-      hintStyle: const TextStyle(color: Colors.black26),
-      //labelStyle: const TextStyle(color: Colors.green),
-    ),
-    validator: (value) {
-      if (value!.isEmpty) {
-        return msgError;
-      }
-    },
-    cursorColor: Colors.black,
-  );
-}
- */
-
-

@@ -15,9 +15,9 @@ class _CardImageListState extends State<CardImageList> {
   int _currentIndex = 0;
 
   List<CardImage> imageList = <CardImage>[
+    CardImage('Assets/Img/sitiocard.png'),
     CardImage('Assets/Img/Helenita.jpeg'),
-    CardImage('Assets/Img/Helenita.jpeg'),
-    CardImage('Assets/Img/Helenita.jpeg'),
+    CardImage('Assets/Img/sitiocard.png'),
     CardImage('Assets/Img/Helenita.jpeg')
   ];
 
@@ -40,7 +40,7 @@ class _CardImageListState extends State<CardImageList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 282.0,
       child: Stack(children: [
         PageView.builder(
             controller: _pageController,
@@ -51,23 +51,20 @@ class _CardImageListState extends State<CardImageList> {
         Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 40.0),
-                child: SmoothPageIndicator(
-                  controller: _pageController,
-                  count: imageList.length,
-                  effect: WormEffect(
-                      activeDotColor: AppBasicColors.green,
-                      dotColor: AppBasicColors.lightGrey,
-                      dotHeight: 9,
-                      dotWidth: 9),
-                  /* onDotClicked: ((index) {
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: SmoothPageIndicator(
+                controller: _pageController,
+                count: imageList.length,
+                effect: const WormEffect(
+                    activeDotColor: AppBasicColors.rgb,
+                    dotColor: AppBasicColors.lightGrey,
+                    dotHeight: 9,
+                    dotWidth: 9),
+                /* onDotClicked: ((index) {
                 _pageController.animateToPage(index,
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeInOut);
             }),*/
-                ),
               ),
             ))
       ]),
