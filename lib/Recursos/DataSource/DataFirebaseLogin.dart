@@ -26,7 +26,7 @@ class FirebaseLogin extends GetxController {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
           email: userLogin.email, password: userLogin.password);
 
-      print("Credenciales: $credential");
+      await credential.user!.getIdToken();
       postDetailsToFirestore(userLogin, credential).then((value) {
         print("Objeto guardado correctamente.");
       });
@@ -34,15 +34,16 @@ class FirebaseLogin extends GetxController {
     } on FirebaseException catch (e) {
       if (e.code == "email-already-in-use") {
         print("Correo electronico, se encuentra registrado.");
+        return Future.error("email-already-in-use");
       } else if (e.code == "invalid-email") {
-          //Correo invalido invalid-email
         print("Correo invalido Invalid-email");
+        return Future.error("invalid-email");
       } else if (e.code == "weak-password") {
-          //Contraseña es debil.
-        print("Contraseña es debil");
+        return Future.error("weak-password");
       } else {
-        //Error desconocido.
         print("Error inesperado: $e.code");
+        return Future.error("Error inesperado: $e.code");
+
       }
     }
   }

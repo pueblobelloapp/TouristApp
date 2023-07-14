@@ -144,7 +144,7 @@ Widget _formRegistration(BuildContext context) {
               ),
               textGuide: 'Contraseña',
               obscureText: true,
-              msgError: 'Error,digite una Contraseña',
+              msgError: 'Error, 6 caracteres minimo.',
               textInputType: TextInputType.text,
               fillColor: AppBasicColors.colorTextFormField,
             ),

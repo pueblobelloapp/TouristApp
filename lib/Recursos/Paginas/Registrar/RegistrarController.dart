@@ -51,18 +51,27 @@ class RegistrarController extends GetxController {
          user.name = userRegister["name"]!.isEmpty ? "Sin definir" :
                                                    userRegister["name"]!;
 
-         await _repositoryLogin.registerUser(user);
-         notificationMessage.message = "Registro exitoso";
-         notificationMessage.imagePath = "Assets/Img/thumb-down.gif";
+         await _repositoryLogin.registerUser(user).then((value) => {
+           notificationMessage.message = "Registro exitoso",
+           notificationMessage.imagePath = "Assets/Img/thumb-down.gif"
+         }).catchError((onError) {
+           if (onError == "email-already-in-use") {
+             notificationMessage.message = "Correo electronico, se encuentra registrado.";
+           } else if (onError == "invalid-email") {
+             notificationMessage.message = "Correo no valido.";
+           } else if (onError == "weak-password") {
+             notificationMessage.message = "Contraseña es debil, minimo 6 caracteres";
+           } else {
+             notificationMessage.message = onError.toString();
+           }
+           notificationMessage.showNotification(context);
+         });
        } else {
-         notificationMessage.message =
-         "Correo no cumple los requisitos.";
+         notificationMessage.message = "Correo no cumple los requisitos.";
        }
     } else {
-      notificationMessage.message =
-                "Contraseñas no cumplen con las validaciones.";
+      notificationMessage.message = "Contraseñas no cumplen con las validaciones.";
     }
-
     notificationMessage.showNotification(context);
   }
 
