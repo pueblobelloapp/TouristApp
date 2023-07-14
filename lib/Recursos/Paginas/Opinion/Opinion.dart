@@ -131,7 +131,7 @@ class Opinion extends GetView<OpinionController> {
                                   onPressed: () {
                                     Get.back();
                                   });
-                          notificationMessage.show(context);
+                          notificationMessage.showNotification(context);
                         }),
                   ),
                 )

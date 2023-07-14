@@ -21,11 +21,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formkey = GlobalKey<FormState>();
-
-  final TextEditingController _emailL = TextEditingController();
-  final TextEditingController _passwordL = TextEditingController();
-
   String mensajeNotificacion = "Error";
 
   final ControllerLogin _controllerLogin = getIt();
@@ -37,8 +32,8 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-    _emailL.dispose();
-    _passwordL.dispose();
+    _controllerLogin.emailL.dispose();
+    _controllerLogin.passwordL.dispose();
     super.dispose();
   }
 
@@ -116,12 +111,12 @@ class _LoginState extends State<Login> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Form(
-          key: _formkey,
+          key: _controllerLogin.formKey,
           child: Column(
             children: [
               //TextFormField correo
               CustomTextFormField(
-                  controller: _emailL,
+                  controller: _controllerLogin.emailL,
                   icon: const Icon(
                     BootstrapIcons.envelope,
                     color: AppBasicColors.black,
@@ -135,7 +130,7 @@ class _LoginState extends State<Login> {
               ),
               //TextFormField Contraseña
               CustomTextFormField(
-                  controller: _passwordL,
+                  controller: _controllerLogin.passwordL,
                   icon: const Icon(
                     BootstrapIcons.lock,
                     color: AppBasicColors.black,
@@ -153,7 +148,8 @@ class _LoginState extends State<Login> {
                 child: ElevatedButton(
                     style: Constants.buttonPrimary,
                     onPressed: () {
-                      getLoginUser(_emailL.text, _passwordL.text);
+                      print("Itento sesion");
+                      _controllerLogin.getLoginUser(context);
                     },
                     child: isLoading
                         ? Center(
@@ -179,65 +175,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-  getLoginUser(String correo, String contrasena) {
-    bool isDialogShown = false;
-    final bool isValidEmail = EmailValidator.validate(correo);
-
-    if (_formkey.currentState!.validate() && isValidEmail) {
-      setState(() {
-        isLoading = true;
-      });
-
-      if (!isDialogShown) {
-        showDialog(
-            context: context,
-            builder: (BuildContext contexr) {
-              return AlertDialog(
-                content: Row(
-                  children: const [
-                    CircularProgressIndicator(color: AppBasicColors.blue),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Text(
-                      'Iniciando sesión',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              );
-            });
-        isDialogShown = false;
-      }
-
-      userLogin.email = correo;
-      userLogin.password = contrasena;
-      _controllerLogin
-          .validateLoginUser(userLogin)
-          .then((value) =>
-              {print("Inicio de sesion Correcto."), Get.offAll(const Home())})
-          .catchError((onError) {
-        if (onError == "wrong-password") {
-          mensajeNotification = "Contraseña incorrecta";
-        } else if (onError == "user-not-found") {
-          mensajeNotification = "Email no existe.";
-        } else {
-          mensajeNotification = onError.toString();
-        }
-
-        messageController.messageError("Validacion", mensajeNotification);
-      }).whenComplete(() {
-        setState(() {
-          isLoading = false;
-        });
-        isDialogShown = false;
-      });
-    }
-
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   Widget _btnGoogle() {
     return Container(

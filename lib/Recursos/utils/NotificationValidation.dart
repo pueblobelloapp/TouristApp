@@ -3,9 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class NotificationMessage {
-  final String imagePath;
-  final String title;
-  final String message;
+  late String imagePath;
+  late String title;
+  late String message;
   final bool flipVertical;
   final bool shouldTransform;
   final VoidCallback? onPressed;
@@ -18,7 +18,7 @@ class NotificationMessage {
       this.shouldTransform = false,
       this.onPressed});
 
-  void show(BuildContext context) {
+  void showNotification(BuildContext context) {
     final double imageTopMargin = shouldTransform ? 0.0 : 150.0;
     const double imageLeftMargin = 90.0;
     showDialog(
