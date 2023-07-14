@@ -212,13 +212,13 @@ Widget _formRegistration(BuildContext context) {
             const SizedBox(
               height: 35.0,
             ),
-            _btonRegistration()
+            _btonRegistration(context)
           ],
         )),
   );
 }
 
-Widget _btonRegistration() {
+Widget _btonRegistration(BuildContext context) {
   return Container(
     width: double.infinity,
     height: 50.0,
@@ -237,7 +237,7 @@ Widget _btonRegistration() {
               "passVerify": controller.passwordConfR.text,
               "birthDate": controller.dateOfBirthR.text
             };
-            controller.validateRegisterUser(dataRegister);
+            controller.validateRegisterUser(dataRegister, context);
           } else {
             print("Error validaciones");
           }

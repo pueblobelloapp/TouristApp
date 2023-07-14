@@ -16,9 +16,15 @@ class ValidationUtils extends GetxController {
     if (0 == password.compareTo(passwordVerify) && password.isNotEmpty) {
       return true;
     }
-
     return false;
   }
 
-
+  bool validPasswordRegister(String password, String passwordVerify) {
+    if (validPassword(password) &&
+        validPasswordEqual(password, passwordVerify)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

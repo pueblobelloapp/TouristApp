@@ -1,7 +1,10 @@
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Repository/RepositoryLogin.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
+import 'package:app_turismo_usuario/Recursos/utils/NotificationValidation.dart';
+import 'package:app_turismo_usuario/Recursos/utils/ValidationsUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,45 +14,56 @@ class RegistrarController extends GetxController {
   TextEditingController passwordConfR = TextEditingController();
   TextEditingController nameR = TextEditingController();
   TextEditingController dateOfBirthR = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
   final GetxUtils messageController = Get.put(GetxUtils());
   final RepositoryLogin _repositoryLogin = getIt();
 
-  Future<void> validateRegisterUser(Map<String, String> userRegister) async {
-    if (validPassword(userRegister["pass"]!)) {
-      if (validPasswordEqual(
-          userRegister["pass"]!, userRegister["passVerify"]!)) {
-        print("Todo Ok");
-        UserLogin user = UserLogin();
-        user.password = userRegister["pass"]!;
-        user.email = userRegister["email"]!;
-        user.birthDate = userRegister["birthDate"]!;
-        user.name = userRegister["name"]!;
+  final controller = Get.put<ValidationUtils>(ValidationUtils());
 
-        await _repositoryLogin.registerUser(user);
-      } else {
-        //Error, contraseñas no son iguales
-        print("Validar contraseñas");
-      }
+  NotificationMessage notificationMessage =
+  NotificationMessage(
+      imagePath: 'Assets/Img/error.gif',
+      title: 'Registro',
+      message: 'Mensaje',
+      flipVertical: true,
+      shouldTransform: true,
+      onPressed: () {
+        Get.back();
+      });
+
+  Future<void> validateRegisterUser(Map<String, String> userRegister,
+      BuildContext context) async {
+
+    final bool isValidEmail = EmailValidator.validate(userRegister["email"]!);
+
+    if (controller.validPasswordRegister(userRegister["pass"]!,
+                                         userRegister["passVerify"]!)) {
+
+      print(isValidEmail);
+       if (isValidEmail) {
+         print("Todo Ok");
+         UserLogin user = UserLogin();
+         user.password = userRegister["pass"]!;
+         user.email = userRegister["email"]!;
+         user.birthDate = userRegister["birthDate"]!.isEmpty ? "Sin definir" :
+                                                   userRegister["birthDate"]!;
+         user.name = userRegister["name"]!.isEmpty ? "Sin definir" :
+                                                   userRegister["name"]!;
+
+         await _repositoryLogin.registerUser(user);
+         notificationMessage.message = "Registro exitoso";
+         notificationMessage.imagePath = "Assets/Img/thumb-down.gif";
+       } else {
+         notificationMessage.message =
+         "Correo no cumple los requisitos.";
+       }
     } else {
-      print("Contraseña no cumple con la validaciones correctas");
+      notificationMessage.message =
+                "Contraseñas no cumplen con las validaciones.";
     }
-  }
 
-  bool validPassword(String password) {
-    if (password.isEmpty) {
-      return false;
-    } else {
-      RegExp regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,15}$');
-      return regex.hasMatch(password);
-    }
-  }
-
-  bool validPasswordEqual(String password, String passwordVerify) {
-    if (0 == password.compareTo(passwordVerify) && password.isNotEmpty)
-      return true;
-
-    return false;
+    notificationMessage.showNotification(context);
   }
 
   Future<DateTime?> selectDate(BuildContext context) async {
