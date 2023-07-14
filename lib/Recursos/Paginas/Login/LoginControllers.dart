@@ -24,6 +24,7 @@ class ControllerLogin extends GetxController {
       title: 'Inicio de sesion',
       message: 'Mensaje',
       flipVertical: true,
+      shouldTransform: true,
       onPressed: () {
         Get.back();
       });
@@ -74,10 +75,7 @@ class ControllerLogin extends GetxController {
      print(isValidEmail);
 
     if (formKey.currentState!.validate() && isValidEmail) {
-      print("Validacion completada 1");
-      if (controller.validPassword(passwordL.text)) {
-
-        print("Validacion completada 2");
+      if (controller.validPassword(passwordL.text.trim())) {
         userLogin.password = passwordL.text.trim();
         userLogin.email = emailL.text.trim();
 
@@ -94,8 +92,6 @@ class ControllerLogin extends GetxController {
           notificationMessage.showNotification(context);
         });
       }
-    } else {
-      print("Error");
     }
   }
 }

@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class NotificationMessage {
-  late String imagePath;
+  final String imagePath;
   late String title;
   late String message;
   final bool flipVertical;

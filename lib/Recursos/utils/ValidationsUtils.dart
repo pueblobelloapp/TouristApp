@@ -7,14 +7,15 @@ class ValidationUtils extends GetxController {
     if (password.isEmpty) {
       return false;
     } else {
-      RegExp regex = RegExp(r"^(?=.{5,8}$).*$");
+      RegExp regex = RegExp(r"^(?=.{1,8}$).*$");
       return regex.hasMatch(password);
     }
   }
 
   bool validPasswordEqual(String password, String passwordVerify) {
-    if (0 == password.compareTo(passwordVerify) && password.isNotEmpty)
+    if (0 == password.compareTo(passwordVerify) && password.isNotEmpty) {
       return true;
+    }
 
     return false;
   }
