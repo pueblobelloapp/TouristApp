@@ -91,7 +91,15 @@ class ControllerLogin extends GetxController {
           }
           notificationMessage.showNotification(context);
         });
+      } else {
+        print("Error");
+        notificationMessage.message = "Comprueba la contraseña";
+        notificationMessage.showNotification(context);
       }
+    } else {
+      print("Error correo");
+      notificationMessage.message = "Comprobar correo electronico";
+      notificationMessage.showNotification(context);
     }
   }
 }

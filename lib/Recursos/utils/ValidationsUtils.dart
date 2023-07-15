@@ -7,7 +7,7 @@ class ValidationUtils extends GetxController {
     if (password.isEmpty) {
       return false;
     } else {
-      RegExp regex = RegExp(r"^(?=.{1,8}$).*$");
+      RegExp regex = RegExp(r"^(?=.{6,8}$).*$");
       return regex.hasMatch(password);
     }
   }

@@ -148,7 +148,6 @@ class _LoginState extends State<Login> {
                 child: ElevatedButton(
                     style: Constants.buttonPrimary,
                     onPressed: () {
-                      print("Itento sesion");
                       _controllerLogin.getLoginUser(context);
                     },
                     child: isLoading
