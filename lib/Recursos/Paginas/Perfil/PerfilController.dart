@@ -10,16 +10,17 @@ class PerfilController extends GetxController {
   TextEditingController birthdateControllerP = TextEditingController();
 
   // Variable para guardar la foto
-  File? selectedPhoto;
+  var selectedPhoto = XFile('').obs;
+  var imagePerfilUrl = ''.obs;
 
   // Método para seleccionar una foto
   void selectPhoto() async {
     final imagePicker = ImagePicker();
-    final pickedImage =
+    final XFile? pickedImage =
         await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
-      selectedPhoto = File(pickedImage.path);
+      selectedPhoto.value = pickedImage;
       update();
     }
   }

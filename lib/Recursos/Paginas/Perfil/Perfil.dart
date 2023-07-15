@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
@@ -34,7 +36,7 @@ class ProfileDialog extends GetView<PerfilController> {
                       child: Center(
                         child: controller.selectedPhoto != null
                             ? Image.file(
-                                controller.selectedPhoto!,
+                                controller.selectedPhoto! as File,
                                 fit: BoxFit.cover,
                               )
                             : const Icon(

@@ -7,7 +7,7 @@ class NotificationMessage {
   late String title;
   late String message;
   final bool flipVertical;
-  final bool shouldTransform;
+  late bool shouldTransform;
   final VoidCallback? onPressed;
 
   NotificationMessage(

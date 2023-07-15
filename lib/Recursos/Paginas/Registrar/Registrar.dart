@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -94,21 +96,25 @@ Widget _title() {
 }
 
 Widget _containerPhoto() {
-  return Center(
-      child: Container(
-          width: 148.0,
-          height: 151.0,
-          color: AppBasicColors.rgb,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                BootstrapIcons.person,
-                color: AppBasicColors.white,
-                size: 50.0,
-              ),
-            ],
-          )));
+  final controller = Get.put<RegistrarController>(RegistrarController());
+  return GestureDetector(
+    onTap: () => controller.selectPhoto(),
+    child: Container(
+      width: 148.0,
+      height: 151.0,
+      color: AppBasicColors.rgb,
+      child: Center(
+        child: controller.selectedPhoto.value.path != ""
+            ? Image.file(File(controller.selectedPhoto.value.path),
+          fit: BoxFit.cover)
+            : const Icon(
+          BootstrapIcons.person,
+          size: 60.0,
+          color: AppBasicColors.white,
+        ),
+      ),
+    ),
+  );
 }
 
 Widget _formRegistration(BuildContext context) {

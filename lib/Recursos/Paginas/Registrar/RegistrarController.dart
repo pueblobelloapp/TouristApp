@@ -7,6 +7,7 @@ import 'package:app_turismo_usuario/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegistrarController extends GetxController {
   TextEditingController emailR = TextEditingController();
@@ -32,46 +33,66 @@ class RegistrarController extends GetxController {
         Get.back();
       });
 
+  // Variable para guardar la foto
+  var selectedPhoto = XFile('').obs;
+  var imagePerfilUrl = ''.obs;
+
+  // Método para seleccionar una foto
+  void selectPhoto() async {
+    final imagePicker = ImagePicker();
+    final XFile? pickedImage =
+    await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      selectedPhoto.value = pickedImage;
+      update();
+    }
+  }
+
   Future<void> validateRegisterUser(Map<String, String> userRegister,
       BuildContext context) async {
 
     final bool isValidEmail = EmailValidator.validate(userRegister["email"]!);
 
-    if (controller.validPasswordRegister(userRegister["pass"]!,
-                                         userRegister["passVerify"]!)) {
+    if (controller.validPassword(userRegister["pass"]!)) {
+      if (controller.validPasswordEqual(userRegister["pass"]!,
+          userRegister["passVerify"]!)) {
+        if (isValidEmail) {
+          print("Todo Ok");
+          UserLogin user = UserLogin();
+          user.password = userRegister["pass"]!;
+          user.email = userRegister["email"]!;
+          user.birthDate = userRegister["birthDate"]!.isEmpty ? "Sin definir" :
+          userRegister["birthDate"]!;
+          user.name = userRegister["name"]!.isEmpty ? "Sin definir" :
+          userRegister["name"]!;
 
-      print(isValidEmail);
-       if (isValidEmail) {
-         print("Todo Ok");
-         UserLogin user = UserLogin();
-         user.password = userRegister["pass"]!;
-         user.email = userRegister["email"]!;
-         user.birthDate = userRegister["birthDate"]!.isEmpty ? "Sin definir" :
-                                                   userRegister["birthDate"]!;
-         user.name = userRegister["name"]!.isEmpty ? "Sin definir" :
-                                                   userRegister["name"]!;
-
-         await _repositoryLogin.registerUser(user).then((value) => {
-           notificationMessage.message = "Registro exitoso",
-           notificationMessage.imagePath = "Assets/Img/thumb-down.gif"
-         }).catchError((onError) {
-           if (onError == "email-already-in-use") {
-             notificationMessage.message = "Correo electronico, se encuentra registrado.";
-           } else if (onError == "invalid-email") {
-             notificationMessage.message = "Correo no valido.";
-           } else if (onError == "weak-password") {
-             notificationMessage.message = "Contraseña es debil, minimo 6 caracteres";
-           } else {
-             notificationMessage.message = onError.toString();
-           }
-           notificationMessage.showNotification(context);
-         });
-       } else {
-         notificationMessage.message = "Correo no cumple los requisitos.";
-       }
+          await _repositoryLogin.registerUser(user).then((value) => {
+            notificationMessage.message = "Registro exitoso",
+            notificationMessage.imagePath = "Assets/Img/thumb-down.gif",
+            notificationMessage.shouldTransform = false
+          }).catchError((onError) {
+            if (onError == "email-already-in-use") {
+              notificationMessage.message = "Correo electronico, se encuentra registrado.";
+            } else if (onError == "invalid-email") {
+              notificationMessage.message = "Correo no valido.";
+            } else if (onError == "weak-password") {
+              notificationMessage.message = "Contraseña es debil, minimo 6 caracteres";
+            } else {
+              notificationMessage.message = onError.toString();
+            }
+            notificationMessage.showNotification(context);
+          });
+        } else {
+          notificationMessage.message = "Correo no cumple los requisitos.";
+        }
+      } else {
+        notificationMessage.message = "Contraseñas no coinciden.";
+      }
     } else {
-      notificationMessage.message = "Contraseñas no cumplen con las validaciones.";
+      notificationMessage.message = "Minimo 6 caracteres y maximo 8.";
     }
+
     notificationMessage.showNotification(context);
   }
 

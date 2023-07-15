@@ -1,14 +1,17 @@
 import 'dart:io';
 
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class FirebaseLogin extends GetxController {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final controllerPerfil = Get.put<PerfilController>(PerfilController());
 
   User get currentUser {
     final myUsers = FirebaseAuth.instance.currentUser;
@@ -27,7 +30,7 @@ class FirebaseLogin extends GetxController {
           email: userLogin.email, password: userLogin.password);
 
       await credential.user!.getIdToken();
-      postDetailsToFirestore(userLogin, credential).then((value) {
+      postDetailsToFirestore(userLogin).then((value) {
         print("Objeto guardado correctamente.");
       });
 
@@ -48,8 +51,7 @@ class FirebaseLogin extends GetxController {
     }
   }
 
-  Future<void> postDetailsToFirestore(UserLogin userLogin,
-      UserCredential userCredential) async {
+  Future<void> postDetailsToFirestore(UserLogin userLogin) async {
     var user = _auth.currentUser;
     final ref = firebaseFiresTore.doc('users/${user!.uid}');
 
@@ -59,9 +61,8 @@ class FirebaseLogin extends GetxController {
           'email': userLogin.email,
           'birthDate': userLogin.birthDate,
           'name': userLogin.name,
-          'image': 'assets/img/user.jpg'
+          'image': ''
         }), SetOptions(merge: false));
-    messageController.messageInfo("Registro", "Se registro exitoso.");
   }
 
   Future<void> getLogin(UserLogin userLogin) async {
@@ -85,4 +86,46 @@ class FirebaseLogin extends GetxController {
       throw 'Error al cerrar sesión: $e';
     }
   }
+
+  Future<void> saveImageProfile() async {
+    User myusuario = currentUser;
+    String urlPhoto;
+    //Validacion si existe una fotografia seleccionada.
+    if (controllerPerfil.selectedPhoto.value.path.isNotEmpty) {
+      final ref = firebaseFiresTore.doc('users/${myusuario.uid}');
+      urlPhoto = await uploadPhoto(
+          controllerPerfil.selectedPhoto.value, myusuario.uid);
+      print("Foto subida: $urlPhoto");
+
+      final fileName = controllerPerfil.selectedPhoto.value.name;
+      final imagePath = '${currentUser.uid}/mySiteImages/$fileName';
+
+      final storageRef = storage.ref(imagePath);
+      await storageRef
+          .putFile(File(controllerPerfil.selectedPhoto.value.path));
+      final url = await storageRef.getDownloadURL();
+      await ref
+          .update({'foto': url})
+          .then((value) =>  {
+        messageController.messageInfo("Perfil", "Foto actualizada"),
+        controllerPerfil.imagePerfilUrl.value = url
+
+          }).onError((error, stackTrace) => {
+            messageController.messageError(
+                "Error perfil", "Error al guardar: " + error.toString())
+        });
+
+    } else {
+      messageController.messageError("Perfil", "Sin foto seleccionada");
+    }
+  }
+
+  Future<String> uploadPhoto(XFile? file, String id) async {
+    final storageReference = storage.ref().child('post/${id}/${file?.path}');
+    await storageReference.putFile(File(file!.path));
+    return await storageReference.getDownloadURL();
+  }
+
+
+
 }
