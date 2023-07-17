@@ -2,6 +2,7 @@ import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Home/home.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
@@ -174,25 +175,22 @@ class _LoginState extends State<Login> {
     );
   }
 
-
   Widget _btnGoogle() {
     return Container(
-      margin: const EdgeInsets.fromLTRB(10, 90, 10, 0),
-      width: double.infinity,
-      height: 50.0,
-      decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppBasicColors.rgb, width: 2.0)),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Colors.transparent,
-        ),
-        onPressed: () {
-          //Get.find<ControllerLogin>().signInWithGoogle();
-        },
-        child: const Text('Iniciar con Google'),
-      ),
-    );
+        margin: const EdgeInsets.fromLTRB(10, 90, 10, 0),
+        width: double.infinity,
+        height: 50.0,
+        decoration: BoxDecoration(
+            // borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppBasicColors.rgb, width: 2.0)),
+        child: CustomElevatedButton(
+          color: AppBasicColors.transparent,
+          borderRadius: 0,
+          onPressed: () {
+            //Get.find<ControllerLogin>().signInWithGoogle();
+          },
+          text: 'Iniciar con Google',
+        ));
   }
 
   /* Widget _textFormFielWidget(

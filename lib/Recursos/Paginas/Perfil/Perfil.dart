@@ -36,7 +36,8 @@ class ProfileDialog extends GetView<PerfilController> {
                       child: Center(
                         child: controller.selectedPhoto != null
                             ? Image.file(
-                                controller.selectedPhoto! as File,
+                                File(controller.selectedPhoto.value
+                                    .path), //controller.selectedPhoto! as File,
                                 fit: BoxFit.cover,
                               )
                             : const Icon(
