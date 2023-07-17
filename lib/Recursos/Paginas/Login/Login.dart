@@ -185,6 +185,7 @@ class _LoginState extends State<Login> {
             border: Border.all(color: AppBasicColors.rgb, width: 2.0)),
         child: CustomElevatedButton(
           color: AppBasicColors.transparent,
+          fontSize: 14,
           borderRadius: 0,
           onPressed: () {
             //Get.find<ControllerLogin>().signInWithGoogle();
