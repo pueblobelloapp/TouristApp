@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Registrar/RegistrarController.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,8 +11,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FirebaseLogin extends GetxController {
+  final PerfilController controllerPerfil = Get.put(PerfilController());
+  //final RegistrarController controllerRegistrar = Get.put(RegistrarController());
+
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final controllerPerfil = Get.put<PerfilController>(PerfilController());
 
   User get currentUser {
     final myUsers = FirebaseAuth.instance.currentUser;
@@ -32,6 +35,8 @@ class FirebaseLogin extends GetxController {
       await credential.user!.getIdToken();
       postDetailsToFirestore(userLogin).then((value) {
         print("Objeto guardado correctamente.");
+        saveImageProfile();
+        print("Guardando foto de perfil.");
       });
 
     } on FirebaseException catch (e) {
@@ -46,7 +51,6 @@ class FirebaseLogin extends GetxController {
       } else {
         print("Error inesperado: $e.code");
         return Future.error("Error inesperado: $e.code");
-
       }
     }
   }
@@ -90,8 +94,11 @@ class FirebaseLogin extends GetxController {
   Future<void> saveImageProfile() async {
     User myusuario = currentUser;
     String urlPhoto;
+    print("Usuario registrado: ${currentUser.uid}" );
     //Validacion si existe una fotografia seleccionada.
+    print("Con url de photo ${controllerPerfil.selectedPhoto.value.path}");
     if (controllerPerfil.selectedPhoto.value.path.isNotEmpty) {
+
       final ref = firebaseFiresTore.doc('users/${myusuario.uid}');
       urlPhoto = await uploadPhoto(
           controllerPerfil.selectedPhoto.value, myusuario.uid);
@@ -105,7 +112,7 @@ class FirebaseLogin extends GetxController {
           .putFile(File(controllerPerfil.selectedPhoto.value.path));
       final url = await storageRef.getDownloadURL();
       await ref
-          .update({'foto': url})
+          .update({'image': url})
           .then((value) =>  {
         messageController.messageInfo("Perfil", "Foto actualizada"),
         controllerPerfil.imagePerfilUrl.value = url
@@ -115,8 +122,6 @@ class FirebaseLogin extends GetxController {
                 "Error perfil", "Error al guardar: " + error.toString())
         });
 
-    } else {
-      messageController.messageError("Perfil", "Sin foto seleccionada");
     }
   }
 

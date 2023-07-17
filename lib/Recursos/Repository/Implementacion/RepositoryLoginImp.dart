@@ -5,7 +5,7 @@ import 'package:app_turismo_usuario/Recursos/Repository/RepositoryLogin.dart';
 import 'package:app_turismo_usuario/main.dart';
 
 class RepositoryLoginImp extends RepositoryLogin {
-    final FirebaseLogin  _firebaseLogin = getIt();
+    final FirebaseLogin _firebaseLogin = getIt();
 
   @override
   Future<void> loginUser(UserLogin user) {

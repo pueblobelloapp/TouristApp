@@ -99,21 +99,22 @@ Widget _containerPhoto() {
   final controller = Get.put<RegistrarController>(RegistrarController());
   return GestureDetector(
     onTap: () => controller.selectPhoto(),
-    child: Container(
+    child: Obx(() => Container(
       width: 148.0,
       height: 151.0,
-      color: AppBasicColors.rgb,
+      color: controller.selectedPhoto.value.path == "" ?
+                AppBasicColors.rgb : AppBasicColors.rgbTransparent,
       child: Center(
         child: controller.selectedPhoto.value.path != ""
             ? Image.file(File(controller.selectedPhoto.value.path),
-          fit: BoxFit.cover)
+            fit: BoxFit.cover)
             : const Icon(
           BootstrapIcons.person,
           size: 60.0,
           color: AppBasicColors.white,
         ),
       ),
-    ),
+    ))
   );
 }
 

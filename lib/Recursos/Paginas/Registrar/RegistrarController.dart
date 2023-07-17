@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegistrarController extends GetxController {
+  final RepositoryLogin _repositoryLogin = getIt();
+
   TextEditingController emailR = TextEditingController();
   TextEditingController passwordR = TextEditingController();
   TextEditingController passwordConfR = TextEditingController();
@@ -18,7 +20,6 @@ class RegistrarController extends GetxController {
 
   final formKey = GlobalKey<FormState>();
   final GetxUtils messageController = Get.put(GetxUtils());
-  final RepositoryLogin _repositoryLogin = getIt();
 
   final controller = Get.put<ValidationUtils>(ValidationUtils());
 
@@ -44,6 +45,7 @@ class RegistrarController extends GetxController {
     await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
+      print("Tomando valor de fotografia.");
       selectedPhoto.value = pickedImage;
       update();
     }

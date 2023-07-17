@@ -1,7 +1,9 @@
 import 'package:app_turismo_usuario/Recursos/DataSource/DataFirebaseLogin.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Registrar/RegistrarController.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/myApp.dart';
 import 'package:app_turismo_usuario/Recursos/Repository/Implementacion/RepositoryLoginImp.dart';
 import 'package:app_turismo_usuario/Recursos/Repository/RepositoryLogin.dart';
+import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +18,8 @@ void main() async {
 
   await injectDependencies();
   Get.put(ControllerLogin());
+  Get.put(RegistrarController());
+  Get.put(GetxUtils());
   runApp(MyApp());
 }
 
@@ -25,6 +29,8 @@ Future<void> injectDependencies() async {
 
   //Controllers
   getIt.registerLazySingleton(() => ControllerLogin());
+  getIt.registerLazySingleton(() => RegistrarController());
+  getIt.registerLazySingleton(() => GetxUtils());
 
   //Repositorios
   getIt.registerLazySingleton<RepositoryLogin>(() => RepositoryLoginImp());
