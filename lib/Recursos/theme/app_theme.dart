@@ -14,9 +14,11 @@ class AppBasicColors {
   static const greyRgba = Color.fromRGBO(179, 190, 195, 1);
   static const greyMun = Color.fromRGBO(223, 230, 233, 1);
   static const blue = Color.fromRGBO(28, 162, 240, 1);
+  static const transparent = Color.fromRGBO(0, 0, 0, 0);
 
   static const colorTextFormField = Color.fromRGBO(223, 230, 233, 1);
   static const colorButtonCancelar = Color.fromRGBO(45, 52, 54, 1);
+  static const colorElevatedButtonBlue = Color.fromRGBO(33, 150, 243, 1);
   static const greenWhat = Color.fromRGBO(37, 212, 103, 1);
   static const redInst = Color.fromRGBO(238, 0, 18, 1);
   static const blueMess = Color.fromRGBO(0, 132, 255, 1);
