@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,10 @@ class ProfileDialog extends GetView<PerfilController> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put<PerfilController>(PerfilController());
+    final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
+
+    controller.dataPerfil();
+
     return AlertDialog(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -28,24 +33,24 @@ class ProfileDialog extends GetView<PerfilController> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () => controller.selectPhoto(),
-                    child: Container(
+                    onTap: () => controllerPhoto.selectPhoto(),
+                    child: Obx(() => Container(
                       width: 148.0,
                       height: 151.0,
-                      color: AppBasicColors.rgb,
+                      color: controllerPhoto.selectedPhoto.value.path == "" ?
+                      AppBasicColors.rgb : AppBasicColors.rgbTransparent,
                       child: Center(
-                        child: controller.selectedPhoto != null
-                            ? Image.file(
-                                controller.selectedPhoto! as File,
-                                fit: BoxFit.cover,
-                              )
+                        child: controllerPhoto.selectedPhoto.value.path != ""
+                            ? Image.file(File(controllerPhoto.selectedPhoto.value.path),
+                          fit: BoxFit.cover,
+                        )
                             : const Icon(
-                                BootstrapIcons.person,
-                                size: 60.0,
-                                color: AppBasicColors.white,
-                              ),
+                          BootstrapIcons.person,
+                          size: 60.0,
+                          color: AppBasicColors.white,
+                        ),
                       ),
-                    ),
+                    ))
                   ),
                   const SizedBox(height: 35.0),
                   //textFormFiel correo

@@ -1,29 +1,19 @@
 import 'dart:io';
+import 'package:app_turismo_usuario/Recursos/DataSource/DataFirebaseLogin.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PerfilController extends GetxController {
+
+  final controllerLogin = Get.put<FirebaseLogin>(FirebaseLogin());
+
   TextEditingController emailControllerP = TextEditingController();
   TextEditingController nameControllerP = TextEditingController();
   TextEditingController birthdateControllerP = TextEditingController();
-
-  // Variable para guardar la foto
-  var selectedPhoto = XFile('').obs;
-  var imagePerfilUrl = ''.obs;
-
-  // Método para seleccionar una foto
-  void selectPhoto() async {
-    final imagePicker = ImagePicker();
-    final XFile? pickedImage =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-
-    if (pickedImage != null) {
-      selectedPhoto.value = pickedImage;
-      update();
-    }
-  }
 
   void saveChanges() {
     // Obtengo los valores de los campos de texto
@@ -31,19 +21,7 @@ class PerfilController extends GetxController {
     String nombre = nameControllerP.text;
     String fechaNacimiento = birthdateControllerP.text;
 
-    // Verifica si hay cambios realizados
-    /*bool changesMade = false;
-    if (correo.isNotEmpty || nombre.isNotEmpty || fechaNacimiento.isNotEmpty) {
-      changesMade = true;
-    }*/
-
-    // Si no hay cambios realizados, no muestra la notificación
-    /*if (!changesMade) {
-      Get.back();
-      return;
-    }*/
-
-    Get.back(); // Cierra el diálogo
+    Get.back();
 
     Get.snackbar(
       'Exito',
@@ -51,6 +29,11 @@ class PerfilController extends GetxController {
       backgroundColor: AppBasicColors.green,
       colorText: AppBasicColors.white,
     );
+  }
+
+  Future<void> dataPerfil() async {
+    Stream<QuerySnapshot> usuarioLogin = controllerLogin.getUser();
+    print("Usuario iniciado: ${usuarioLogin}");
   }
 
   Future<DateTime?> selectDate(BuildContext context) async {

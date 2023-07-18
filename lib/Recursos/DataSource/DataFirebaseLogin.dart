@@ -4,6 +4,7 @@ import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Registrar/RegistrarController.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
+import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,10 +12,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FirebaseLogin extends GetxController {
-  final PerfilController controllerPerfil = Get.put(PerfilController());
-  //final RegistrarController controllerRegistrar = Get.put(RegistrarController());
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
 
   User get currentUser {
     final myUsers = FirebaseAuth.instance.currentUser;
@@ -96,26 +96,26 @@ class FirebaseLogin extends GetxController {
     String urlPhoto;
     print("Usuario registrado: ${currentUser.uid}" );
     //Validacion si existe una fotografia seleccionada.
-    print("Con url de photo ${controllerPerfil.selectedPhoto.value.path}");
-    if (controllerPerfil.selectedPhoto.value.path.isNotEmpty) {
+    print("Con url de photo ${controllerPhoto.selectedPhoto.value.path}");
+    if (controllerPhoto.selectedPhoto.value.path.isNotEmpty) {
 
       final ref = firebaseFiresTore.doc('users/${myusuario.uid}');
       urlPhoto = await uploadPhoto(
-          controllerPerfil.selectedPhoto.value, myusuario.uid);
+          controllerPhoto.selectedPhoto.value, myusuario.uid);
       print("Foto subida: $urlPhoto");
 
-      final fileName = controllerPerfil.selectedPhoto.value.name;
+      final fileName = controllerPhoto.selectedPhoto.value.name;
       final imagePath = '${currentUser.uid}/mySiteImages/$fileName';
 
       final storageRef = storage.ref(imagePath);
       await storageRef
-          .putFile(File(controllerPerfil.selectedPhoto.value.path));
+          .putFile(File(controllerPhoto.selectedPhoto.value.path));
       final url = await storageRef.getDownloadURL();
       await ref
           .update({'image': url})
           .then((value) =>  {
         messageController.messageInfo("Perfil", "Foto actualizada"),
-        controllerPerfil.imagePerfilUrl.value = url
+        controllerPhoto.imagePerfilUrl.value = url
 
           }).onError((error, stackTrace) => {
             messageController.messageError(
@@ -131,6 +131,14 @@ class FirebaseLogin extends GetxController {
     return await storageReference.getDownloadURL();
   }
 
+  Stream<QuerySnapshot> getUser() {
+    var user = _auth.currentUser;
+    print("User sesion: ${user!.uid}");
 
+    return firebaseFiresTore
+        .collection('users')
+        .where("uid", isEqualTo: user!.uid)
+        .snapshots();
+  }
 
 }
