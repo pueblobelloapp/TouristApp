@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CardImageList extends StatefulWidget {
-  const CardImageList({super.key});
+  final List<String> imageList;
+
+  const CardImageList({super.key, required this.imageList});
 
   @override
   State<CardImageList> createState() => _CardImageListState();
@@ -14,11 +16,11 @@ class _CardImageListState extends State<CardImageList> {
   PageController _pageController = PageController();
   int _currentIndex = 0;
 
-  List<CardImage> imageList = <CardImage>[
-    CardImage('Assets/Img/sitiocard.png'),
-    CardImage('Assets/Img/Helenita.jpeg'),
-    CardImage('Assets/Img/sitiocard.png'),
-    CardImage('Assets/Img/Helenita.jpeg')
+  List<String> imageList = [
+    /*'Assets/Img/sitiocard.png',
+    'Assets/Img/Helenita.jpeg',
+    'Assets/Img/sitiocard.png',
+    'Assets/Img/Helenita.jpeg'*/
   ];
 
   @override
@@ -44,9 +46,12 @@ class _CardImageListState extends State<CardImageList> {
       child: Stack(children: [
         PageView.builder(
             controller: _pageController,
-            itemCount: imageList.length,
+            itemCount: widget.imageList.length,
             itemBuilder: ((context, index) {
-              return imageList[index];
+              return CardImage(
+                widget.imageList[index],
+                key: UniqueKey(),
+              );
             })),
         Align(
             alignment: Alignment.bottomCenter,
@@ -54,7 +59,7 @@ class _CardImageListState extends State<CardImageList> {
               padding: const EdgeInsets.only(bottom: 20.0),
               child: SmoothPageIndicator(
                 controller: _pageController,
-                count: imageList.length,
+                count: widget.imageList.length,
                 effect: const WormEffect(
                     activeDotColor: AppBasicColors.rgb,
                     dotColor: AppBasicColors.lightGrey,

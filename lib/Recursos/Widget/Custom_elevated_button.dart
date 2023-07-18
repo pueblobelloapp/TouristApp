@@ -7,9 +7,11 @@ class CustomElevatedButton extends StatelessWidget {
   final Color? color;
   final Color? textColor;
   final double fontSize;
+  final FontWeight? fontWeight;
   final double borderRadius;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
+  final Widget? child;
 
   const CustomElevatedButton(
       {super.key,
@@ -18,9 +20,11 @@ class CustomElevatedButton extends StatelessWidget {
       this.color = AppBasicColors.colorElevatedButtonBlue,
       this.textColor = AppBasicColors.white,
       this.fontSize = 16,
-      this.borderRadius = 8.0,
+      this.borderRadius = 5.0,
       this.padding = const EdgeInsets.all(12.0),
-      this.margin = EdgeInsets.zero});
+      this.margin = EdgeInsets.zero,
+      this.child,
+      this.fontWeight});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +33,10 @@ class CustomElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             backgroundColor: color,
             foregroundColor: textColor,
-            textStyle: TextStyle(fontSize: fontSize),
+            textStyle: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius)),
             padding: padding),
-        child: Text(text));
+        child: child ?? Text(text));
   }
 }

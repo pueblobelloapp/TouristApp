@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Modelos/Card/card_image_list.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Detalles/detailController.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_back_button.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,17 @@ class Detail extends GetView<DetailController> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put<DetailController>(DetailController());
+
+    List<String> imagePaths = [
+      'Assets/Img/PuebloBello1.jpeg',
+      'Assets/Img/PuebloBello2.jpeg'
+    ];
+
     return Scaffold(
       body: Column(
         children: [
-          _containerPhoto(),
+          _containerPhoto(imagePaths),
           const SizedBox(
             height: 8.0,
           ),
@@ -22,25 +30,10 @@ class Detail extends GetView<DetailController> {
   }
 }
 
-Widget _containerPhoto() {
+Widget _containerPhoto(List<String> imagePaths) {
+  final controller = Get.put<DetailController>(DetailController());
   return Stack(children: [
-    SafeArea(
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(10.0),
-            bottomRight: Radius.circular(10.0)),
-        child: Container(
-          width: double.infinity,
-          height: 282.0,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('Assets/Img/sitiocard.png'), //
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-    ),
+    SafeArea(child: CardImageList(imageList: imagePaths)),
     _btnArrowBack()
   ]);
 }

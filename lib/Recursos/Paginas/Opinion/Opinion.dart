@@ -1,5 +1,6 @@
 import 'package:app_turismo_usuario/Recursos/Paginas/Opinion/OpinionController.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:app_turismo_usuario/Recursos/utils/NotificationValidation.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -79,15 +80,10 @@ class Opinion extends GetView<OpinionController> {
                 Expanded(
                   child: SizedBox(
                     height: 44.4,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                AppBasicColors.colorButtonCancelar),
-                        child: const FittedBox(
-                          child: Text('Cancelar',
-                              style: TextStyle(
-                                  fontSize: 20.0, fontWeight: FontWeight.bold)),
-                        ),
+                    child: CustomElevatedButton(
+                        color: AppBasicColors.colorButtonCancelar,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
                         onPressed: () {
                           /*NotificationMessage notificationMessage =
                               NotificationMessage(
@@ -103,7 +99,8 @@ class Opinion extends GetView<OpinionController> {
                           notificationMessage.show(context);
                           */
                           Get.back();
-                        }),
+                        },
+                        text: 'Cancelar'),
                   ),
                 ),
                 const SizedBox(
@@ -112,43 +109,27 @@ class Opinion extends GetView<OpinionController> {
                 //ElevatedButton publicar
                 Expanded(
                   child: SizedBox(
-                    height: 44.4,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: AppBasicColors.rgb),
-                        child: const FittedBox(
-                          child: Text('Publicar',
-                              style: TextStyle(
-                                  fontSize: 20.0, fontWeight: FontWeight.bold)),
-                        ),
-                        onPressed: () {
-                          NotificationMessage notificationMessage =
-                              NotificationMessage(
-                                  imagePath: 'Assets/Img/thumb-down.gif',
-                                  title: 'Ok',
-                                  message: 'Mensaje',
-                                  flipVertical: true,
-                                  onPressed: () {
-                                    Get.back();
-                                  });
-                          notificationMessage.showNotification(context);
-                        }),
-                  ),
+                      height: 44.4,
+                      child: CustomElevatedButton(
+                          color: AppBasicColors.rgb,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          onPressed: () {
+                            NotificationMessage notificationMessage =
+                                NotificationMessage(
+                                    imagePath: 'Assets/Img/thumb-down.gif',
+                                    title: 'Ok',
+                                    message: 'Mensaje',
+                                    flipVertical: true,
+                                    onPressed: () {
+                                      Get.back();
+                                    });
+                            notificationMessage.showNotification(context);
+                          },
+                          text: 'Publicar')),
                 )
               ],
             )
-            /*SizedBox(
-              width: double.infinity,
-              height: 50.0,
-              child: ElevatedButton(
-                style: Constants.buttonPrimary,
-                onPressed: () {},
-                child: const Text(
-                  'Publicar',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-              ),
-            )*/
           ]),
         ));
   }
