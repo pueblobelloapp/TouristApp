@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CardImage extends StatelessWidget {
-  String pathImage;
+  final String pathImage;
 
-  CardImage(this.pathImage, {super.key});
+  const CardImage(this.pathImage, {super.key});
 
   @override
   Widget build(BuildContext context) {

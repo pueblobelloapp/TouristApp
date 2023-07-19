@@ -144,6 +144,38 @@ class _LoginState extends State<Login> {
                 height: 13,
               ),
               SizedBox(
+                  width: double.infinity,
+                  height: 50.0,
+                  child: CustomElevatedButton(
+                      color: AppBasicColors.rgb,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      onPressed: () {
+                        _controllerLogin.getLoginUser(context);
+                      },
+                      text: isLoading ? 'Iniciadno sesion' : 'Iniciar',
+                      child: isLoading
+                          ? Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  SizedBox(
+                                    height: 20.0,
+                                    width: 20.0,
+                                    child: CircularProgressIndicator(
+                                      color: AppBasicColors.blue,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10.5),
+                                  Text('Iniciando sesión'),
+                                ],
+                              ),
+                            )
+                          : const Center(
+                              child: Text('Iniciar'),
+                            ))),
+              /*
+              SizedBox(
                 width: double.infinity, //screenWidth * 0.9,
                 height: 50.0,
                 child: ElevatedButton(
@@ -167,7 +199,7 @@ class _LoginState extends State<Login> {
                             ],
                           ))
                         : const Center(child: Text("Iniciar"))),
-              ),
+              ),*/
               const SizedBox(height: 18.0),
               _optionSesion()
             ],
@@ -185,6 +217,7 @@ class _LoginState extends State<Login> {
             border: Border.all(color: AppBasicColors.rgb, width: 2.0)),
         child: CustomElevatedButton(
           color: AppBasicColors.transparent,
+          fontSize: 14,
           borderRadius: 0,
           onPressed: () {
             //Get.find<ControllerLogin>().signInWithGoogle();

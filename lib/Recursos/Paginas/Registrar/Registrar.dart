@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
-import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -97,7 +96,7 @@ Widget _title() {
 }
 
 Widget _containerPhoto() {
-  final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
+  final controller = Get.put<RegistrarController>(RegistrarController());
   return GestureDetector(
     onTap: () => controllerPhoto.selectPhoto(),
     child: Obx(() => Container(

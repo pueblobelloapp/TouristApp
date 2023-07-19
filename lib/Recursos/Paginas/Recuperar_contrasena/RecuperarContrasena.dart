@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -64,17 +65,15 @@ class RecoveryPassword extends GetView<RecoveryPasswordController> {
               SizedBox(
                 width: double.infinity,
                 height: 40.0,
-                child: ElevatedButton(
-                    style: Constants.buttonPrimary,
+                child: CustomElevatedButton(
+                    color: AppBasicColors.rgb,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
                     onPressed: () {
                       Get.back();
                     },
-                    child: const Text(
-                      'Guardar cambios',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15.0),
-                    )),
-              )
+                    text: 'Guardar cambios'),
+              ),
             ],
           ),
         ),

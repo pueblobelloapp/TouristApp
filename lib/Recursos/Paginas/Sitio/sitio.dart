@@ -22,10 +22,17 @@ class SitioPage extends GetView<SitioController> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> imagePaths = [
+      'Assets/Img/sitiocard.png',
+      'Assets/Img/Helenita.jpeg',
+      'Assets/Img/sitiocard.png',
+      'Assets/Img/Helenita.jpeg'
+    ];
+
     return Scaffold(
       body: Column(
         children: [
-          _containerPhoto(),
+          _containerPhoto(imagePaths),
           Expanded(
               child: SingleChildScrollView(
             child: _containerDescripcion(context),
@@ -82,9 +89,15 @@ class SitioPage extends GetView<SitioController> {
     );
   }
 
-  Widget _containerPhoto() {
+  Widget _containerPhoto(List<String> imagePaths) {
     return Stack(
-      children: [const SafeArea(child: CardImageList()), _btnArrowBack()],
+      children: [
+        SafeArea(
+            child: CardImageList(
+          imageList: imagePaths,
+        )),
+        _btnArrowBack()
+      ],
     );
   }
 
