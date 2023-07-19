@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,8 @@ class ProfileDialog extends GetView<PerfilController> {
                       color: controllerPhoto.selectedPhoto.value.path == "" ?
                       AppBasicColors.rgb : AppBasicColors.rgbTransparent,
                       child: Center(
-                        child: controllerPhoto.selectedPhoto.value.path != ""
+                        child: controller.imgUrlPerfil.isNotEmpty ? Image.network(controller.imgUrlPerfil) :
+                          controllerPhoto.selectedPhoto.value.path != ""
                             ? Image.file(File(controllerPhoto.selectedPhoto.value.path),
                           fit: BoxFit.cover,
                         )

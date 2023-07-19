@@ -131,7 +131,7 @@ class FirebaseLogin extends GetxController {
     return await storageReference.getDownloadURL();
   }
 
-  Stream<QuerySnapshot> getUser() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getUser() {
     var user = _auth.currentUser;
     print("User sesion: ${user!.uid}");
 
