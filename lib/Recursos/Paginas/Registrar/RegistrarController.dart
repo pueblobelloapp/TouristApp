@@ -23,10 +23,9 @@ class RegistrarController extends GetxController {
 
   final controller = Get.put<ValidationUtils>(ValidationUtils());
 
-  NotificationMessage notificationMessage =
-  NotificationMessage(
+  NotificationMessage notificationMessage = NotificationMessage(
       imagePath: 'Assets/Img/error.gif',
-      title: 'Registro',
+      title: 'Registro de usuario',
       message: 'Mensaje',
       flipVertical: true,
       shouldTransform: true,
@@ -42,7 +41,7 @@ class RegistrarController extends GetxController {
   void selectPhoto() async {
     final imagePicker = ImagePicker();
     final XFile? pickedImage =
-    await imagePicker.pickImage(source: ImageSource.gallery);
+        await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
       print("Tomando valor de fotografia.");
@@ -51,35 +50,41 @@ class RegistrarController extends GetxController {
     }
   }
 
-  Future<void> validateRegisterUser(Map<String, String> userRegister,
-      BuildContext context) async {
-
+  Future<void> validateRegisterUser(
+      Map<String, String> userRegister, BuildContext context) async {
     final bool isValidEmail = EmailValidator.validate(userRegister["email"]!);
 
     if (controller.validPassword(userRegister["pass"]!)) {
-      if (controller.validPasswordEqual(userRegister["pass"]!,
-          userRegister["passVerify"]!)) {
+      if (controller.validPasswordEqual(
+          userRegister["pass"]!, userRegister["passVerify"]!)) {
         if (isValidEmail) {
           print("Todo Ok");
           UserLogin user = UserLogin();
           user.password = userRegister["pass"]!;
           user.email = userRegister["email"]!;
-          user.birthDate = userRegister["birthDate"]!.isEmpty ? "Sin definir" :
-          userRegister["birthDate"]!;
-          user.name = userRegister["name"]!.isEmpty ? "Sin definir" :
-          userRegister["name"]!;
+          user.birthDate = userRegister["birthDate"]!.isEmpty
+              ? "Sin definir"
+              : userRegister["birthDate"]!;
+          user.name = userRegister["name"]!.isEmpty
+              ? "Sin definir"
+              : userRegister["name"]!;
 
-          await _repositoryLogin.registerUser(user).then((value) => {
-            notificationMessage.message = "Registro exitoso",
-            notificationMessage.imagePath = "Assets/Img/thumb-down.gif",
-            notificationMessage.shouldTransform = false
-          }).catchError((onError) {
+          await _repositoryLogin
+              .registerUser(user)
+              .then((value) => {
+                    notificationMessage.message = "Registro exitoso",
+                    notificationMessage.imagePath = "Assets/Img/thumb-down.gif",
+                    notificationMessage.shouldTransform = false
+                  })
+              .catchError((onError) {
             if (onError == "email-already-in-use") {
-              notificationMessage.message = "Correo electronico, se encuentra registrado.";
+              notificationMessage.message =
+                  "Correo electronico, se encuentra registrado.";
             } else if (onError == "invalid-email") {
               notificationMessage.message = "Correo no valido.";
             } else if (onError == "weak-password") {
-              notificationMessage.message = "Contraseña es debil, minimo 6 caracteres";
+              notificationMessage.message =
+                  "Contraseña es debil, minimo 6 caracteres";
             } else {
               notificationMessage.message = onError.toString();
             }

@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../theme/app_theme.dart';
+import '../../utils/PhotoLoad.dart';
 import 'RegistrarController.dart';
 import 'package:intl/intl.dart';
 
@@ -97,25 +99,28 @@ Widget _title() {
 
 Widget _containerPhoto() {
   final controller = Get.put<RegistrarController>(RegistrarController());
+  final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
   return GestureDetector(
-    onTap: () => controllerPhoto.selectPhoto(),
-    child: Obx(() => Container(
-      width: 148.0,
-      height: 151.0,
-      color: controllerPhoto.selectedPhoto.value.path == "" ?
-                AppBasicColors.rgb : AppBasicColors.rgbTransparent,
-      child: Center(
-        child: controllerPhoto.selectedPhoto.value.path != ""
-            ? Image.memory(File(controllerPhoto.selectedPhoto.value.path).readAsBytesSync(),
-            fit: BoxFit.cover)
-            : const Icon(
-          BootstrapIcons.person,
-          size: 60.0,
-          color: AppBasicColors.white,
-        ),
-      ),
-    ))
-  );
+      onTap: () => controllerPhoto.selectPhoto(),
+      child: Obx(() => Container(
+            width: 148.0,
+            height: 151.0,
+            color: controllerPhoto.selectedPhoto.value.path == ""
+                ? AppBasicColors.rgb
+                : AppBasicColors.rgbTransparent,
+            child: Center(
+              child: controllerPhoto.selectedPhoto.value.path != ""
+                  ? Image.memory(
+                      File(controllerPhoto.selectedPhoto.value.path)
+                          .readAsBytesSync(),
+                      fit: BoxFit.cover)
+                  : const Icon(
+                      BootstrapIcons.person,
+                      size: 60.0,
+                      color: AppBasicColors.white,
+                    ),
+            ),
+          )));
 }
 
 Widget _formRegistration(BuildContext context) {
@@ -219,14 +224,45 @@ Widget _formRegistration(BuildContext context) {
             const SizedBox(
               height: 35.0,
             ),
-            _btonRegistration(context)
+            _btonRegistration(context),
+            //_btonRegistration(context)
           ],
         )),
   );
 }
 
 Widget _btonRegistration(BuildContext context) {
-  return Container(
+  return SizedBox(
+    width: double.infinity,
+    height: 50.0,
+    child: CustomElevatedButton(
+      color: AppBasicColors.rgb,
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      onPressed: () {
+        final controller = Get.put<RegistrarController>(RegistrarController());
+
+        if (controller.formKey.currentState!.validate()) {
+          print("Valido campos");
+          Map<String, String> dataRegister = {
+            "name": controller.nameR.text,
+            "email": controller.emailR.text,
+            "pass": controller.passwordR.text,
+            "passVerify": controller.passwordConfR.text,
+            "birthDate": controller.dateOfBirthR.text
+          };
+          controller.validateRegisterUser(dataRegister, context);
+        } else {
+          print("Error validaciones");
+        }
+      },
+      text: 'Registrarme',
+    ),
+  );
+}
+
+/*Widget _btonRegistration(BuildContext context) {
+  return SizedBox(
     width: double.infinity,
     height: 50.0,
     child: ElevatedButton(
@@ -254,4 +290,6 @@ Widget _btonRegistration(BuildContext context) {
           style: TextStyle(fontSize: 20.0),
         )),
   );
-}
+}*/
+
+
