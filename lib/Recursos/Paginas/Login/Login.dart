@@ -1,13 +1,10 @@
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/LoginControllers.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Home/home.dart';
-import 'package:app_turismo_usuario/Recursos/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +12,7 @@ import '../../theme/app_theme.dart';
 import '../Registrar/Registrar.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  //const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
@@ -174,32 +171,6 @@ class _LoginState extends State<Login> {
                           : const Center(
                               child: Text('Iniciar'),
                             ))),
-              /*
-              SizedBox(
-                width: double.infinity, //screenWidth * 0.9,
-                height: 50.0,
-                child: ElevatedButton(
-                    style: Constants.buttonPrimary,
-                    onPressed: () {
-                      _controllerLogin.getLoginUser(context);
-                    },
-                    child: isLoading
-                        ? Center(
-                            child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              SizedBox(
-                                height: 20.0,
-                                width: 20.0,
-                                child: CircularProgressIndicator(
-                                    color: AppBasicColors.blue),
-                              ),
-                              SizedBox(width: 10.5),
-                              Text("Iniciando sesion")
-                            ],
-                          ))
-                        : const Center(child: Text("Iniciar"))),
-              ),*/
               const SizedBox(height: 18.0),
               _optionSesion()
             ],
@@ -220,57 +191,15 @@ class _LoginState extends State<Login> {
           fontSize: 14,
           borderRadius: 0,
           onPressed: () {
+<<<<<<< HEAD
             Get.find<ControllerLogin>().signInWithGoogle();
+=======
+            Get.find<ControllerLogin>().signInWithGoogle(context);
+>>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
           },
           text: 'Iniciar con Google',
         ));
   }
-
-  /* Widget _textFormFielWidget(
-      TextEditingController controlador,
-      IconData icono,
-      String textGuide,
-      bool estate,
-      String msgError,
-      TextInputType textInputType) {
-    return TextFormField(
-      controller: controlador,
-      keyboardType: textInputType,
-      obscureText: estate,
-      decoration: InputDecoration(
-          prefixIcon: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Icon(
-              icono,
-              color: AppBasicColors.black,
-            ),
-          ),
-          fillColor: Colors.grey.shade200,
-          filled: true,
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(5.0)),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(5.0)),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide.none,
-            //borderRadius: BorderRadius.circular(5.0)
-          ),
-          hintText: textGuide,
-          disabledBorder: InputBorder.none,
-          contentPadding: const EdgeInsets.all(16.0),
-          hintStyle: const TextStyle(color: Colors.black26),
-          labelStyle: const TextStyle(color: Colors.green),
-          errorStyle: const TextStyle(color: AppBasicColors.white)),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return msgError;
-        }
-      },
-      cursorColor: Colors.black,
-    );
-  }*/
 
   Widget _optionSesion() {
     return Row(

@@ -24,4 +24,10 @@ class RepositoryLoginImp extends RepositoryLogin {
     // TODO: implement validateRegisterUser
     return _firebaseLogin.registerUser(user);
   }
+
+  @override
+  Future<void> registerUserWithGoogle(UserLogin userLogin) async {
+    return _firebaseLogin.postDetailsToFirestore(userLogin);
+  }
+
 }

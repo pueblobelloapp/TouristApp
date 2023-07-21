@@ -34,6 +34,7 @@ class ProfileDialog extends GetView<PerfilController> {
               child: Column(
                 children: [
                   GestureDetector(
+<<<<<<< HEAD
                       onTap: () => controllerPhoto.selectPhoto(),
                       child: Obx(() => Container(
                             width: 148.0,
@@ -59,6 +60,30 @@ class ProfileDialog extends GetView<PerfilController> {
                                         ),
                             ),
                           ))),
+=======
+                    onTap: () => controllerPhoto.selectPhoto(),
+                    child: Obx(() => Container(
+                      width: 148.0,
+                      height: 151.0,
+                      color: controllerPhoto.selectedPhoto.value.path.isNotEmpty
+                          && controller.imgUrlPerfilControllerP.text.isNotEmpty ?
+                      AppBasicColors.rgb : AppBasicColors.rgbTransparent,
+                      child: Center(
+                        child: controller.imgUrlPerfilControllerP.text.isNotEmpty ?
+                        Image.network(controller.imgUrlPerfilControllerP.text) :
+                          controllerPhoto.selectedPhoto.value.path != ""
+                            ? Image.file(File(controllerPhoto.selectedPhoto.value.path),
+                          fit: BoxFit.cover,
+                        )
+                            : const Icon(
+                          BootstrapIcons.person,
+                          size: 60.0,
+                          color: AppBasicColors.white,
+                        ),
+                      ),
+                    ))
+                  ),
+>>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
                   const SizedBox(height: 35.0),
                   //textFormFiel correo
                   CustomTextFormField(

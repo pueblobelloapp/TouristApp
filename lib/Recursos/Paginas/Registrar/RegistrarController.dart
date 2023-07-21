@@ -18,6 +18,8 @@ class RegistrarController extends GetxController {
   TextEditingController nameR = TextEditingController();
   TextEditingController dateOfBirthR = TextEditingController();
 
+  bool isLoading = false;
+
   final formKey = GlobalKey<FormState>();
   final GetxUtils messageController = Get.put(GetxUtils());
 
@@ -101,6 +103,15 @@ class RegistrarController extends GetxController {
     }
 
     notificationMessage.showNotification(context);
+    cleanField();
+  }
+
+  void cleanField() {
+    emailR.clear();
+    passwordR.clear();
+    passwordConfR.clear();
+    nameR.clear();
+    dateOfBirthR.clear();
   }
 
   Future<DateTime?> selectDate(BuildContext context) async {

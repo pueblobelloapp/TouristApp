@@ -40,7 +40,11 @@ class ControllerLogin extends GetxController {
     return isValid;
   }
 
+<<<<<<< HEAD
   Future<void> signInWithGoogle() async {
+=======
+  Future<void> signInWithGoogle(BuildContext context) async {
+>>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser != null) {
@@ -54,12 +58,18 @@ class ControllerLogin extends GetxController {
         final UserCredential userCredential =
             await FirebaseAuth.instance.signInWithCredential(credential);
 
-        //print(googleUser.displayName);
-        //print(googleUser.email);
+        userLogin.email = userCredential.user!.email!;
+        userLogin.name = userCredential.user!.displayName!;
+        userLogin.image = userCredential.user!.photoURL!;
+        userLogin.birthDate = "";
+
+        _repositoryLogin.registerUserWithGoogle(userLogin).then((value) =>
+            Get.to(() => Home()));
       }
     } catch (e) {
-      // Se ha producido un error al iniciar sesión con Google
       print(e);
+      notificationMessage.message = "Ups ocurrio un error.";
+      notificationMessage.showNotification(context);
     }
   }
 
@@ -67,23 +77,32 @@ class ControllerLogin extends GetxController {
     //  si estoy utilizando Firebase Authentication, puedes usar el siguiente código para cerrar la sesión:
     // await FirebaseAuth.instance.signOut();
 
-    Get.offAll(const Login());
+    //Get.offAll(const Login());
   }
 
   void getLoginUser(BuildContext context) {
     final controller = Get.put<ValidationUtils>(ValidationUtils());
     final bool isValidEmail = EmailValidator.validate(emailL.text.toString());
 
+<<<<<<< HEAD
     print(isValidEmail);
 
+=======
+>>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
     if (formKey.currentState!.validate() && isValidEmail) {
       if (controller.validPassword(passwordL.text.trim())) {
         userLogin.password = passwordL.text.trim();
         userLogin.email = emailL.text.trim();
 
+<<<<<<< HEAD
         accessLoginUser(userLogin)
             .then((value) => {Get.offAll(const Home())})
             .catchError((onError) {
+=======
+        accessLoginUser(userLogin).then((value) => {
+          Get.to(() => Home())
+        }).catchError((onError) {
+>>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
           if (onError == "wrong-password") {
             notificationMessage.message = "Correo o contraseña son incorrectos";
           } else if (onError == "user-not-found") {

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "134305885557",
+    "firebase_url": "https://pueblobello-turismo-default-rtdb.firebaseio.com",
     "project_id": "pueblobello-turismo",
     "storage_bucket": "pueblobello-turismo.appspot.com"
   },
@@ -9,10 +10,55 @@
       "client_info": {
         "mobilesdk_app_id": "1:134305885557:android:ff26b637829d6ae336773c",
         "android_client_info": {
+          "package_name": "com.example.app_turismo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134305885557-e8k5i1s2j064hurodph5u9j46r42hgpu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app_turismo",
+            "certificate_hash": "83bdee7ae5b12bc6696ebc1eb20a79cb00b4ce32"
+          }
+        },
+        {
+          "client_id": "134305885557-1744l6i5mf3husvfjvv1tiqlre88ou01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl_iCRLXgOD44bcCAQAI0YNzVfsKN9Cuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134305885557-1744l6i5mf3husvfjvv1tiqlre88ou01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134305885557:android:9de2b00fc7d2125936773c",
+        "android_client_info": {
           "package_name": "com.example.app_turismo_usuario"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "134305885557-tvnf781l5sufvuc91pjue7tftftpbtig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app_turismo_usuario",
+            "certificate_hash": "83bdee7ae5b12bc6696ebc1eb20a79cb00b4ce32"
+          }
+        },
         {
           "client_id": "134305885557-1744l6i5mf3husvfjvv1tiqlre88ou01.apps.googleusercontent.com",
           "client_type": 3
