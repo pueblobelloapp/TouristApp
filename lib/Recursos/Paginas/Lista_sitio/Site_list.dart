@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_listController.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_back_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
@@ -264,28 +265,36 @@ Widget _popupMenuProfile(BuildContext context) {
 
 Widget _buildButtonRow() {
   final buttons = [
-    CustomRowButton(
+    CustomElevatedButton(
+        fontWeight: FontWeight.bold,
+        fixedSize: true,
+        text: 'Sub Categoría',
+        onPressed: () {}),
+    const SizedBox(
+      width: 10.0,
+    ),
+    CustomElevatedButton(
+        fontWeight: FontWeight.bold,
+        fixedSize: true,
+        text: 'Sub Categoría',
+        onPressed: () {}),
+    /* CustomRowButton(
       color: AppBasicColors.blue,
       //icon: BootstrapIcons.book,
       text: 'Sub Categoría',
       //textSize: 24.0,
       textColor: AppBasicColors.white,
       onPressed: () {},
-    ),
-    const SizedBox(
-      width: 10.0,
-    ),
-    CustomRowButton(
+    ),*/
+
+    /*CustomRowButton(
       color: AppBasicColors.blue,
       //icon: BootstrapIcons.brightness_alt_high,
       text: 'Sub Categoría',
       // textSize: 24.0,
       textColor: AppBasicColors.white,
       onPressed: () {},
-    ),
-    const SizedBox(
-      width: 10.0,
-    ),
+    ),*/
   ];
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,

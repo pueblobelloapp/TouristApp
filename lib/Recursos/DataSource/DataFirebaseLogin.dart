@@ -12,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FirebaseLogin extends GetxController {
-
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
 
@@ -38,7 +37,6 @@ class FirebaseLogin extends GetxController {
         saveImageProfile();
         print("Guardando foto de perfil.");
       });
-
     } on FirebaseException catch (e) {
       if (e.code == "email-already-in-use") {
         print("Correo electronico, se encuentra registrado.");
@@ -66,14 +64,15 @@ class FirebaseLogin extends GetxController {
           'birthDate': userLogin.birthDate,
           'name': userLogin.name,
           'image': ''
-        }), SetOptions(merge: false));
+        }),
+        SetOptions(merge: false));
   }
 
   Future<void> getLogin(UserLogin userLogin) async {
     try {
-      UserCredential userCredential = await firebaseAuth.signInWithEmailAndPassword(
-          email: userLogin.email, password: userLogin.password);
-
+      UserCredential userCredential =
+          await firebaseAuth.signInWithEmailAndPassword(
+              email: userLogin.email, password: userLogin.password);
     } on FirebaseException catch (e) {
       if (e.code == 'user-not-found') {
         return Future.error('Usuario no Existe');
@@ -94,34 +93,31 @@ class FirebaseLogin extends GetxController {
   Future<void> saveImageProfile() async {
     User myusuario = currentUser;
     String urlPhoto;
-    print("Usuario registrado: ${currentUser.uid}" );
+    print("Usuario registrado: ${currentUser.uid}");
     //Validacion si existe una fotografia seleccionada.
     print("Con url de photo ${controllerPhoto.selectedPhoto.value.path}");
     if (controllerPhoto.selectedPhoto.value.path.isNotEmpty) {
-
       final ref = firebaseFiresTore.doc('users/${myusuario.uid}');
-      urlPhoto = await uploadPhoto(
-          controllerPhoto.selectedPhoto.value, myusuario.uid);
+      urlPhoto =
+          await uploadPhoto(controllerPhoto.selectedPhoto.value, myusuario.uid);
       print("Foto subida: $urlPhoto");
 
       final fileName = controllerPhoto.selectedPhoto.value.name;
       final imagePath = '${currentUser.uid}/mySiteImages/$fileName';
 
       final storageRef = storage.ref(imagePath);
-      await storageRef
-          .putFile(File(controllerPhoto.selectedPhoto.value.path));
+      await storageRef.putFile(File(controllerPhoto.selectedPhoto.value.path));
       final url = await storageRef.getDownloadURL();
       await ref
           .update({'image': url})
-          .then((value) =>  {
-        messageController.messageInfo("Perfil", "Foto actualizada"),
-        controllerPhoto.imagePerfilUrl.value = url
-
-          }).onError((error, stackTrace) => {
-            messageController.messageError(
-                "Error perfil", "Error al guardar: " + error.toString())
-        });
-
+          .then((value) => {
+                messageController.messageInfo("Perfil", "Foto actualizada"),
+                controllerPhoto.imagePerfilUrl.value = url
+              })
+          .onError((error, stackTrace) => {
+                messageController.messageError(
+                    "Error perfil", "Error al guardar: " + error.toString())
+              });
     }
   }
 
@@ -141,4 +137,5 @@ class FirebaseLogin extends GetxController {
         .snapshots();
   }
 
+  static signOut() {}
 }

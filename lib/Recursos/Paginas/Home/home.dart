@@ -2,6 +2,7 @@ import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica/tarjeta_t
 import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica_mini/tarjeta_turistica_mini.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Detalles/detail.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_list.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
@@ -92,35 +93,67 @@ Widget _bodyContainer(BuildContext context) {
 
 Widget _buildButtonRow() {
   final buttons = [
-    CustomRowButton(
+    CustomElevatedButton(
+        color: AppBasicColors.greyMun,
+        textColor: AppBasicColors.black,
+        fontWeight: FontWeight.bold,
+        icon: BootstrapIcons.book,
+        fixedSize: true,
+        text: 'Información del municipio',
+        onPressed: () {
+          Get.to(const Detail());
+        }),
+    const SizedBox(
+      width: 10.0,
+    ),
+    CustomElevatedButton(
+        color: AppBasicColors.yellow,
+        textColor: AppBasicColors.black,
+        fontWeight: FontWeight.bold,
+        icon: BootstrapIcons.brightness_alt_high,
+        fixedSize: true,
+        text: 'Cultura',
+        onPressed: () {
+          Get.to(const Detail());
+        }),
+    const SizedBox(
+      width: 10.0,
+    ),
+    CustomElevatedButton(
+        color: AppBasicColors.rgb,
+        textColor: AppBasicColors.black,
+        fontWeight: FontWeight.bold,
+        icon: BootstrapIcons.bicycle,
+        fixedSize: true,
+        text: 'Etnoturismo',
+        onPressed: () {
+          Get.to(const Detail());
+        }),
+    /* CustomRowButton(
       color: AppBasicColors.greyMun,
       icon: BootstrapIcons.book,
       text: 'Información del municipio',
       onPressed: () {
         Get.to(const Detail());
       },
-    ),
-    const SizedBox(
-      width: 10.0,
-    ),
-    CustomRowButton(
+    ),*/
+
+    /*CustomRowButton(
       color: AppBasicColors.yellow,
       icon: BootstrapIcons.brightness_alt_high,
       text: 'Cultura',
       onPressed: () {
         Get.to(const Detail());
       },
-    ),
-    const SizedBox(
-      width: 10.0,
-    ),
-    CustomRowButton(
+    ),*/
+
+    /* CustomRowButton(
         color: AppBasicColors.rgb,
         icon: BootstrapIcons.bicycle,
         text: 'Etnoturismo',
         onPressed: () {
           Get.to(const Detail());
-        })
+        })*/
   ];
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,

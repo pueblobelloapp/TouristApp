@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
+import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
@@ -33,26 +34,31 @@ class ProfileDialog extends GetView<PerfilController> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () => controllerPhoto.selectPhoto(),
-                    child: Obx(() => Container(
-                      width: 148.0,
-                      height: 151.0,
-                      color: controllerPhoto.selectedPhoto.value.path == "" ?
-                      AppBasicColors.rgb : AppBasicColors.rgbTransparent,
-                      child: Center(
-                        child: controller.imgUrlPerfil.isNotEmpty ? Image.network(controller.imgUrlPerfil) :
-                          controllerPhoto.selectedPhoto.value.path != ""
-                            ? Image.file(File(controllerPhoto.selectedPhoto.value.path),
-                          fit: BoxFit.cover,
-                        )
-                            : const Icon(
-                          BootstrapIcons.person,
-                          size: 60.0,
-                          color: AppBasicColors.white,
-                        ),
-                      ),
-                    ))
-                  ),
+                      onTap: () => controllerPhoto.selectPhoto(),
+                      child: Obx(() => Container(
+                            width: 148.0,
+                            height: 151.0,
+                            color:
+                                controllerPhoto.selectedPhoto.value.path == ""
+                                    ? AppBasicColors.rgb
+                                    : AppBasicColors.rgbTransparent,
+                            child: Center(
+                              child: controller.imgUrlPerfil.isNotEmpty
+                                  ? Image.network(controller.imgUrlPerfil)
+                                  : controllerPhoto.selectedPhoto.value.path !=
+                                          ""
+                                      ? Image.file(
+                                          File(controllerPhoto
+                                              .selectedPhoto.value.path),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const Icon(
+                                          BootstrapIcons.person,
+                                          size: 60.0,
+                                          color: AppBasicColors.white,
+                                        ),
+                            ),
+                          ))),
                   const SizedBox(height: 35.0),
                   //textFormFiel correo
                   CustomTextFormField(
@@ -112,19 +118,18 @@ class ProfileDialog extends GetView<PerfilController> {
                       }
                     },
                   ),
+                  //button guardar cambios
                   const SizedBox(height: 20.0),
                   SizedBox(
                     width: double.infinity,
                     height: 40.0,
-                    child: ElevatedButton(
-                        style: Constants.buttonPrimary,
+                    child: CustomElevatedButton(
+                        color: AppBasicColors.rgb,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
                         onPressed: controller.saveChanges,
-                        child: const Text(
-                          'Guardar cambios',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15.0),
-                        )),
-                  )
+                        text: 'Guardar Cambios'),
+                  ),
                 ],
               ),
             ),

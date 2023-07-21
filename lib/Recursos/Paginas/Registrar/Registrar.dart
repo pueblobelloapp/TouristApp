@@ -260,36 +260,3 @@ Widget _btonRegistration(BuildContext context) {
     ),
   );
 }
-
-/*Widget _btonRegistration(BuildContext context) {
-  return SizedBox(
-    width: double.infinity,
-    height: 50.0,
-    child: ElevatedButton(
-        style: Constants.buttonPrimary,
-        onPressed: () {
-          final controller =
-              Get.put<RegistrarController>(RegistrarController());
-
-          if (controller.formKey.currentState!.validate()) {
-            print("Valido campos");
-            Map<String, String> dataRegister = {
-              "name": controller.nameR.text,
-              "email": controller.emailR.text,
-              "pass": controller.passwordR.text,
-              "passVerify": controller.passwordConfR.text,
-              "birthDate": controller.dateOfBirthR.text
-            };
-            controller.validateRegisterUser(dataRegister, context);
-          } else {
-            print("Error validaciones");
-          }
-        },
-        child: const Text(
-          'Registrarme',
-          style: TextStyle(fontSize: 20.0),
-        )),
-  );
-}*/
-
-
