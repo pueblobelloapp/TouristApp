@@ -191,11 +191,7 @@ class _LoginState extends State<Login> {
           fontSize: 14,
           borderRadius: 0,
           onPressed: () {
-<<<<<<< HEAD
-            Get.find<ControllerLogin>().signInWithGoogle();
-=======
             Get.find<ControllerLogin>().signInWithGoogle(context);
->>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
           },
           text: 'Iniciar con Google',
         ));

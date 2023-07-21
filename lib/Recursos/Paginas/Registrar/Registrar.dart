@@ -258,22 +258,17 @@ Widget _btonRegistration(BuildContext context) {
       text: 'Registrarme',
       child: controller.isLoading
           ? Center(
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                SizedBox(
-                    height: 20.0,
-                    width: 20.0,
-                    child: CircularProgressIndicator(color: Colors.white)),
-                SizedBox(width: 10.5),
-                Text("Cargando datos")
-              ]))
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                  SizedBox(
+                      height: 20.0,
+                      width: 20.0,
+                      child: CircularProgressIndicator(color: Colors.white)),
+                  SizedBox(width: 10.5),
+                  Text("Cargando datos")
+                ]))
           : Center(child: Text("Registrarme")),
     ),
   );
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16

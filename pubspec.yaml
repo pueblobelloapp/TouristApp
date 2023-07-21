@@ -19,13 +19,9 @@ dependencies:
   cloud_firestore: ^4.3.1
   equatable: ^2.0.5
   firebase_storage: ^11.0.10
-<<<<<<< HEAD
   google_sign_in: ^4.5.1
   google_sign_in_platform_interface: ^1.1.2
   quiver: ^2.1.5
-=======
-  google_sign_in: ^5.4.3
->>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
   floating_bottom_navigation_bar: ^1.5.2
   smooth_page_indicator: ^1.0.1
   location: ^4.4.0

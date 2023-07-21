@@ -40,11 +40,7 @@ class ControllerLogin extends GetxController {
     return isValid;
   }
 
-<<<<<<< HEAD
-  Future<void> signInWithGoogle() async {
-=======
   Future<void> signInWithGoogle(BuildContext context) async {
->>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser != null) {
@@ -63,8 +59,9 @@ class ControllerLogin extends GetxController {
         userLogin.image = userCredential.user!.photoURL!;
         userLogin.birthDate = "";
 
-        _repositoryLogin.registerUserWithGoogle(userLogin).then((value) =>
-            Get.to(() => Home()));
+        _repositoryLogin
+            .registerUserWithGoogle(userLogin)
+            .then((value) => Get.to(() => Home()));
       }
     } catch (e) {
       print(e);
@@ -84,25 +81,16 @@ class ControllerLogin extends GetxController {
     final controller = Get.put<ValidationUtils>(ValidationUtils());
     final bool isValidEmail = EmailValidator.validate(emailL.text.toString());
 
-<<<<<<< HEAD
     print(isValidEmail);
 
-=======
->>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
     if (formKey.currentState!.validate() && isValidEmail) {
       if (controller.validPassword(passwordL.text.trim())) {
         userLogin.password = passwordL.text.trim();
         userLogin.email = emailL.text.trim();
 
-<<<<<<< HEAD
         accessLoginUser(userLogin)
             .then((value) => {Get.offAll(const Home())})
             .catchError((onError) {
-=======
-        accessLoginUser(userLogin).then((value) => {
-          Get.to(() => Home())
-        }).catchError((onError) {
->>>>>>> 50d0e4baf6f32ef84a46d75ff54d3b280661ec16
           if (onError == "wrong-password") {
             notificationMessage.message = "Correo o contraseña son incorrectos";
           } else if (onError == "user-not-found") {
