@@ -59,13 +59,15 @@ class FirebaseLogin extends GetxController {
     var user = _auth.currentUser;
     final ref = firebaseFiresTore.doc('users/${user!.uid}');
 
+    print("Usuario iniciado: ${user.uid}");
+
     await ref.set(
         ({
           'uid': user.uid,
           'email': userLogin.email,
           'birthDate': userLogin.birthDate,
           'name': userLogin.name,
-          'image': ''
+          'image': userLogin.image.isEmpty ? saveImageProfile() : userLogin.image
         }), SetOptions(merge: false));
   }
 
@@ -94,9 +96,6 @@ class FirebaseLogin extends GetxController {
   Future<void> saveImageProfile() async {
     User myusuario = currentUser;
     String urlPhoto;
-    print("Usuario registrado: ${currentUser.uid}" );
-    //Validacion si existe una fotografia seleccionada.
-    print("Con url de photo ${controllerPhoto.selectedPhoto.value.path}");
     if (controllerPhoto.selectedPhoto.value.path.isNotEmpty) {
 
       final ref = firebaseFiresTore.doc('users/${myusuario.uid}');

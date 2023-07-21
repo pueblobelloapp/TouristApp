@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyLocation extends StatefulWidget {
-  MyLocation({super.key});
+  //MyLocation({super.key});
 
   @override
   State<MyLocation> createState() => _MyLocationState();

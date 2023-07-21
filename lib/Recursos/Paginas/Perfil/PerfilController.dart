@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:app_turismo_usuario/Recursos/DataSource/DataFirebaseLogin.dart';
+import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,23 +17,22 @@ class PerfilController extends GetxController {
   TextEditingController emailControllerP = TextEditingController();
   TextEditingController nameControllerP = TextEditingController();
   TextEditingController birthdateControllerP = TextEditingController();
+  TextEditingController imgUrlPerfilControllerP = TextEditingController();
 
   String imgUrlPerfil = "";
 
   void saveChanges() {
     // Obtengo los valores de los campos de texto
-    String correo = emailControllerP.text;
-    String nombre = nameControllerP.text;
-    String fechaNacimiento = birthdateControllerP.text;
+    UserLogin userLogin = UserLogin();
+
+    userLogin.birthDate = birthdateControllerP.text;
+    userLogin.email = emailControllerP.text;
+    userLogin.name = nameControllerP.text;
+    userLogin.image = "";
 
     Get.back();
 
-    Get.snackbar(
-      'Exito',
-      'Cambios guardados',
-      backgroundColor: AppBasicColors.green,
-      colorText: AppBasicColors.white,
-    );
+
   }
 
   Future<void> dataPerfil() async {
@@ -44,7 +44,7 @@ class PerfilController extends GetxController {
       birthdateControllerP.text = '${element.docs[0]['birthDate']}';
       emailControllerP.text = '${element.docs[0]['email']}';
       nameControllerP.text = '${element.docs[0]['name']}';
-      imgUrlPerfil = '${element.docs[0]['image']}';
+      imgUrlPerfilControllerP.text = '${element.docs[0]['image']}';
       print( '${element.docs[0]['image']}');
     });
     //print("Usuario iniciado: ${usuarioLogin}");

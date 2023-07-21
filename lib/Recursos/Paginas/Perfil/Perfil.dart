@@ -37,10 +37,12 @@ class ProfileDialog extends GetView<PerfilController> {
                     child: Obx(() => Container(
                       width: 148.0,
                       height: 151.0,
-                      color: controllerPhoto.selectedPhoto.value.path == "" ?
+                      color: controllerPhoto.selectedPhoto.value.path.isNotEmpty
+                          && controller.imgUrlPerfilControllerP.text.isNotEmpty ?
                       AppBasicColors.rgb : AppBasicColors.rgbTransparent,
                       child: Center(
-                        child: controller.imgUrlPerfil.isNotEmpty ? Image.network(controller.imgUrlPerfil) :
+                        child: controller.imgUrlPerfilControllerP.text.isNotEmpty ?
+                        Image.network(controller.imgUrlPerfilControllerP.text) :
                           controllerPhoto.selectedPhoto.value.path != ""
                             ? Image.file(File(controllerPhoto.selectedPhoto.value.path),
                           fit: BoxFit.cover,

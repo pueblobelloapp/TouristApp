@@ -232,6 +232,7 @@ Widget _formRegistration(BuildContext context) {
 }
 
 Widget _btonRegistration(BuildContext context) {
+  final controller = Get.put<RegistrarController>(RegistrarController());
   return SizedBox(
     width: double.infinity,
     height: 50.0,
@@ -240,8 +241,6 @@ Widget _btonRegistration(BuildContext context) {
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
       onPressed: () {
-        final controller = Get.put<RegistrarController>(RegistrarController());
-
         if (controller.formKey.currentState!.validate()) {
           print("Valido campos");
           Map<String, String> dataRegister = {
@@ -257,39 +256,21 @@ Widget _btonRegistration(BuildContext context) {
         }
       },
       text: 'Registrarme',
+      child: controller.isLoading
+          ? Center(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                SizedBox(
+                    height: 20.0,
+                    width: 20.0,
+                    child: CircularProgressIndicator(color: Colors.white)),
+                SizedBox(width: 10.5),
+                Text("Cargando datos")
+              ]))
+          : Center(child: Text("Registrarme")),
     ),
   );
 }
-
-/*Widget _btonRegistration(BuildContext context) {
-  return SizedBox(
-    width: double.infinity,
-    height: 50.0,
-    child: ElevatedButton(
-        style: Constants.buttonPrimary,
-        onPressed: () {
-          final controller =
-              Get.put<RegistrarController>(RegistrarController());
-
-          if (controller.formKey.currentState!.validate()) {
-            print("Valido campos");
-            Map<String, String> dataRegister = {
-              "name": controller.nameR.text,
-              "email": controller.emailR.text,
-              "pass": controller.passwordR.text,
-              "passVerify": controller.passwordConfR.text,
-              "birthDate": controller.dateOfBirthR.text
-            };
-            controller.validateRegisterUser(dataRegister, context);
-          } else {
-            print("Error validaciones");
-          }
-        },
-        child: const Text(
-          'Registrarme',
-          style: TextStyle(fontSize: 20.0),
-        )),
-  );
-}*/
 
 

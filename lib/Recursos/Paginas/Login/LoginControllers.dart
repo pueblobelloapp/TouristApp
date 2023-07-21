@@ -6,8 +6,10 @@ import 'package:app_turismo_usuario/Recursos/utils/NotificationValidation.dart';
 import 'package:app_turismo_usuario/Recursos/utils/ValidationsUtils.dart';
 import 'package:app_turismo_usuario/main.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ControllerLogin extends GetxController {
   final RepositoryLogin _repositoryLogin = getIt();
@@ -38,7 +40,7 @@ class ControllerLogin extends GetxController {
     return isValid;
   }
 
-  /*Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser != null) {
@@ -52,27 +54,31 @@ class ControllerLogin extends GetxController {
         final UserCredential userCredential =
             await FirebaseAuth.instance.signInWithCredential(credential);
 
-        //print(googleUser.displayName);
-        //print(googleUser.email);
+        userLogin.email = userCredential.user!.email!;
+        userLogin.name = userCredential.user!.displayName!;
+        userLogin.image = userCredential.user!.photoURL!;
+        userLogin.birthDate = "";
+
+        _repositoryLogin.registerUserWithGoogle(userLogin).then((value) =>
+            Get.to(() => Home()));
       }
     } catch (e) {
-      // Se ha producido un error al iniciar sesión con Google
       print(e);
+      notificationMessage.message = "Ups ocurrio un error.";
+      notificationMessage.showNotification(context);
     }
-  }*/
+  }
 
   Future<void> logout() async {
     //  si estoy utilizando Firebase Authentication, puedes usar el siguiente código para cerrar la sesión:
     // await FirebaseAuth.instance.signOut();
 
-    Get.offAll(const Login());
+    //Get.offAll(const Login());
   }
 
   void getLoginUser(BuildContext context) {
     final controller = Get.put<ValidationUtils>(ValidationUtils());
     final bool isValidEmail = EmailValidator.validate(emailL.text.toString());
-
-     print(isValidEmail);
 
     if (formKey.currentState!.validate() && isValidEmail) {
       if (controller.validPassword(passwordL.text.trim())) {
@@ -80,7 +86,7 @@ class ControllerLogin extends GetxController {
         userLogin.email = emailL.text.trim();
 
         accessLoginUser(userLogin).then((value) => {
-          Get.offAll(const Home())
+          Get.to(() => Home())
         }).catchError((onError) {
           if (onError == "wrong-password") {
             notificationMessage.message = "Correo o contraseña son incorrectos";
