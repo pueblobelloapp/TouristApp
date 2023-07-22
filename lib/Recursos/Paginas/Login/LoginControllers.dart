@@ -57,7 +57,7 @@ class ControllerLogin extends GetxController {
         userLogin.email = userCredential.user!.email!;
         userLogin.name = userCredential.user!.displayName!;
         userLogin.image = userCredential.user!.photoURL!;
-        userLogin.birthDate = "";
+        userLogin.birthDate = "Sin definir";
 
         _repositoryLogin
             .registerUserWithGoogle(userLogin)

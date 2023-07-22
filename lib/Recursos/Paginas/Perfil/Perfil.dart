@@ -17,10 +17,10 @@ class ProfileDialog extends GetView<PerfilController> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put<PerfilController>(PerfilController());
+    final controllerPerfil = Get.put<PerfilController>(PerfilController());
     final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
 
-    controller.dataPerfil();
+    controllerPerfil.dataPerfil();
 
     return AlertDialog(
       shape: const RoundedRectangleBorder(
@@ -39,14 +39,14 @@ class ProfileDialog extends GetView<PerfilController> {
                             width: 148.0,
                             height: 151.0,
                             color:
-                                controllerPhoto.selectedPhoto.value.path == ""
+                                controllerPhoto.selectedPhoto.value.path.isEmpty &&
+                                    controllerPhoto.imagePerfilUrl.value.isEmpty
                                     ? AppBasicColors.rgb
                                     : AppBasicColors.rgbTransparent,
                             child: Center(
-                              child: controller.imgUrlPerfil.isNotEmpty
-                                  ? Image.network(controller.imgUrlPerfil)
-                                  : controllerPhoto.selectedPhoto.value.path !=
-                                          ""
+                              child: controllerPhoto.imagePerfilUrl.isNotEmpty
+                                  ? Image.network(controllerPhoto.imagePerfilUrl.value)
+                                  : controllerPhoto.selectedPhoto.value.path.isNotEmpty
                                       ? Image.file(
                                           File(controllerPhoto
                                               .selectedPhoto.value.path),
@@ -62,7 +62,7 @@ class ProfileDialog extends GetView<PerfilController> {
                   const SizedBox(height: 35.0),
                   //textFormFiel correo
                   CustomTextFormField(
-                    controller: controller.emailControllerP,
+                    controller: controllerPerfil.emailControllerP,
                     icon: const Icon(
                       BootstrapIcons.envelope,
                       color: AppBasicColors.black,
@@ -78,7 +78,7 @@ class ProfileDialog extends GetView<PerfilController> {
                   ),
                   //textFormFiel nombre completo
                   CustomTextFormField(
-                    controller: controller.nameControllerP,
+                    controller: controllerPerfil.nameControllerP,
                     icon: const Icon(
                       BootstrapIcons.person,
                       color: AppBasicColors.black,
@@ -94,7 +94,7 @@ class ProfileDialog extends GetView<PerfilController> {
                   ),
                   //textFormFiel fecha de nacimiento
                   CustomTextFormField(
-                    controller: controller.birthdateControllerP,
+                    controller: controllerPerfil.birthdateControllerP,
                     icon: const Icon(
                       BootstrapIcons.calendar_week,
                       color: AppBasicColors.black,
@@ -107,14 +107,14 @@ class ProfileDialog extends GetView<PerfilController> {
                     readOnly: true,
                     onTap: () async {
                       DateTime? pickedDate =
-                          await controller.selectDate(context);
+                          await controllerPerfil.selectDate(context);
 
                       if (pickedDate != null) {
                         print(pickedDate);
 
                         String formattedDate =
                             DateFormat('yyyy-MM-dd').format(pickedDate);
-                        controller.birthdateControllerP.text = formattedDate;
+                        controllerPerfil.birthdateControllerP.text = formattedDate;
                       }
                     },
                   ),
@@ -127,7 +127,7 @@ class ProfileDialog extends GetView<PerfilController> {
                         color: AppBasicColors.rgb,
                         fontSize: 15.0,
                         fontWeight: FontWeight.bold,
-                        onPressed: controller.saveChanges,
+                        onPressed: controllerPerfil.saveChanges,
                         text: 'Guardar Cambios'),
                   ),
                 ],

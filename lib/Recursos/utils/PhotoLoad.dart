@@ -19,4 +19,10 @@ class PhotoLoad extends GetxController {
       update();
     }
   }
+
+  void updatePhotoUrl(String urlImage) {
+    print("Cargando foto");
+    imagePerfilUrl.value = urlImage;
+    update();
+  }
 }

@@ -17,9 +17,7 @@ class PerfilController extends GetxController {
   TextEditingController emailControllerP = TextEditingController();
   TextEditingController nameControllerP = TextEditingController();
   TextEditingController birthdateControllerP = TextEditingController();
-  TextEditingController imgUrlPerfilControllerP = TextEditingController();
-
-  String imgUrlPerfil = "";
+  TextEditingController imgUrlControllerP = TextEditingController();
 
   void saveChanges() {
     // Obtengo los valores de los campos de texto
@@ -28,7 +26,8 @@ class PerfilController extends GetxController {
     userLogin.birthDate = birthdateControllerP.text;
     userLogin.email = emailControllerP.text;
     userLogin.name = nameControllerP.text;
-    userLogin.image = "";
+    userLogin.image = imgUrlControllerP.text.isEmpty ?
+                      "" : imgUrlControllerP.text;
 
     Get.back();
 
@@ -36,18 +35,19 @@ class PerfilController extends GetxController {
   }
 
   Future<void> dataPerfil() async {
-    Stream<QuerySnapshot<Map<String, dynamic>>> usuarioLogin = controllerLogin.getUser();
-    print("Mostrando elementos");
+    Stream<QuerySnapshot<Map<String, dynamic>>> usuarioLogin =
+                                                    controllerLogin.getUser();
 
+    print("Mostrando elementos");
     usuarioLogin.forEach((element) {
       print('${element.docs[0]['uid']}');
       birthdateControllerP.text = '${element.docs[0]['birthDate']}';
       emailControllerP.text = '${element.docs[0]['email']}';
       nameControllerP.text = '${element.docs[0]['name']}';
-      imgUrlPerfilControllerP.text = '${element.docs[0]['image']}';
-      print( '${element.docs[0]['image']}');
+      controllerPhoto.updatePhotoUrl(element.docs[0]['image']);
+      //imgUrlControllerP.text = '${element.docs[0]['image']}';
+      //print( imgUrlControllerP.text);
     });
-    //print("Usuario iniciado: ${usuarioLogin}");
   }
 
   Future<DateTime?> selectDate(BuildContext context) async {
