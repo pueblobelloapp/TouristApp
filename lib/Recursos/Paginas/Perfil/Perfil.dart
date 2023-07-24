@@ -38,15 +38,17 @@ class ProfileDialog extends GetView<PerfilController> {
                       child: Obx(() => Container(
                             width: 148.0,
                             height: 151.0,
-                            color:
-                                controllerPhoto.selectedPhoto.value.path.isEmpty &&
+                            color: controllerPhoto
+                                        .selectedPhoto.value.path.isEmpty &&
                                     controllerPhoto.imagePerfilUrl.value.isEmpty
-                                    ? AppBasicColors.rgb
-                                    : AppBasicColors.rgbTransparent,
+                                ? AppBasicColors.rgb
+                                : AppBasicColors.rgbTransparent,
                             child: Center(
                               child: controllerPhoto.imagePerfilUrl.isNotEmpty
-                                  ? Image.network(controllerPhoto.imagePerfilUrl.value)
-                                  : controllerPhoto.selectedPhoto.value.path.isNotEmpty
+                                  ? Image.network(
+                                      controllerPhoto.imagePerfilUrl.value)
+                                  : controllerPhoto
+                                          .selectedPhoto.value.path.isNotEmpty
                                       ? Image.file(
                                           File(controllerPhoto
                                               .selectedPhoto.value.path),
@@ -114,7 +116,8 @@ class ProfileDialog extends GetView<PerfilController> {
 
                         String formattedDate =
                             DateFormat('yyyy-MM-dd').format(pickedDate);
-                        controllerPerfil.birthdateControllerP.text = formattedDate;
+                        controllerPerfil.birthdateControllerP.text =
+                            formattedDate;
                       }
                     },
                   ),
@@ -136,16 +139,19 @@ class ProfileDialog extends GetView<PerfilController> {
             Positioned(
               right: 50.0,
               bottom: 250.0,
-              child: Container(
-                width: 59.0,
-                height: 59.0,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppBasicColors.lightGrey,
-                ),
-                child: const Icon(
-                  BootstrapIcons.camera_fill,
-                  color: AppBasicColors.black,
+              child: GestureDetector(
+                onTap: () => controllerPhoto.takePhoto(),
+                child: Container(
+                  width: 59.0,
+                  height: 59.0,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppBasicColors.lightGrey,
+                  ),
+                  child: const Icon(
+                    BootstrapIcons.camera_fill,
+                    color: AppBasicColors.black,
+                  ),
                 ),
               ),
             ),
