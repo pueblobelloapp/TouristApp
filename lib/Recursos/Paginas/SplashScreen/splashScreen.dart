@@ -72,7 +72,10 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: _animation == null ? 0.3 : _animation.value,
                 child: const Text(
                   'IKU',
-                  style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 60, 
+                  fontWeight: FontWeight.bold, 
+                  color: Colors.white //color negro cambiado a blanco
+                  ),
                 ),
               ),
               Transform.scale(
@@ -80,6 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: const Text('Pueblo Bello',
                     style: TextStyle(
                       fontSize: 20, //fontWeight:FontWeight.bold
+                      color: Colors.white //color negro cambiado a blanco
                     )),
               )
             ],
