@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Paginas/Home/home.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,8 @@ class MyLocationController extends GetxController {
     locationEnabled.value = serviceEnabled;
 
     if (serviceEnabled) {
-      Get.off(() => Login());
+      //Get.off(() => Login());
+      Get.off(() => Home());
     }
   }
 
@@ -47,13 +49,13 @@ class MyLocationController extends GetxController {
         bool serviceEnabled = await location.requestService();
         if (serviceEnabled) {
           locationEnabled.value = true;
-          await Get.to(() => Login(),
+          await Get.to(() => Home(), //Get.to(() => Login(),
               transition: Transition.rightToLeft,
               duration: const Duration(milliseconds: 1800),
               opaque: false, binding: BindingsBuilder.put(() {
             return PageRouteBuilder(
                 pageBuilder: (context, animation, secondatyAnimaniton) =>
-                    Login(),
+                    Home(), //Login(),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   var begin = const Offset(1.0, 0.0);

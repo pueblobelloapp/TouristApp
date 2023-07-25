@@ -36,7 +36,7 @@ class TarjetaTuristicaMini extends StatelessWidget {
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(
                     AppBasicColors.black.withOpacity(0.1), BlendMode.darken),
-                child: Image.asset(
+                child: Image.network(
                   imageUrl,
                   fit: BoxFit.cover,
                   width: 117.05,
@@ -60,7 +60,7 @@ class TarjetaTuristicaMini extends StatelessWidget {
                         title,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                       Row(
@@ -81,7 +81,8 @@ class TarjetaTuristicaMini extends StatelessWidget {
                   ),
                   Text(
                     descripcion,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(fontSize: 12.0),
                   ),
                 ],
               ),

@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'App Turismo',
       theme: ThemeData(fontFamily: 'Century'),
-      initialRoute: 'Home',
+      initialRoute: 'SplashScreen',
       routes: {
         'SplashScreen': (context) => SplashScreen(),
         'MyLocation': (context) => MyLocation(),

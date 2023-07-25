@@ -208,6 +208,7 @@ Widget _listTurismo(BuildContext context) {
       ),
       //Inicio creacion se sitio turistico
       syteTurismList(context),
+      syteTurismList(context),
       ////Creacion fin sitio turistico
       WidgetText(
         text: 'Bienestar',
@@ -216,18 +217,18 @@ Widget _listTurismo(BuildContext context) {
         },
         buttonText: 'Ver más',
       ),
-      const TarjetaTuristicaMini(
+      /* const TarjetaTuristicaMini(
           imageUrl: 'Assets/Img/sitiocard.png',
           title: 'Titulo',
           descripcion:
               'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),
-      const TarjetaTuristicaMini(
+          rating: 4),*/
+      /*const TarjetaTuristicaMini(
           imageUrl: 'Assets/Img/sitiocard.png',
           title: 'Titulo',
           descripcion:
               'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),
+          rating: 4),*/
       WidgetText(
         text: 'Ecoturismo',
         onPressed: () {
@@ -235,7 +236,7 @@ Widget _listTurismo(BuildContext context) {
         },
         buttonText: 'Ver más',
       ),
-      const TarjetaTuristicaMini(
+      /*const TarjetaTuristicaMini(
           imageUrl: 'Assets/Img/sitiocard.png',
           title: 'Titulo',
           descripcion:
@@ -246,7 +247,7 @@ Widget _listTurismo(BuildContext context) {
           title: 'Titulo',
           descripcion:
               'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),
+          rating: 4),*/
       WidgetText(
         text: 'Rural',
         onPressed: () {
@@ -254,7 +255,7 @@ Widget _listTurismo(BuildContext context) {
         },
         buttonText: 'Ver más',
       ),
-      const TarjetaTuristicaMini(
+      /* const TarjetaTuristicaMini(
           imageUrl: 'Assets/Img/sitiocard.png',
           title: 'Titulo',
           descripcion:
@@ -265,7 +266,7 @@ Widget _listTurismo(BuildContext context) {
           title: 'Titulo',
           descripcion:
               'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4)
+          rating: 4)*/
     ],
   );
 }
@@ -382,33 +383,39 @@ Widget _popupMenuProfile(context) {
 Widget syteTurismList(BuildContext context) {
   final Stream<QuerySnapshot> _sitesStream =
       FirebaseFirestore.instance.collection('sites').snapshots();
-  return Container(
-    color: Colors.black12,
-    child: StreamBuilder<QuerySnapshot>(
-            stream: _sitesStream,
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return const Center(
-                    child: Text('Lo sentimos se ha producido un error.'));
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: Text('Cargando datos.'));
-              }
-              if (snapshot.data!.docs.isEmpty) {
-                return Center(
-                    child: Text("Sin datos para mostrar",
-                        style: TextStyle(fontWeight: FontWeight.bold)));
-              }
-              return ListView(
-                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-                  print("Data traida: ${data}");
-                  return listDetails(data);
-                }).toList().cast();
-            }),
-  );
+  return
+      //color: AppBasicColors.lightBlack,
+      StreamBuilder<QuerySnapshot>(
+          stream: _sitesStream,
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Center(
+                  child: Text('Lo sentimos se ha producido un error.'));
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: Text('Cargando datos.'));
+            }
+            if (snapshot.data!.docs.isEmpty) {
+              return const Center(
+                  child: Text("Sin datos para mostrar",
+                      style: TextStyle(fontWeight: FontWeight.bold)));
+            }
+            return ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: snapshot.data!.docs
+                    .map((DocumentSnapshot document) {
+                      Map<String, dynamic> data =
+                          document.data()! as Map<String, dynamic>;
+                      print("Data traida: ${data}");
+                      return listDetails(data);
+                    })
+                    .toList()
+                    .cast());
+          });
 }
+
 Widget listDetails(Map<String, dynamic> data) {
   return TarjetaTuristicaMini(
       imageUrl: data['foto'][0],
