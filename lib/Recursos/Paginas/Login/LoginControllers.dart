@@ -74,7 +74,7 @@ class ControllerLogin extends GetxController {
     //  si estoy utilizando Firebase Authentication, puedes usar el siguiente código para cerrar la sesión:
     // await FirebaseAuth.instance.signOut();
 
-    //Get.offAll(const Login());
+    Get.offAll(Login());
   }
 
   void getLoginUser(BuildContext context) {
