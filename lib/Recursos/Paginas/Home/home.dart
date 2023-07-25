@@ -5,11 +5,11 @@ import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_list.dart'
 import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Modelos/Tarjeta_turistica/tarjeta_turistica_controller.dart';
 import '../../Widget/ContainerText.dart';
-import '../../Widget/Custom_row_button.dart';
 import '../../theme/app_theme.dart';
 import '../Login/LoginControllers.dart';
 import '../Perfil/Perfil.dart';
@@ -17,8 +17,6 @@ import '../Recuperar_contrasena/RecuperarContrasena.dart';
 import 'HomeController.dart';
 
 class Home extends GetView<HomeController> {
-  const Home({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +28,7 @@ class Home extends GetView<HomeController> {
               padding: const EdgeInsets.only(top: 9.0),
               child: _bodyContainer(context),
             ),
-            Expanded(child: SingleChildScrollView(child: _listTurismo()))
+            Expanded(child: SingleChildScrollView(child: _listTurismo(context)))
             /*SizedBox(
                 height: MediaQuery.of(context).size.height, //- 145.0,
                 child: SingleChildScrollView(child: _listTurismo())),*/
@@ -161,7 +159,7 @@ Widget _buildButtonRow() {
   );
 }
 
-Widget _listTurismo() {
+Widget _listTurismo(BuildContext context) {
   final TarjetaTuristicaController tarjetaTuristicaController =
       Get.put(TarjetaTuristicaController());
 
@@ -208,18 +206,9 @@ Widget _listTurismo() {
         },
         buttonText: 'Ver más',
       ),
-      const TarjetaTuristicaMini(
-          imageUrl: 'Assets/Img/sitiocard.png',
-          title: 'Titulo',
-          descripcion:
-              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),
-      const TarjetaTuristicaMini(
-          imageUrl: 'Assets/Img/sitiocard.png',
-          title: 'Titulo',
-          descripcion:
-              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),
+      //Inicio creacion se sitio turistico
+      syteTurismList(context),
+      ////Creacion fin sitio turistico
       WidgetText(
         text: 'Bienestar',
         onPressed: () {
@@ -388,4 +377,42 @@ Widget _popupMenuProfile(context) {
       }
     },
   );
+}
+
+Widget syteTurismList(BuildContext context) {
+  final Stream<QuerySnapshot> _sitesStream =
+      FirebaseFirestore.instance.collection('sites').snapshots();
+  return Container(
+    color: Colors.black12,
+    child: StreamBuilder<QuerySnapshot>(
+            stream: _sitesStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Center(
+                    child: Text('Lo sentimos se ha producido un error.'));
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: Text('Cargando datos.'));
+              }
+              if (snapshot.data!.docs.isEmpty) {
+                return Center(
+                    child: Text("Sin datos para mostrar",
+                        style: TextStyle(fontWeight: FontWeight.bold)));
+              }
+              return ListView(
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+                  print("Data traida: ${data}");
+                  return listDetails(data);
+                }).toList().cast();
+            }),
+  );
+}
+Widget listDetails(Map<String, dynamic> data) {
+  return TarjetaTuristicaMini(
+      imageUrl: data['foto'][0],
+      title: data['nombre'],
+      descripcion: data['descripcion'],
+      rating: 4);
 }

@@ -44,13 +44,6 @@ class TarjetaTuristicaMini extends StatelessWidget {
                 ),
               ),
             ),
-            /* Container(
-              width: 117.05,
-              height: 117.08,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(imageUrl), fit: BoxFit.cover)),
-            )*/
             const SizedBox(
               width: 10.0,
             ),

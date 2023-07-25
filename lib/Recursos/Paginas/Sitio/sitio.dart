@@ -10,9 +10,6 @@ import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
-
-import '../../Widget/Constans.dart';
-//import '../../Widget/CustomHeader.dart';
 import '../Mapa/MapaController.dart';
 
 class SitioPage extends GetView<SitioController> {
@@ -181,39 +178,5 @@ class SitioPage extends GetView<SitioController> {
       child: MapaPage(),
     );
   }
-
-  /* Widget _btonIrSitio() {
-    return ElevatedButton(
-        style: Constants.buttonPrimary,
-        onPressed: () {
-          // mapaController.goToLocation(const LatLng(10.4127663, -73.5866711));
-          Get.to(MapaPage());
-        },
-        child: const Text('Ir al sitio'));
-  }*/
-
-  /* Widget _btonStars() {
-    final stars = Container(
-      //color: Colors.black38,
-      margin: const EdgeInsets.only(top: 0, right: 3.0),
-      child: const Icon(
-        Icons.star,
-        color: AppBasicColors.yellow,
-      ),
-    );
-
-    final star_border = Container(
-      //color: Colors.black38,
-      margin: const EdgeInsets.only(top: 0.0, right: 3.0),
-      child: const Icon(
-        Icons.star_border,
-        color: AppBasicColors.yellow,
-      ),
-    );
-
-    return Row(
-      children: [stars, stars, stars, stars, star_border],
-    );
-  }*/
 
 }
