@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Paginas/Home/home.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Login/Login.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Mapa/Mapa.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/My_location/my_location.dart';
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> {
         'SplashScreen': (context) => SplashScreen(),
         'MyLocation': (context) => MyLocation(),
         'Login': (context) => Login(),
-        //'Home': (context) => HomePage(),
+        'Home': (context) => Home(),
         'Mapa': (context) => MapaPage(),
         //'Arhuaco': (context) => ArhuacoPage(),
         //'Sitio Turistico': (context) => SitiosTuristicoPage()

@@ -65,7 +65,7 @@ class FirebaseLogin extends GetxController {
           'email': userLogin.email,
           'birthDate': userLogin.birthDate,
           'name': userLogin.name,
-          'image': ''
+          'image': userLogin.image.isNotEmpty ? userLogin.image : ''
         }),
         SetOptions(merge: false));
   }

@@ -89,7 +89,7 @@ class ControllerLogin extends GetxController {
         userLogin.email = emailL.text.trim();
 
         accessLoginUser(userLogin)
-            .then((value) => {Get.offAll(const Home())})
+            .then((value) => {Get.offAll(Home())})
             .catchError((onError) {
           if (onError == "wrong-password") {
             notificationMessage.message = "Correo o contraseña son incorrectos";
