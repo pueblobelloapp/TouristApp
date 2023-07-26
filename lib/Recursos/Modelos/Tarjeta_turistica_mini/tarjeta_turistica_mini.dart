@@ -16,7 +16,7 @@ class TarjetaTuristicaMini extends StatelessWidget {
       required this.rating});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return Card(
       color: AppBasicColors.greyMun,
       elevation: 2.0,
@@ -51,7 +51,7 @@ class TarjetaTuristicaMini extends StatelessWidget {
                 child: Padding(
               padding: const EdgeInsets.only(right: 5.0, bottom: 2.0, top: 2.0),
               child: Column(
-                //crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

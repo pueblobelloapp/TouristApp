@@ -46,7 +46,7 @@ class TarjetaTuristica extends StatelessWidget {
                     child: Image.asset(
                       imageUrl,
                       fit: BoxFit.cover,
-                      width: 365, //double.infinity,
+                      width: Get.width-20, //double.infinity,
                       height: 203,
                     ),
                   ),
@@ -95,7 +95,7 @@ class TarjetaTuristica extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              width: 330,
+                              width: Get.width-50,
                               child: Expanded(
                                 child: Text(
                                   descripcion,

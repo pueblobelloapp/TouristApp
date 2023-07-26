@@ -21,7 +21,7 @@ class Home extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        // margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Column(
           children: [
             Padding(
@@ -208,7 +208,7 @@ Widget _listTurismo(BuildContext context) {
       ),
       //Inicio creacion se sitio turistico
       syteTurismList(context),
-      syteTurismList(context),
+      // syteTurismList(context),
       ////Creacion fin sitio turistico
       WidgetText(
         text: 'Bienestar',
@@ -401,25 +401,46 @@ Widget syteTurismList(BuildContext context) {
                   child: Text("Sin datos para mostrar",
                       style: TextStyle(fontWeight: FontWeight.bold)));
             }
-            return ListView(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+
+            return Column(
+                // shrinkWrap: true,
+                // physics: const NeverScrollableScrollPhysics(),
                 children: snapshot.data!.docs
                     .map((DocumentSnapshot document) {
                       Map<String, dynamic> data =
                           document.data()! as Map<String, dynamic>;
-                      print("Data traida: ${data}");
                       return listDetails(data);
                     })
                     .toList()
                     .cast());
+            // return GridView.count(
+            //   primary: false,
+            //   shrinkWrap: true,
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   padding: const EdgeInsets.all(20),
+            //   // crossAxisSpacing: 10,
+            //   // mainAxisSpacing: 10,
+            //   crossAxisCount: 1,
+            //   scrollDirection: Axis.horizontal,              
+            //   children: snapshot.data!.docs
+            //     .map((DocumentSnapshot document) {
+            //       Map<String, dynamic> data =
+            //           document.data()! as Map<String, dynamic>;
+            //       return listDetails(data);
+            //     })
+            //     .toList()
+            //     .cast()
+            // );
           });
 }
 
+
+
 Widget listDetails(Map<String, dynamic> data) {
   return TarjetaTuristicaMini(
-      imageUrl: data['foto'][0],
-      title: data['nombre'],
-      descripcion: data['descripcion'],
-      rating: 4);
+    imageUrl: data['foto'][0],
+    title: data['nombre'],
+    descripcion: data['descripcion'],
+    rating: 4
+  );
 }

@@ -74,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen>
                   'IKU',
                   style: TextStyle(fontSize: 60, 
                   fontWeight: FontWeight.bold, 
-                  color: Colors.white //color negro cambiado a blanco
+                  color: AppBasicColors.white //color negro cambiado a blanco
                   ),
                 ),
               ),
@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: const Text('Pueblo Bello',
                     style: TextStyle(
                       fontSize: 20, //fontWeight:FontWeight.bold
-                      color: Colors.white //color negro cambiado a blanco
+                      color: AppBasicColors.white//color negro cambiado a blanco
                     )),
               )
             ],

@@ -16,27 +16,30 @@ class WidgetText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-            child: Text(
-          text,
-          style: const TextStyle(
-              fontSize: 20.0,
-              color: AppBasicColors.black,
-              fontWeight: FontWeight.bold),
-        )),
-        TextButton(
-            onPressed: onPressed,
-            child: Text(
-              buttonText,
-              style: TextStyle(
-                  fontSize: buttonFontSize,
-                  color: AppBasicColors.rgb,
-                  fontWeight: FontWeight.bold),
-            ))
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+              child: Text(
+            text,
+            style: const TextStyle(
+                fontSize: 20.0,
+                color: AppBasicColors.black,
+                fontWeight: FontWeight.bold),
+          )),
+          TextButton(
+              onPressed: onPressed,
+              child: Text(
+                buttonText,
+                style: TextStyle(
+                    fontSize: buttonFontSize,
+                    color: AppBasicColors.rgb,
+                    fontWeight: FontWeight.bold),
+              ))
+        ],
+      ),
     );
   }
 }
