@@ -4,6 +4,7 @@ import 'package:app_turismo_usuario/Recursos/Paginas/Detalles/detail.dart';
 import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_list.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
+import 'package:app_turismo_usuario/main.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -208,7 +209,6 @@ Widget _listTurismo(BuildContext context) {
       ),
       //Inicio creacion se sitio turistico
       syteTurismList(context),
-      // syteTurismList(context),
       ////Creacion fin sitio turistico
       WidgetText(
         text: 'Bienestar',
@@ -383,10 +383,10 @@ Widget _popupMenuProfile(context) {
 Widget syteTurismList(BuildContext context) {
   final Stream<QuerySnapshot> _sitesStream =
       FirebaseFirestore.instance.collection('sites').snapshots();
+  final HomeController homeController = getIt();
   return
-      //color: AppBasicColors.lightBlack,
       StreamBuilder<QuerySnapshot>(
-          stream: _sitesStream,
+          stream: homeController.selectSites(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -401,46 +401,25 @@ Widget syteTurismList(BuildContext context) {
                   child: Text("Sin datos para mostrar",
                       style: TextStyle(fontWeight: FontWeight.bold)));
             }
-
-            return Column(
-                // shrinkWrap: true,
-                // physics: const NeverScrollableScrollPhysics(),
+            return ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 children: snapshot.data!.docs
                     .map((DocumentSnapshot document) {
                       Map<String, dynamic> data =
                           document.data()! as Map<String, dynamic>;
+                      print("Data traida: ${data}");
                       return listDetails(data);
                     })
                     .toList()
                     .cast());
-            // return GridView.count(
-            //   primary: false,
-            //   shrinkWrap: true,
-            //   physics: const NeverScrollableScrollPhysics(),
-            //   padding: const EdgeInsets.all(20),
-            //   // crossAxisSpacing: 10,
-            //   // mainAxisSpacing: 10,
-            //   crossAxisCount: 1,
-            //   scrollDirection: Axis.horizontal,              
-            //   children: snapshot.data!.docs
-            //     .map((DocumentSnapshot document) {
-            //       Map<String, dynamic> data =
-            //           document.data()! as Map<String, dynamic>;
-            //       return listDetails(data);
-            //     })
-            //     .toList()
-            //     .cast()
-            // );
           });
 }
 
-
-
 Widget listDetails(Map<String, dynamic> data) {
   return TarjetaTuristicaMini(
-    imageUrl: data['foto'][0],
-    title: data['nombre'],
-    descripcion: data['descripcion'],
-    rating: 4
-  );
+      imageUrl: data['foto'][0],
+      title: data['nombre'],
+      descripcion: data['descripcion'],
+      rating: 4);
 }

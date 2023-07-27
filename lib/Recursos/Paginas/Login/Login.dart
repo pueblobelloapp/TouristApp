@@ -26,8 +26,6 @@ class _LoginState extends State<Login> {
   String mensajeNotification = "Error";
   bool isLoading = false;
 
-  final GetxUtils messageController = Get.put(GetxUtils());
-
   @override
   void dispose() {
     super.dispose();

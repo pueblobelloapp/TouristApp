@@ -9,9 +9,17 @@ class FirebaseInformationSites extends GetxController {
   FirebaseStorage get storage => FirebaseStorage.instance;
 
   //TODO: Information of sites turism
-  Stream<QuerySnapshot> selectSitiosTuristico() {
+  Stream<QuerySnapshot> selectSitesTurismo() {
     return firebaseFiresTore
         .collection('sites')
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> servicesAndTypeSite(String typeSite, String activity) {
+    return firebaseFiresTore
+        .collection('sites')
+        .where("tipoTurismo", isEqualTo: typeSite)
+        .where("servicios", arrayContains: activity)
         .snapshots();
   }
 

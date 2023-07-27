@@ -6,5 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  final RepositorySitioTuristico _repositorySitioTuristico = getIt();
+
   TextEditingController search = TextEditingController();
+
+  Stream<QuerySnapshot> selectSites() {
+    return _repositorySitioTuristico.selectSitioTuristicos();
+  }
 }
