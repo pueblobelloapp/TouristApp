@@ -10,6 +10,7 @@ class HomeController extends GetxController {
 
   TextEditingController search = TextEditingController();
 
+  //Funcion para traer datos de los sitios turisticos
   Stream<QuerySnapshot> selectSites() {
     return _repositorySitioTuristico.selectSitioTuristicos();
   }
