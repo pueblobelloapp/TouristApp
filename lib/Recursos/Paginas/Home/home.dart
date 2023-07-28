@@ -381,8 +381,6 @@ Widget _popupMenuProfile(context) {
 }
 
 Widget syteTurismList(BuildContext context) {
-  final Stream<QuerySnapshot> _sitesStream =
-      FirebaseFirestore.instance.collection('sites').snapshots();
   final HomeController homeController = getIt();
   return
       StreamBuilder<QuerySnapshot>(
