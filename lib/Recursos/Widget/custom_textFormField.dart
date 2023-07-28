@@ -4,12 +4,12 @@ import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final Icon icon;
   final String textGuide;
   final bool obscureText;
   final String? msgError;
-  final TextInputType textInputType;
+  final TextInputType? textInputType;
   final EdgeInsetsGeometry? contentPadding;
   final Color? fillColor;
   final bool readOnly;
@@ -17,11 +17,11 @@ class CustomTextFormField extends StatelessWidget {
 
   const CustomTextFormField(
       {super.key,
-      required this.controller,
+      this.controller,
       required this.icon,
       required this.textGuide,
       required this.obscureText,
-      required this.textInputType,
+      this.textInputType,
       this.contentPadding = const EdgeInsets.all(16.0),
       this.fillColor = AppBasicColors.white,
       this.msgError,

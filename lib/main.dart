@@ -21,6 +21,7 @@ void main() async {
   await Firebase.initializeApp();
 
   await injectDependencies();
+
   runApp(MyApp());
 }
 

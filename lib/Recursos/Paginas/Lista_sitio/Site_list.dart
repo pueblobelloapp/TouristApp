@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_listController.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/Widget/custom_back_button.dart';
@@ -11,29 +9,67 @@ import 'package:get/get.dart';
 
 import '../../Modelos/Tarjeta_turistica/tarjeta_turistica.dart';
 import '../../Modelos/Tarjeta_turistica/tarjeta_turistica_controller.dart';
-import '../../Widget/ContainerText.dart';
-import '../../Widget/Custom_row_button.dart';
-import '../Perfil/Perfil.dart';
-import '../Recuperar_contrasena/RecuperarContrasena.dart';
+import '../../Widget/PopUpMenuUsuario.dart';
 
 class SiteList extends GetView<SiteListController> {
-  const SiteList({super.key});
+
+  final bool esBuscar;
+  final controller = Get.put<SiteListController>(SiteListController());
+
+  SiteList({super.key, this.esBuscar = false, });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 30.0,
+                        child: CustomTextFormField(
+                          icon: const Icon(
+                            BootstrapIcons.search,
+                            color: AppBasicColors.white,
+                            size: 15.0,
+                          ),
+                          controller: controller.search,
+                          textGuide: 'Buscar...',
+                          obscureText: false,
+                          contentPadding:const EdgeInsets.only(top: 8, bottom: 6),
+                          fillColor: const Color.fromRGBO(178, 190, 195, 1),
+                        ))),
+                const SizedBox(
+                  width: 5.0,
+                ),
+                Container(
+                    height: 30.0,
+                    width: 30.0,
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(45, 52, 54, 1),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                    child: const PopUpMenuPerfil()),
+              ],
+            ),
+          ),
+        ),
+      ),
         //backgroundColor: AppBasicColors.greyMun,
         body: Container(
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 9.0),
-            child: __bodyContainer(context),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 9.0),
+          //   child: __bodyContainer(context),
+          // ),
           Expanded(
               child: SingleChildScrollView(
-            child: _listTurismo(),
+            child: _listTurismo(esBuscar: esBuscar),
           ))
           /* Align(
             alignment: Alignment.bottomCenter,
@@ -48,54 +84,54 @@ class SiteList extends GetView<SiteListController> {
   }
 }
 
-Widget __bodyContainer(BuildContext context) {
-  final controller = Get.put<SiteListController>(SiteListController());
+// Widget __bodyContainer(BuildContext context) {
+//   final controller = Get.put<SiteListController>(SiteListController());
 
-  return Stack(children: [
-    SafeArea(
-        child: Column(
-      children: [
-        Row(
-          children: <Widget>[
-            Expanded(
-                child: SizedBox(
-              height: 30.0,
-              child: CustomTextFormField(
-                controller: controller.search,
-                icon: const Icon(
-                  BootstrapIcons.search,
-                  color: AppBasicColors.white,
-                  size: 15.0,
-                ),
-                textGuide: 'Buscar...',
-                obscureText: false,
-                textInputType: TextInputType.name,
-                contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-                fillColor: const Color.fromRGBO(178, 190, 195, 1),
-              ),
-            )),
-            const SizedBox(
-              width: 5.0,
-            ),
-            Container(
-                height: 30.0,
-                width: 30.0,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(45, 52, 54, 1),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: _popupMenuProfile(context))
-          ],
-        ),
-        const SizedBox(height: 12.0),
-        _buildButtonRow(),
-        const SizedBox(height: 12.0),
-      ],
-    )),
-  ]);
-}
+//   return Stack(children: [
+//     SafeArea(
+//         child: Column(
+//       children: [
+//         Row(
+//           children: <Widget>[
+//             Expanded(
+//                 child: SizedBox(
+//               height: 30.0,
+//               child: CustomTextFormField(
+//                 controller: controller.search,
+//                 icon: const Icon(
+//                   BootstrapIcons.search,
+//                   color: AppBasicColors.white,
+//                   size: 15.0,
+//                 ),
+//                 textGuide: 'Buscar...',
+//                 obscureText: false,
+//                 textInputType: TextInputType.name,
+//                 contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+//                 fillColor: const Color.fromRGBO(178, 190, 195, 1),
+//               ),
+//             )),
+//             const SizedBox(
+//               width: 5.0,
+//             ),
+//             Container(
+//                 height: 30.0,
+//                 width: 30.0,
+//                 decoration: const BoxDecoration(
+//                   color: Color.fromRGBO(45, 52, 54, 1),
+//                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
+//                 ),
+//                 child: const PopUpMenuPerfil())
+//           ],
+//         ),
+//         // const SizedBox(height: 12.0),
+//         // _buildButtonRow(),
+//         // const SizedBox(height: 12.0),
+//       ],
+//     )),
+//   ]);
+// }
 
-Widget _listTurismo() {
+Widget _listTurismo({bool esBuscar = false }) {
   final TarjetaTuristicaController tarjetaTuristicaController =
       Get.put(TarjetaTuristicaController());
 
@@ -108,9 +144,9 @@ Widget _listTurismo() {
           }),
           Container(
             margin: const EdgeInsets.only(top: 0, left: 5.0),
-            child: const Text(
-              'Nombre de la categoria',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
+            child: Text(
+              esBuscar ? 'Buscar' :'Nombre de la categoria',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
             ),
           )
         ],
@@ -154,114 +190,6 @@ Widget _listTurismo() {
   );
 }
 
-Widget _popupMenuProfile(BuildContext context) {
-  return PopupMenuButton(
-    icon: Transform.scale(
-      scale: 1.6,
-      child: const Icon(
-        BootstrapIcons.person,
-        color: AppBasicColors.white,
-      ),
-    ),
-    iconSize: 14.0,
-    itemBuilder: (BuildContext context) {
-      return <PopupMenuEntry>[
-        PopupMenuItem(
-          value: 1,
-          child: Container(
-            color: const Color.fromRGBO(255, 255, 255, 1),
-            child: ListTile(
-              leading: Container(
-                height: 30.0,
-                width: 30.0,
-                decoration: const BoxDecoration(
-                    color: Color.fromRGBO(45, 52, 54, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                child: const Icon(
-                  BootstrapIcons.person,
-                  color: AppBasicColors.white,
-                  //size: 15.0,
-                ),
-              ),
-              title: const Text(
-                'Mi perfil',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-        PopupMenuItem(
-          value: 2,
-          child: Container(
-            color: const Color.fromRGBO(255, 255, 255, 1),
-            child: ListTile(
-              leading: Container(
-                height: 30.0,
-                width: 30.0,
-                decoration: const BoxDecoration(
-                    color: Color.fromRGBO(45, 52, 54, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                child: const Icon(
-                  BootstrapIcons.lock,
-                  color: AppBasicColors.white,
-                ),
-              ),
-              title: const Text(
-                'Cambiar clave',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-        PopupMenuItem(
-          value: 3,
-          child: Container(
-            color: const Color.fromRGBO(255, 255, 255, 1),
-            child: ListTile(
-              leading: Container(
-                height: 30.0,
-                width: 30.0,
-                decoration: const BoxDecoration(
-                    color: Color.fromRGBO(45, 52, 54, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                child: const Icon(
-                  BootstrapIcons.power,
-                  color: AppBasicColors.white,
-                ),
-              ),
-              title: const Text(
-                'Cerrar sesión',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-      ];
-    },
-    onSelected: (value) {
-      switch (value) {
-        case 1:
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const ProfileDialog();
-              });
-          break;
-        case 2:
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const RecoveryPassword();
-              });
-          break;
-        case 3:
-          //ControllerLogin().logout();
-          //Get.find<ControllerLogin>().logout();
-          break;
-      }
-    },
-  );
-}
 
 Widget _buildButtonRow() {
   final buttons = [
