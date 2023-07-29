@@ -10,24 +10,19 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 40.0,
-      left: 10.0,
-      /* minimum: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 11.0),*/
-      child: Container(
-        height: 30.0,
-        width: 30.0,
-        decoration: const BoxDecoration(
-            color: Color.fromRGBO(178, 190, 195, 1),
-            borderRadius: BorderRadius.all(Radius.circular(5.0))),
-        child: InkWell(
-          onTap: onPressed,
-          child: const Center(
-            child: Icon(
-              BootstrapIcons.arrow_left,
-              color: AppBasicColors.black,
-              size: 20.0,
-            ),
+    return Container(
+      height: 30.0,
+      width: 30.0,
+      decoration: const BoxDecoration(
+          color: Color.fromRGBO(178, 190, 195, 1),
+          borderRadius: BorderRadius.all(Radius.circular(5.0))),
+      child: InkWell(
+        onTap: onPressed,
+        child: const Center(
+          child: Icon(
+            BootstrapIcons.arrow_left,
+            color: AppBasicColors.black,
+            size: 20.0,
           ),
         ),
       ),

@@ -30,23 +30,26 @@ class Registrar extends GetView<RegistrarController> {
         ),
         child: Stack(
           children: [
+            Positioned(
+              top: 10,
+              child: Row(
+                children: [
+                  _btnArrowBack(),
+                ],
+              ),
+            ),
             SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Row(
-                    children: [
-                      _btnArrowBack(),
-                    ],
-                  ),
+                  const SizedBox(height: 80,),
                   _title(),
+                  const SizedBox(height: 20,),
                   _containerPhoto(),
-                  _formRegistration(context)
+                  _formRegistration(context),
+                  const SizedBox(height: 20,),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -105,9 +108,12 @@ Widget _containerPhoto() {
       child: Obx(() => Container(
             width: 148.0,
             height: 151.0,
-            color: controllerPhoto.selectedPhoto.value.path == ""
-                ? AppBasicColors.rgb
-                : AppBasicColors.rgbTransparent,
+            decoration: BoxDecoration(
+              color: controllerPhoto.selectedPhoto.value.path == ""
+                  ? AppBasicColors.rgb
+                  : AppBasicColors.rgbTransparent,
+              borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: controllerPhoto.selectedPhoto.value.path != ""
                   ? Image.memory(

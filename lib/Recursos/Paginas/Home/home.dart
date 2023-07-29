@@ -1,322 +1,182 @@
-import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica/tarjeta_turistica.dart';
-import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica_mini/tarjeta_turistica_mini.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Detalles/detail.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Home/homeController.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_list.dart';
-import 'package:app_turismo_usuario/Recursos/Widget/Custom_elevated_button.dart';
-import 'package:app_turismo_usuario/Recursos/Widget/custom_textFormField.dart';
-import 'package:app_turismo_usuario/main.dart';
+
+import 'package:app_turismo_usuario/Recursos/Entity/Categorias.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Modelos/Tarjeta_turistica/tarjeta_turistica_controller.dart';
-import '../../Widget/ContainerText.dart';
-import '../../Widget/PopUpMenuUsuario.dart';
-import '../../theme/app_theme.dart';
-// import 'HomeController.dart';
 
-class Home extends GetView<HomeController> {
-  final HomeController controller = Get.put<HomeController>(HomeController());
+import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica/tarjeta_turistica.dart';
+import 'package:app_turismo_usuario/Recursos/Modelos/Tarjeta_turistica_mini/tarjeta_turistica_mini.dart';
+// import 'package:app_turismo_usuario/Recursos/Paginas/Home/homeController.dart';
+import 'package:app_turismo_usuario/Recursos/Paginas/Lista_sitio/Site_list.dart';
+
+import '../../Widget/AppbarPersonalizada.dart';
+import '../../Widget/BotonesInfoMunicipio.dart';
+import '../../Widget/ContainerText.dart';
+
+class Home extends GetView {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
+        preferredSize: const Size.fromHeight(110),
         child: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 30.0,
-                        child: CustomTextFormField(
-                          readOnly: true,
-                          icon: const Icon(
-                            BootstrapIcons.search,
-                            color: AppBasicColors.white,
-                            size: 15.0,
-                          ),
-                          textGuide: 'Buscar...',
-                          obscureText: false,
-                          onTap: (){
-                            Get.to(SiteList(esBuscar: true,));
-                          },
-                          contentPadding:const EdgeInsets.only(top: 8, bottom: 6),
-                          fillColor: const Color.fromRGBO(178, 190, 195, 1),
-                        ))),
-                const SizedBox(
-                  width: 5.0,
-                ),
-                Container(
-                    height: 30.0,
-                    width: 30.0,
-                    decoration: const BoxDecoration(
-                        color: Color.fromRGBO(45, 52, 54, 1),
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    child: const PopUpMenuPerfil()),
-              ],
-            ),
+          child: Column(
+            children: [
+              AppbarPersonalizada(
+                onTapBuscar: (){
+                  Get.to(SiteList(esBuscar: true,));
+                },
+              ),
+              const SizedBox(height: 10,),
+              BotonesInfoMunicipio(),
+            ],
           ),
         ),
       ),
-      body: Container(
-        // margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 9.0),
-              child: _bodyContainer(context),
-            ),
-            Expanded(child: SingleChildScrollView(child: _listTurismo(context)))
-            /*SizedBox(
-                height: MediaQuery.of(context).size.height, //- 145.0,
-                child: SingleChildScrollView(child: _listTurismo())),*/
-          ],
+      body: ListView(
+        children: const[
+          ListaTarjetasCategoria(tipo: Categorias.sitioInteres, titulo: 'Sitios de interés', mostrarCardsGrandes: true,),
+          ListaTarjetasCategoria(tipo: Categorias.sitioTuristico, titulo: 'Sitios turisticos',),
+          ListaTarjetasCategoria(tipo: Categorias.bienestar, titulo: 'Bienestar',),
+          ListaTarjetasCategoria(tipo: Categorias.ecoturismo, titulo: 'Ecoturismo',),
+          ListaTarjetasCategoria(tipo: Categorias.rural, titulo: 'Rural',),
+          SizedBox(height: 10,)
+        ],
+      )
+    );
+  }
+}
+
+class ListaTarjetasCategoria extends StatelessWidget {
+  
+  final String tipo;
+  final String titulo;
+  final bool mostrarCardsGrandes;
+
+  const ListaTarjetasCategoria({
+    Key? key,
+    required this.tipo,
+    required this.titulo,
+    this.mostrarCardsGrandes = false
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Center(
+          child: WidgetText(
+            text: titulo,
+            onPressed: ()=>Get.to(SiteList(titulo: titulo,)),
+            buttonText: 'Ver más',
+          ),
         ),
+        StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('sites').snapshots(),
+          // stream: FirebaseFirestore.instance.collection('sites').where('tipoTurismo', isEqualTo: tipo).snapshots(),
+          builder:(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return mensaje('Cargando datos.', mostrarCargando: true);
+            }
+            if (snapshot.hasError) {
+              return mensaje('Lo sentimos se ha producido un error.');
+            }
+            if (snapshot.data!.docs.isEmpty) {
+              return mensaje("Sin datos para mostrar");
+            }
+
+            if(mostrarCardsGrandes){
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                      snapshot.data!.docs.length, (index){
+                        dynamic data = snapshot.data!.docs[index].data();
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: TarjetaTuristica(
+                            titulo: data['nombre'],
+                            descripcion: data['descripcion'],
+                            icono: BootstrapIcons.star_fill,
+                            imageUrl: data['foto'][0]
+                          ),
+                        );
+                      }
+                    ),
+                  ),
+                ),
+              );
+            }
+
+
+            List data = groupListByTwo(snapshot.data!.docs);
+            return SizedBox(
+              height: 252,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    data.length,
+                    (index){
+                      return Container(
+                        // color: Colors.red,
+                        width: Get.width,
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: List.generate(
+                            data[index].length, 
+                            (jdex) => TarjetaTuristicaMini(
+                              imageUrl: data[index][jdex].data()['foto'][0],
+                              title: data[index][jdex].data()['nombre'],
+                              descripcion: data[index][jdex].data()['descripcion'],
+                              rating: 4
+                            )
+                          ),
+                        ),
+                      );
+                    }
+                  ),
+                ),
+              ),
+            );
+          }
+        ),
+      ],
+    );
+  }
+
+  SizedBox mensaje(texto, {bool mostrarCargando = false}) {
+    return SizedBox(
+      height: 150,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            mostrarCargando ? const CircularProgressIndicator() : const SizedBox(),
+            Text(
+              texto, 
+              style: const TextStyle(fontWeight: FontWeight.bold)
+            ),
+          ],
+        )
       ),
     );
   }
 }
 
-Widget _bodyContainer(BuildContext context) {
-  final HomeController controller = Get.find();
-
-  return Stack(children: [
-    SafeArea(
-      child: Column(
-        children: [
-          _buildButtonRow(),
-          const SizedBox(height: 12.0),
-        ],
-      ),
-    ),
-  ]);
-}
-
-Widget _buildButtonRow() {
-  final buttons = [
-    const SizedBox(width: 10,),
-    CustomElevatedButton(
-        color: AppBasicColors.greyMun,
-        textColor: AppBasicColors.black,
-        fontWeight: FontWeight.bold,
-        icon: BootstrapIcons.book,
-        fixedSize: true,
-        text: 'Información del municipio',
-        onPressed: () {
-          Get.to(const Detail());
-        }),
-    const SizedBox(
-      width: 10.0,
-    ),
-    CustomElevatedButton(
-        color: AppBasicColors.yellow,
-        textColor: AppBasicColors.black,
-        fontWeight: FontWeight.bold,
-        icon: BootstrapIcons.brightness_alt_high,
-        fixedSize: true,
-        text: 'Cultura',
-        onPressed: () {
-          Get.to(const Detail());
-        }),
-    const SizedBox(
-      width: 10.0,
-    ),
-    CustomElevatedButton(
-        color: AppBasicColors.rgb,
-        textColor: AppBasicColors.black,
-        fontWeight: FontWeight.bold,
-        icon: BootstrapIcons.bicycle,
-        fixedSize: true,
-        text: 'Etnoturismo',
-        onPressed: () {
-          Get.to(const Detail());
-        }),
-        const SizedBox(width: 10,),
-    /* CustomRowButton(
-      color: AppBasicColors.greyMun,
-      icon: BootstrapIcons.book,
-      text: 'Información del municipio',
-      onPressed: () {
-        Get.to(const Detail());
-      },
-    ),*/
-
-    /*CustomRowButton(
-      color: AppBasicColors.yellow,
-      icon: BootstrapIcons.brightness_alt_high,
-      text: 'Cultura',
-      onPressed: () {
-        Get.to(const Detail());
-      },
-    ),*/
-
-    /* CustomRowButton(
-        color: AppBasicColors.rgb,
-        icon: BootstrapIcons.bicycle,
-        text: 'Etnoturismo',
-        onPressed: () {
-          Get.to(const Detail());
-        })*/
-  ];
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(children: buttons.map((button) => button).toList()),
-  );
-}
-
-Widget _listTurismo(BuildContext context) {
-  final TarjetaTuristicaController tarjetaTuristicaController =
-      Get.put(TarjetaTuristicaController());
-
-  return Column(
-    children: [
-      WidgetText(
-        text: 'Sitios de interés',
-        onPressed: () {
-          Get.to(SiteList());
-        },
-        buttonText: 'Ver más',
-      ),
-      SizedBox(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: const [
-              TarjetaTuristica(
-                  titulo: 'Titulo',
-                  icono: BootstrapIcons.star_fill,
-                  descripcion:
-                      'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-                  imageUrl: 'Assets/Img/sitiocard.png'),
-              TarjetaTuristica(
-                  titulo: 'Titulo',
-                  icono: BootstrapIcons.star_fill,
-                  descripcion:
-                      'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-                  imageUrl: 'Assets/Img/sitiocard.png'),
-              TarjetaTuristica(
-                  titulo: 'Titulo',
-                  icono: BootstrapIcons.star_fill,
-                  descripcion:
-                      'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-                  imageUrl: 'Assets/Img/sitiocard.png'),
-            ],
-          ),
-        ),
-      ),
-      WidgetText(
-        text: 'Sitios turisticos',
-        onPressed: () {
-          //Get.to(SitiosTuristicoPage());
-        },
-        buttonText: 'Ver más',
-      ),
-      //Inicio creacion se sitio turistico
-      d(context),
-      ////Creacion fin sitio turistico
-      WidgetText(
-        text: 'Bienestar',
-        onPressed: () {
-          //Get.to(SitiosTuristicoPage());
-        },
-        buttonText: 'Ver más',
-      ),
-      /* const TarjetaTuristicaMini(
-          imageUrl: 'Assets/Img/sitiocard.png',
-          title: 'Titulo',
-          descripcion:
-              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),*/
-      /*const TarjetaTuristicaMini(
-          imageUrl: 'Assets/Img/sitiocard.png',
-          title: 'Titulo',
-          descripcion:
-              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),*/
-      WidgetText(
-        text: 'Ecoturismo',
-        onPressed: () {
-          //Get.to(SitiosTuristicoPage());
-        },
-        buttonText: 'Ver más',
-      ),
-      /*const TarjetaTuristicaMini(
-          imageUrl: 'Assets/Img/sitiocard.png',
-          title: 'Titulo',
-          descripcion:
-              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),
-      const TarjetaTuristicaMini(
-          imageUrl: 'Assets/Img/sitiocard.png',
-          title: 'Titulo',
-          descripcion:
-              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),*/
-      WidgetText(
-        text: 'Rural',
-        onPressed: () {
-          //Get.to(SitiosTuristicoPage());
-        },
-        buttonText: 'Ver más',
-      ),
-      /* const TarjetaTuristicaMini(
-          imageUrl: 'Assets/Img/sitiocard.png',
-          title: 'Titulo',
-          descripcion:
-              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4),
-      const TarjetaTuristicaMini(
-          imageUrl: 'Assets/Img/sitiocard.png',
-          title: 'Titulo',
-          descripcion:
-              'Descripción Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-          rating: 4)*/
-    ],
-  );
-}
-
-
-Widget d(BuildContext context) {
-  final HomeController homeController = Get.find();
-  return
-      StreamBuilder<QuerySnapshot>(
-          stream: homeController.selectSites(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return const Center(
-                  child: Text('Lo sentimos se ha producido un error.'));
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: Text('Cargando datos.'));
-            }
-            if (snapshot.data!.docs.isEmpty) {
-              return const Center(
-                  child: Text("Sin datos para mostrar",
-                      style: TextStyle(fontWeight: FontWeight.bold)));
-            }
-            return ListView(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: snapshot.data!.docs
-                    .map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data()! as Map<String, dynamic>;
-                      print("Data traida: ${data}");
-                      return listDetails(data);
-                    })
-                    .toList()
-                    .cast());
-          });
-}
-
-Widget listDetails(Map<String, dynamic> data) {
-  return TarjetaTuristicaMini(
-      imageUrl: data['foto'][0],
-      title: data['nombre'],
-      descripcion: data['descripcion'],
-      rating: 4);
+List groupListByTwo(List originalList) {
+  List<List> groupedLists = [];
+  for (int i = 0; i < originalList.length; i += 2) {
+    if (i + 1 < originalList.length) {
+      groupedLists.add([originalList[i], originalList[i + 1]]);
+    } else {
+      groupedLists.add([originalList[i]]);
+    }
+  }
+  return groupedLists;
 }

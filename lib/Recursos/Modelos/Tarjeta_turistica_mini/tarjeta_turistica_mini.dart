@@ -28,14 +28,9 @@ class TarjetaTuristicaMini extends StatelessWidget {
         child: Row(
           children: <Widget>[
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0),
-                  bottomLeft: Radius.circular(10.0),
-                  bottomRight: Radius.circular(10.0)),
-              child: ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                    AppBasicColors.black.withOpacity(0.1), BlendMode.darken),
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                child: ColorFiltered(
+                colorFilter: ColorFilter.mode(AppBasicColors.black.withOpacity(0.1), BlendMode.darken),
                 child: Image.network(
                   imageUrl,
                   fit: BoxFit.cover,
@@ -44,45 +39,43 @@ class TarjetaTuristicaMini extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              width: 10.0,
-            ),
+            const SizedBox(width: 10.0),
             Expanded(
                 child: Padding(
               padding: const EdgeInsets.only(right: 5.0, bottom: 2.0, top: 2.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          for (int i = 0; i < rating; i++)
-                            const Icon(
-                              BootstrapIcons.star_fill,
-                              color: AppBasicColors.yellow,
-                              size: 20.0,
-                            )
-                        ],
-                      ),
+                      for (int i = 0; i < rating; i++)
+                        Padding(
+                          padding: EdgeInsets.only(right: 2),
+                          child: const Icon(
+                            BootstrapIcons.star_fill,
+                            color: AppBasicColors.yellow,
+                            size: 20.0,
+                          ),
+                        )
                     ],
                   ),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
+                  const SizedBox(height: 5.0),
                   Text(
                     descripcion,
                     textAlign: TextAlign.justify,
                     style: const TextStyle(fontSize: 12.0),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),

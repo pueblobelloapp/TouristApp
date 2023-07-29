@@ -99,9 +99,13 @@ class SitioPage extends GetView<SitioController> {
   }
 
   Widget _btnArrowBack() {
-    return CustomBackButton(onPressed: () {
-      Get.back();
-    });
+    return Positioned(
+      top: 50.0,
+      left: 10.0,
+      child: CustomBackButton(onPressed: () {
+        Get.back();
+      }),
+    );
   }
 
   Widget _containerDescripcion(context) {

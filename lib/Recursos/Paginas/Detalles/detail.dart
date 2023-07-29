@@ -39,9 +39,13 @@ Widget _containerPhoto(List<String> imagePaths) {
 }
 
 Widget _btnArrowBack() {
-  return CustomBackButton(onPressed: () {
-    Get.back();
-  });
+  return Positioned(
+    top: 50.0,
+    left: 10.0,
+    child: CustomBackButton(onPressed: () {
+      Get.back();
+    }),
+  );
   /*Positioned(
     top: 40.0,
     left: 10.0,

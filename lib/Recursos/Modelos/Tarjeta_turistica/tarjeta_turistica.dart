@@ -2,9 +2,6 @@ import 'package:app_turismo_usuario/Recursos/Paginas/Sitio/sitio.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transparent_image/transparent_image.dart';
-
-import 'tarjeta_turistica_controller.dart';
 
 class TarjetaTuristica extends StatelessWidget {
   final String titulo;
@@ -21,98 +18,64 @@ class TarjetaTuristica extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TarjetaTuristicaController tarjetaTuristicaController = Get.find();
 
-    return Card(
-        elevation: 2.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+    return GestureDetector(
+      onTap: ()=>Get.to(SitioPage()),
+      child: Container(
+        height: 200,
+        width: Get.width-20,
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            opacity: .5,
+            image: NetworkImage(imageUrl),
+            fit: BoxFit.cover
+          ),
+          color: AppBasicColors.black,
+          borderRadius: BorderRadius.circular(10)
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
-          //verticalDirection: VerticalDirection.down,
           children: [
-            GestureDetector(
-              onTap: () {
-                Get.to(SitioPage());
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Stack(children: [
-                  ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                        AppBasicColors.black.withOpacity(0.5),
-                        BlendMode.darken),
-                    child: Image.asset(
-                      imageUrl,
-                      fit: BoxFit.cover,
-                      width: Get.width-20, //double.infinity,
-                      height: 203,
+            Text(
+              titulo,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: AppBasicColors.white
+              ),
+            ),
+            const SizedBox(height: 5,),
+            Row(
+              children: [
+                for(int i=0; i<5; i++)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 2),
+                    child: Icon(
+                      icono,
+                      color: AppBasicColors.yellow,
+                      size: 20.0,
                     ),
                   ),
-                  Positioned(
-                      left: 16.0,
-                      bottom: 16.0,
-                      child: Opacity(
-                        opacity: 1.0,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              titulo,
-                              style: const TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppBasicColors.white),
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  icono,
-                                  color: AppBasicColors.yellow,
-                                  size: 20.0,
-                                ),
-                                Icon(
-                                  icono,
-                                  color: AppBasicColors.yellow,
-                                  size: 20.0,
-                                ),
-                                Icon(
-                                  icono,
-                                  color: AppBasicColors.yellow,
-                                  size: 20.0,
-                                ),
-                                Icon(
-                                  icono,
-                                  color: AppBasicColors.yellow,
-                                  size: 20.0,
-                                ),
-                                Icon(
-                                  icono,
-                                  color: AppBasicColors.yellow,
-                                  size: 20.0,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: Get.width-50,
-                              child: Expanded(
-                                child: Text(
-                                  descripcion,
-                                  textAlign: TextAlign.justify,
-                                  style: const TextStyle(
-                                      fontSize: 12.0,
-                                      color: AppBasicColors.white),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ))
-                ]),
+              ],
+            ),
+            const SizedBox(height: 5,),
+            Text(
+              descripcion,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.justify,
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: AppBasicColors.white
               ),
-            )
+            ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

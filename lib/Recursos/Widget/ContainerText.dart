@@ -19,25 +19,30 @@ class WidgetText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-              child: Text(
-            text,
-            style: const TextStyle(
+            child: Text(
+              text,
+              style: const TextStyle(
                 fontSize: 20.0,
                 color: AppBasicColors.black,
-                fontWeight: FontWeight.bold),
-          )),
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
           TextButton(
-              onPressed: onPressed,
-              child: Text(
-                buttonText,
-                style: TextStyle(
-                    fontSize: buttonFontSize,
-                    color: AppBasicColors.rgb,
-                    fontWeight: FontWeight.bold),
-              ))
+            onPressed: onPressed,
+            child: Text(
+              buttonText,
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                fontSize: buttonFontSize,
+                color: AppBasicColors.rgb,
+                  fontWeight: FontWeight.bold
+              ),
+            )
+          )
         ],
       ),
     );
