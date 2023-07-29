@@ -123,19 +123,21 @@ class ListaTarjetasCategoria extends StatelessWidget {
                     data.length,
                     (index){
                       return Container(
-                        // color: Colors.red,
                         width: Get.width,
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: List.generate(
                             data[index].length, 
-                            (jdex) => TarjetaTuristicaMini(
-                              imageUrl: data[index][jdex].data()['foto'][0],
-                              title: data[index][jdex].data()['nombre'],
-                              descripcion: data[index][jdex].data()['descripcion'],
-                              rating: 4
-                            )
+                            (jdex) {
+                              dynamic sitio = data[index][jdex].data();
+                              return TarjetaTuristicaMini(
+                                imageUrl: sitio['foto'][0],
+                                title: sitio['nombre'],
+                                descripcion: sitio['descripcion'],
+                                rating: 4
+                              );
+                            }
                           ),
                         ),
                       );

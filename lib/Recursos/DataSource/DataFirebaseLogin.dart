@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:app_turismo_usuario/Recursos/Entity/UserLogin.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Perfil/PerfilController.dart';
-import 'package:app_turismo_usuario/Recursos/Paginas/Registrar/RegistrarController.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
