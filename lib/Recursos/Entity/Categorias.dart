@@ -1,3 +1,5 @@
+
+
 class Categorias {
   static const String sitioInteres = 'sitio_interes';
   static const String sitioTuristico = 'sitio_turistico';

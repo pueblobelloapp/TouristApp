@@ -1,5 +1,4 @@
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class NotificationMessage {
