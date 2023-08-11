@@ -1,4 +1,3 @@
-
 import 'package:app_turismo_usuario/Recursos/controllers/LoginControllers.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import '../Paginas/Recuperar_contrasena/RecuperarContrasena.dart';
 import '../../theme/app_theme.dart';
 
 class PopUpMenuPerfil extends StatelessWidget {
-
   final ControllerLogin _login = Get.find();
 
   PopUpMenuPerfil({
@@ -39,9 +37,8 @@ class PopUpMenuPerfil extends StatelessWidget {
                   height: 30.0,
                   width: 30.0,
                   decoration: const BoxDecoration(
-                    color: Color.fromRGBO(45, 52, 54, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0))
-                  ),
+                      color: Color.fromRGBO(45, 52, 54, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
                   child: const Icon(
                     BootstrapIcons.person,
                     color: AppBasicColors.white,
@@ -115,12 +112,12 @@ class PopUpMenuPerfil extends StatelessWidget {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return const RecoveryPassword();
+                  return RecoveryPassword();
                 });
             break;
           case 3:
             _login.logout();
-          break;
+            break;
         }
       },
     );
