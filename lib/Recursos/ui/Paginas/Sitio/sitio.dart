@@ -12,9 +12,8 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webviewx/webviewx.dart';
 
-import '../../../Entity/Sitio.dart';
+import '../../../Entity/sitio.dart';
 import '../../Widget/custom_back_button.dart';
-import '../Mapa/Mapa.dart';
 
 class SitioPage extends GetView<SitioController> {
   

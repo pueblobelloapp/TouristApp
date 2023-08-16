@@ -1,5 +1,5 @@
 
-import 'package:app_turismo_usuario/Recursos/Entity/Categorias.dart';
+import 'package:app_turismo_usuario/Recursos/Entity/categorias.dart';
 import 'package:app_turismo_usuario/Recursos/routes/app_pages.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

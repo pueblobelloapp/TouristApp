@@ -76,10 +76,10 @@ class _LoginState extends State<Login> {
   }
 
   Widget titleLogin() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(94.0, 70.0, 94.0, 0),
+    return const Padding(
+      padding:  EdgeInsets.fromLTRB(94.0, 70.0, 94.0, 0),
       child: Column(
-        children: const [
+        children: [
           Text(
             'IKU',
             style: TextStyle(
@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
   }
 
   Widget _formLogin() {
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Form(

@@ -1,11 +1,11 @@
 import 'package:app_turismo_usuario/Recursos/bindings/Bindings.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Paginas/Home/home.dart';
-import 'package:app_turismo_usuario/Recursos/ui/Paginas/Login/Login.dart';
+import 'package:app_turismo_usuario/Recursos/ui/Paginas/Login/login.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Paginas/Sitio/sitio.dart';
 import 'package:get/get.dart';
 
 import '../ui/Paginas/Lista_sitio/Site_list.dart';
-import '../ui/Paginas/SplashScreen/splashScreen.dart';
+import '../ui/Paginas/SplashScreen/splash_screen.dart';
 
 part './app_routes.dart';
 

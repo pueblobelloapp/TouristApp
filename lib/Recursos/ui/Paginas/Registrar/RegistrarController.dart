@@ -46,7 +46,7 @@ class RegistrarController extends GetxController {
         await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
-      print("Tomando valor de fotografia.");
+      // print("Tomando valor de fotografia.");
       selectedPhoto.value = pickedImage;
       update();
     }
@@ -60,7 +60,7 @@ class RegistrarController extends GetxController {
       if (controller.validPasswordEqual(
           userRegister["pass"]!, userRegister["passVerify"]!)) {
         if (isValidEmail) {
-          print("Todo Ok");
+          // print("Todo Ok");
           Usuario user = Usuario();
           user.password = userRegister["pass"]!;
           user.email = userRegister["email"]!;
@@ -78,6 +78,7 @@ class RegistrarController extends GetxController {
                     notificationMessage.imagePath = "Assets/Img/thumb-down.gif",
                     notificationMessage.shouldTransform = false
                   })
+              // ignore: body_might_complete_normally_catch_error
               .catchError((onError) {
             if (onError == "email-already-in-use") {
               notificationMessage.message =
@@ -102,6 +103,7 @@ class RegistrarController extends GetxController {
       notificationMessage.message = "Minimo 6 caracteres y maximo 8.";
     }
 
+    // ignore: use_build_context_synchronously
     notificationMessage.showNotification(context);
     cleanField();
   }

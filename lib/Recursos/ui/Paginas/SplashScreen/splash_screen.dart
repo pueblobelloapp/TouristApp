@@ -1,7 +1,5 @@
-
 import 'dart:async';
 import 'package:app_turismo_usuario/Recursos/routes/app_pages.dart';
-import 'package:app_turismo_usuario/Recursos/ui/Paginas/Home/home.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -65,6 +63,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Transform.scale(
+              // ignore: unnecessary_null_comparison
               scale: _animation == null ? 0.3 : _animation.value,
               child: const Text(
                 'IKU',
@@ -75,6 +74,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               ),
             ),
             Transform.scale(
+              // ignore: unnecessary_null_comparison
               scale: _animation == null ? 1.0 : _animation.value,
               child: const Text('Pueblo Bello',
                   style: TextStyle(

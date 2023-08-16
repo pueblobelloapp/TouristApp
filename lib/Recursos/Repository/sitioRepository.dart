@@ -1,7 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../Entity/Sitio.dart';
+import '../Entity/sitio.dart';
 
 abstract class SitioRepository {
   Stream<List<Sitio?>?> getAll();

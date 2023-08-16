@@ -2,7 +2,7 @@ import 'package:app_turismo_usuario/Recursos/Repository/sitioRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Entity/Sitio.dart';
+import '../Entity/sitio.dart';
 
 class SitioController extends GetxController {
 

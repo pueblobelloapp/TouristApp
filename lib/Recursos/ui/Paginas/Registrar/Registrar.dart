@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:app_turismo_usuario/Recursos/ui/Widget/Constans.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/custom_textFormField.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -80,11 +78,11 @@ Widget _btnArrowBack() {
 }
 
 Widget _title() {
-  return SafeArea(
+  return const SafeArea(
       top: false,
       bottom: false,
       child: Column(
-        children: const [
+        children: [
           Center(
             child: Text(
               'IKU',
@@ -99,7 +97,6 @@ Widget _title() {
 }
 
 Widget _containerPhoto() {
-  final controller = Get.put<RegistrarController>(RegistrarController());
   final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
   return GestureDetector(
       onTap: () => controllerPhoto.selectPhoto(),
