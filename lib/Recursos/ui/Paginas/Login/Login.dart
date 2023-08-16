@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   String mensajeNotificacion = "Error";
 
   final ControllerLogin _controllerLogin = Get.find();
-  
+
   Usuario userLogin = Usuario();
   String mensajeNotification = "Error";
   bool isLoading = false;
@@ -139,46 +139,47 @@ class _LoginState extends State<Login> {
                   width: double.infinity,
                   height: 50.0,
                   child: CustomElevatedButton(
-                      color: AppBasicColors.rgb,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      onPressed: () async{
-                        isLoading = true;
-                        setState(() {});
-                        showDialog(
-                          context: context, 
+                    color: AppBasicColors.rgb,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    onPressed: () async {
+                      isLoading = true;
+                      setState(() {});
+                      showDialog(
+                          context: context,
                           barrierDismissible: false,
-                          builder: (builder){
+                          builder: (builder) {
                             return AlertDialog(
                               content: SizedBox(
                                 height: 200,
                                 width: Get.width,
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
+                                  children: const [
                                     CircularProgressIndicator(),
-                                    SizedBox(height: 10,),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Text('Cargando'),
                                   ],
                                 ),
                               ),
                             );
-                          }
-                        );
+                          });
 
-                        bool resp = await _controllerLogin.getLoginUser(context);
+                      bool resp = await _controllerLogin.getLoginUser(context);
 
-                        if(resp){
-                          Get.back();
-                          Get.back();
-                        }else{
-                          isLoading = false;
-                          setState(() {});
-                        }
-                      },
-                      text: 'Iniciando sesion',
-                    )),
+                      if (resp) {
+                        Get.back();
+                        Get.back();
+                      } else {
+                        isLoading = false;
+                        setState(() {});
+                      }
+                    },
+                    text: 'Iniciando sesion',
+                  )),
               const SizedBox(height: 18.0),
               _optionSesion()
             ],

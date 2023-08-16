@@ -33,7 +33,7 @@ dependencies:
   flutter_speed_dial: ^3.0.1
   url_launcher: ^6.1.11
   flutter_rating_stars: ^1.0.3+4
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.10.0
   webviewx: ^0.2.2
 
 dev_dependencies:
@@ -45,7 +45,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "Assets/logo.png" 
+  image_path: "Assets/logo.png"
 
 flutter:
   uses-material-design: true

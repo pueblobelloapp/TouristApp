@@ -39,12 +39,18 @@ class Registrar extends GetView<RegistrarController> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 80,),
+                  const SizedBox(
+                    height: 80,
+                  ),
                   _title(),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   _containerPhoto(),
                   _formRegistration(context),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             ),
@@ -59,7 +65,7 @@ Widget _btnArrowBack() {
   return SafeArea(
       minimum: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 11.0),
       child: GestureDetector(
-        onTap: ()=>Get.back(),
+        onTap: () => Get.back(),
         child: Container(
             height: 30.0,
             width: 30.0,
@@ -104,11 +110,10 @@ Widget _containerPhoto() {
             width: 148.0,
             height: 151.0,
             decoration: BoxDecoration(
-              color: controllerPhoto.selectedPhoto.value.path == ""
-                  ? AppBasicColors.rgb
-                  : AppBasicColors.rgbTransparent,
-              borderRadius: BorderRadius.circular(10)
-            ),
+                color: controllerPhoto.selectedPhoto.value.path == ""
+                    ? AppBasicColors.rgb
+                    : AppBasicColors.rgbTransparent,
+                borderRadius: BorderRadius.circular(10)),
             child: Center(
               child: controllerPhoto.selectedPhoto.value.path != ""
                   ? Image.memory(
