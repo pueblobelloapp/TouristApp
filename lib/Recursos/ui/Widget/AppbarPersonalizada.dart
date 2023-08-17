@@ -17,14 +17,15 @@ class AppbarPersonalizada extends StatelessWidget {
   final FocusNode? focusNode;
   final Function(String str)? accionBuscar;
 
-  AppbarPersonalizada(
-      {Key? key,
-      this.focusNode,
-      this.onTapBuscar,
-      this.controller,
-      this.readOnly = true,
-      this.mostrarBotonAtras = false,
-      this.accionBuscar})
+  AppbarPersonalizada({
+    Key? key,
+    this.focusNode,
+    this.onTapBuscar,
+    this.controller,
+    this.readOnly = true,
+    this.mostrarBotonAtras = false,
+    this.accionBuscar
+  })
       : super(key: key);
 
   @override
@@ -61,7 +62,8 @@ class AppbarPersonalizada extends StatelessWidget {
               width: 5.0,
             ),
             Obx(
-              () => Container(
+              () {
+                return Container(
                   height: 30.0,
                   width: 30.0,
                   decoration: const BoxDecoration(
@@ -69,13 +71,15 @@ class AppbarPersonalizada extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(5.0))),
                   child: _login.usuario.value.id.isEmpty
                       ? IconButton(
-                          onPressed: () => Get.to(const Login()),
+                          onPressed: ()=>Get.to(const Login()),
                           padding: EdgeInsets.zero,
                           icon: const Icon(
                             BootstrapIcons.person,
                             color: AppBasicColors.white,
                           ))
-                      : PopUpMenuPerfil()),
+                      : PopUpMenuPerfil()
+                  );
+              },
             )
           ],
         ),

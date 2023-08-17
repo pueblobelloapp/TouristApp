@@ -67,4 +67,14 @@ class Sitio {
       latitud: map['latitud'] ?? '',
     );
   }
+
+  get calificacion{
+    int suma = 0;
+    for (var element in puntuacion) {
+      suma += int.parse('${element['calificacion'] ?? '0' }');
+    }
+
+    return (suma / puntuacion.length).round();
+  }
+  
 }

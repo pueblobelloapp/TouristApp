@@ -1,30 +1,25 @@
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../Entity/sitio.dart';
 import '../../routes/app_pages.dart';
 
 class TarjetaTuristica extends StatelessWidget {
-  final String titulo;
-  final IconData icono;
-  final String descripcion;
-  final String imageUrl;
-  final String id;
+
+  final Sitio sitio;
 
   const TarjetaTuristica({
     super.key,
-    required this.titulo,
-    required this.icono,
-    required this.descripcion,
-    required this.imageUrl, 
-    required this.id
+    required this.sitio
   });
 
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
-      onTap: ()=>Get.toNamed(Routes.Sitio, arguments: {'id': id}),
+      onTap: ()=>Get.toNamed(Routes.Sitio, arguments: {'id': sitio.id}),
       child: Container(
         height: 200,
         width: Get.width-20,
@@ -32,7 +27,7 @@ class TarjetaTuristica extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             opacity: .5,
-            image: NetworkImage(imageUrl),
+            image: NetworkImage(sitio.fotos[0]),
             fit: BoxFit.cover
           ),
           color: AppBasicColors.black,
@@ -43,7 +38,7 @@ class TarjetaTuristica extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              titulo,
+              sitio.titulo,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -54,21 +49,21 @@ class TarjetaTuristica extends StatelessWidget {
             ),
             const SizedBox(height: 5,),
             Row(
-              children: [
-                for(int i=0; i<5; i++)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 2),
-                    child: Icon(
-                      icono,
-                      color: AppBasicColors.yellow,
-                      size: 20.0,
-                    ),
+              children: List.generate(
+                5, 
+                (index) => Padding(
+                  padding: const EdgeInsets.only(right: 2),
+                  child: Icon(
+                    BootstrapIcons.star_fill, 
+                    color: index <= sitio.calificacion ? AppBasicColors.yellow : AppBasicColors.greyRgba,
+                    size: 20.0,
                   ),
-              ],
+                ),
+              ),
             ),
             const SizedBox(height: 5,),
             Text(
-              descripcion,
+              sitio.descripcion,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.justify,

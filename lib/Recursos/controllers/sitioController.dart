@@ -39,9 +39,16 @@ class SitioController extends GetxController {
   Stream<Sitio?> cargarSitio(){
     return repository.getId(Get.arguments['id']);
   }
+  Stream<Map?> obtenerUsuario(id){
+    return repository.getUsuario(id);
+  }
 
   Stream<List<Sitio?>?> listarSitios(){
     return repository.getAll();
+  }
+  
+  agregarComentarios(idSitio, nuevaPuntuacion)async{
+    return await repository.addComentario(idSitio, nuevaPuntuacion);
   }
   
 }

@@ -1,5 +1,6 @@
 
 import 'package:app_turismo_usuario/Recursos/Entity/categorias.dart';
+import 'package:app_turismo_usuario/Recursos/Entity/sitio.dart';
 import 'package:app_turismo_usuario/Recursos/routes/app_pages.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -96,15 +97,10 @@ class ListaTarjetasCategoria extends StatelessWidget {
                       children: List.generate(
                         snapshot.data!.docs.length, (index){
                           dynamic data = snapshot.data!.docs[index].data();
+                          Sitio _dataSitio = Sitio.fromMap(data, snapshot.data!.docs[index].id);
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: TarjetaTuristica(
-                              id: snapshot.data!.docs[index].id,
-                              titulo: data['nombre'],
-                              descripcion: data['descripcion'],
-                              icono: BootstrapIcons.star_fill,
-                              imageUrl: data['foto'][0]
-                            ),
+                            child: TarjetaTuristica(sitio: _dataSitio,),
                           );
                         }
                       ),
@@ -133,13 +129,13 @@ class ListaTarjetasCategoria extends StatelessWidget {
                           children: List.generate(
                             data[index].length, 
                             (jdex) {
-                              dynamic sitio = data[index][jdex].data();
+                              Sitio sitio  = Sitio.fromMap(data[index][jdex].data(), data[index][jdex].id);
                               return TarjetaTuristicaMini(
-                                id: data[index][jdex].id,
-                                imageUrl: sitio['foto'][0],
-                                title: sitio['nombre'],
-                                descripcion: sitio['descripcion'],
-                                rating: 4
+                                id: sitio.id,
+                                imageUrl: sitio.fotos[0],
+                                title: sitio.titulo,
+                                descripcion: sitio.descripcion,
+                                rating: sitio.calificacion
                               );
                             }
                           ),

@@ -9,16 +9,15 @@ class CustomPersonContainer extends StatelessWidget {
   final int starCount;
 
   final Color containerIconColor;
-  final Color starColor;
 
-  const CustomPersonContainer(
-      {super.key,
-      this.imagePath,
-      this.icon,
-      required this.name,
-      required this.starCount,
-      required this.containerIconColor,
-      required this.starColor});
+  const CustomPersonContainer({
+    super.key,
+    this.imagePath,
+    this.icon,
+    required this.name,
+    required this.starCount,
+    required this.containerIconColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +26,26 @@ class CustomPersonContainer extends StatelessWidget {
       visualDensity: VisualDensity.compact,
       leading: Container(
         decoration: BoxDecoration(
-            color: containerIconColor,
-            borderRadius: BorderRadius.circular(8.0)),
+          color: containerIconColor,
+          borderRadius: BorderRadius.circular(8.0),
+          image: DecorationImage(
+            image: NetworkImage(
+              imagePath!,
+            ),
+            fit: BoxFit.cover,
+            onError: (exception, stackTrace){},
+          )
+        ),
         width: 40.0,
         height: 40.0,
-        child: imagePath != null
-            ? Image.asset(imagePath!)
-            : Icon(
+        
+        child: Visibility(
+          visible: imagePath==null,
+          child: Icon(
                 icon,
                 color: AppBasicColors.white,
-              ),
+              )
+          )
       ),
       title: Text(
         name,
@@ -47,10 +56,10 @@ class CustomPersonContainer extends StatelessWidget {
       ),
       subtitle: Row(
         children: List.generate(
-            starCount,
+            5,
             (index) => Icon(
                   BootstrapIcons.star_fill,
-                  color: starColor,
+                  color: index < starCount ? AppBasicColors.yellow : AppBasicColors.greyRgba,
                   size: 15.0,
                 )),
       ),

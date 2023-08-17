@@ -16,27 +16,19 @@ class Registrar extends GetView<RegistrarController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: const AssetImage('Assets/Img/background-login.png'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.6), BlendMode.srcOver)),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 10,
-              child: Row(
-                children: [
-                  _btnArrowBack(),
-                ],
-              ),
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: const AssetImage('Assets/Img/background-login.png'),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.6), BlendMode.srcOver)),
             ),
-            SingleChildScrollView(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   const SizedBox(
@@ -54,33 +46,31 @@ class Registrar extends GetView<RegistrarController> {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          Positioned(
+            top: 50,
+            left: 10,
+            child: GestureDetector(
+              onTap: ()=>Get.back(),
+              child: Container(
+                height: 30.0,
+                width: 30.0,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(178, 190, 195, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                ),
+                child: const Icon(
+                    BootstrapIcons.arrow_left,
+                    color: AppBasicColors.black,
+                    size: 20.0,
+                  )
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
-}
-
-Widget _btnArrowBack() {
-  return SafeArea(
-      minimum: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 11.0),
-      child: GestureDetector(
-        onTap: () => Get.back(),
-        child: Container(
-            height: 30.0,
-            width: 30.0,
-            decoration: const BoxDecoration(
-              color: Color.fromRGBO(178, 190, 195, 1),
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            ),
-            child: const Center(
-              child: Icon(
-                BootstrapIcons.arrow_left,
-                color: AppBasicColors.black,
-                size: 20.0,
-              ),
-            )),
-      ));
 }
 
 Widget _title() {

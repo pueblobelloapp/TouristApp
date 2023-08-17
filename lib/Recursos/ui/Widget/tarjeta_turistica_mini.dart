@@ -11,12 +11,14 @@ class TarjetaTuristicaMini extends StatelessWidget {
   final int rating;
   final String id;
 
-  const TarjetaTuristicaMini(
-      {super.key,
-      required this.imageUrl,
-      required this.title,
-      required this.descripcion,
-      required this.rating, required this.id});
+  const TarjetaTuristicaMini({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.descripcion,
+    required this.rating, 
+    required this.id
+  });
 
   @override
   Widget build(BuildContext context) {    
@@ -61,18 +63,17 @@ class TarjetaTuristicaMini extends StatelessWidget {
                       ),
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        for (int i = 0; i < 5; i++)
-                          const Padding(
-                            padding: EdgeInsets.only(right: 2),
-                            child:  Icon(
-                              BootstrapIcons.star_fill,
-                              color: AppBasicColors.yellow,
-                              size: 20.0,
-                            ),
-                          )
-                      ],
+                      children: List.generate(
+                        5, 
+                        (index) => Padding(
+                          padding: const EdgeInsets.only(right: 2),
+                          child: Icon(
+                            BootstrapIcons.star_fill, 
+                            color: index <= rating ? AppBasicColors.yellow : AppBasicColors.greyRgba,
+                            size: 20.0,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 5.0),
                     Text(

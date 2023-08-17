@@ -6,9 +6,10 @@ import '../Entity/sitio.dart';
 abstract class SitioRepository {
   Stream<List<Sitio?>?> getAll();
   Stream<Sitio?> getId(String id);
+  Stream<Map?> getUsuario(String id);
   Future delete(id);
   Future edit(obj);
-  Future add(obj);
+  Future addComentario(id, nuevaPuntuacion);
 }
 
 class SitioRepositoryImp extends SitioRepository {
@@ -22,7 +23,6 @@ class SitioRepositoryImp extends SitioRepository {
         if (snapshot.docs.isNotEmpty) {
           return snapshot.docs.map((e){
             if(e.exists){
-              print(e.data());
               dynamic data = e.data();
               return Sitio.fromMap(data, e.id);
             }else{
@@ -50,6 +50,18 @@ class SitioRepositoryImp extends SitioRepository {
     );
   }
   @override
+  Stream<Map?> getUsuario(String id){
+    return FirebaseFirestore.instance.collection('users').doc(id).snapshots().map(
+      (snapshot){
+        if (snapshot.exists) {
+          return snapshot.data()!;
+        } else {
+          return null;
+        }
+      }
+    );
+  }
+  @override
   Future delete(id)async{
     // return api.delete(id);
   }
@@ -58,8 +70,33 @@ class SitioRepositoryImp extends SitioRepository {
     // return api.edit( obj );
   }
   @override
-  Future add(obj)async{
-      // return api.add( obj );
+  Future addComentario(id, nuevaPuntuacion)async{
+    return await _db.doc(id).get().then((value)async{
+      if(value.exists){
+
+        dynamic data = value.data();
+
+        List puntuaciones = data['puntuacion'];
+
+        bool encontrado = false;
+
+        for (int i = 0; i < puntuaciones.length; i++) {
+          if(puntuaciones[i]['uid']==nuevaPuntuacion['uid']){
+            puntuaciones[i] = nuevaPuntuacion;
+            encontrado = true;
+          }
+        }
+
+        if(!encontrado){
+          puntuaciones.add(nuevaPuntuacion);
+        }
+
+        await _db.doc(id).update({'puntuacion': puntuaciones});
+        return true;
+      }else{
+        return false;
+      }
+    });
   }
 
 }

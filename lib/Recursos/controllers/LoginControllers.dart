@@ -77,8 +77,9 @@ class ControllerLogin extends GetxController {
         userLogin.birthDate = "Sin definir";
 
         usuario.value.id = userCredential.user!.uid;
+        usuario.refresh();
 
-        _repositoryLogin
+        await _repositoryLogin
             .registerUserWithGoogle(userLogin)
             .then((value) => Get.back());
       }
@@ -107,8 +108,8 @@ class ControllerLogin extends GetxController {
         Get.back();
       });
 
-  Future<void> accessLoginUser(Usuario userLogin) async {
-    await _repositoryLogin.loginUser(userLogin);
+  Future<UserCredential?> accessLoginUser(Usuario userLogin) async {
+    return await _repositoryLogin.loginUser(userLogin);
   }
 
   bool validEmail(String email) {
@@ -126,7 +127,15 @@ class ControllerLogin extends GetxController {
         userLogin.email = emailL.text.trim();
 
         return await accessLoginUser(userLogin)
-            .then((value) => true)
+            .then((value){
+              if(value!=null){
+                usuario.value.id = value!.user!.uid;
+                usuario.refresh();
+                return true;
+              }else{
+                return false;
+              }
+            })
             .catchError((onError) {
           if (onError == "wrong-password") {
             notificationMessage.message = "Correo o contraseña son incorrectos";

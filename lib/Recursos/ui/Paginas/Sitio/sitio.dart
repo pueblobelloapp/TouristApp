@@ -1,16 +1,17 @@
-import 'package:app_turismo_usuario/Recursos/controllers/LoginControllers.dart';
-import 'package:app_turismo_usuario/Recursos/controllers/sitioController.dart';
-import 'package:app_turismo_usuario/Recursos/ui/Widget/Card/card_image_list.dart';
-import 'package:app_turismo_usuario/Recursos/ui/Paginas/Opinion/Opinion.dart';
-import 'package:app_turismo_usuario/Recursos/ui/Widget/ContainerText.dart';
-import 'package:app_turismo_usuario/Recursos/ui/Widget/Custom_person_container.dart';
-import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webviewx/webviewx.dart';
+
+import 'package:app_turismo_usuario/Recursos/controllers/LoginControllers.dart';
+import 'package:app_turismo_usuario/Recursos/controllers/sitioController.dart';
+import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
+import 'package:app_turismo_usuario/Recursos/ui/Paginas/Opinion/Opinion.dart';
+import 'package:app_turismo_usuario/Recursos/ui/Widget/Card/card_image_list.dart';
+import 'package:app_turismo_usuario/Recursos/ui/Widget/ContainerText.dart';
+import 'package:app_turismo_usuario/Recursos/ui/Widget/Custom_person_container.dart';
 
 import '../../../Entity/sitio.dart';
 import '../../Widget/custom_back_button.dart';
@@ -90,16 +91,15 @@ class DetalleSitio extends StatelessWidget {
                         Row(
                           children: List.generate(
                             5, 
-                            (index) => const Padding(
-                              padding:  EdgeInsets.only(right: 2),
+                            (index) => Padding(
+                              padding: const EdgeInsets.only(right: 2),
                               child: Icon(
                                 BootstrapIcons.star_fill, 
-                                color: AppBasicColors.yellow,
+                                color: index <= sitio.calificacion ? AppBasicColors.yellow : AppBasicColors.greyRgba,
                               ),
                             ),
                           ),
                         ),
-                          
                         const SizedBox(height: 8.0),
                         Text(
                           sitio.descripcion,
@@ -152,7 +152,7 @@ class DetalleSitio extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return Align(
-                                    child: FractionallySizedBox(widthFactor: 15.0, child: Opinion())
+                                    child: FractionallySizedBox(widthFactor: 15.0, child: Opinion(comentarios: sitio.puntuacion, idSitio: sitio.id,))
                                   );
                                 }
                               )
@@ -162,18 +162,13 @@ class DetalleSitio extends StatelessWidget {
                           buttonText: 'Calificar',
                           buttonFontSize: 20.0,
                         ),
-                        const CustomPersonContainer(
-                          icon: BootstrapIcons.person,
-                          name: 'Nombre completo',
-                          starCount: 5,
-                          containerIconColor: AppBasicColors.colorButtonCancelar,
-                          starColor: AppBasicColors.yellow
-                        ),
-                        const Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                        ),
+                        
+                        Column(
+                          children: List.generate(
+                            sitio.puntuacion.length, (index) => ItemComentario(comentario: sitio.puntuacion[index]),
+                          ),
+                        )
+                        
                       ],
                     ),
                   ),
@@ -192,6 +187,58 @@ class DetalleSitio extends StatelessWidget {
         ),
       ),
       floatingActionButton: const BotonFlotanteContacto(),
+    );
+  }
+}
+
+class ItemComentario extends StatelessWidget {
+
+  final Map comentario;
+
+  const ItemComentario({
+    Key? key,
+    required this.comentario,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<SitioController>(
+      builder: (sitio){
+        return StreamBuilder(
+          stream: sitio.obtenerUsuario(comentario['uid']),
+          builder: (context, snapshot){
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+      
+            if(snapshot.hasError){
+              return const Center(child: Text('Ocurrio un error al cargar este comentario'));
+            }
+            
+            if(snapshot.data==null){
+              return const SizedBox();
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomPersonContainer(
+                  icon: BootstrapIcons.person,
+                  name: snapshot.data!['name'],
+                  imagePath: snapshot.data!['image'],
+                  starCount: int.parse('${comentario['calificacion'] ?? '0'}'),
+                  containerIconColor: AppBasicColors.colorButtonCancelar,
+                ),
+                Text(
+                  comentario['comentario'] ?? 'Sin comentario',
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+              ],
+            );
+          }
+        );
+      }
     );
   }
 }

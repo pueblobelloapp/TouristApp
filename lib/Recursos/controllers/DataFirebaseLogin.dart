@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app_turismo_usuario/Recursos/Entity/Usuario.dart';
+import 'package:app_turismo_usuario/Recursos/controllers/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -67,11 +68,13 @@ class FirebaseLogin extends GetxController {
         SetOptions(merge: false));
   }
 
-  Future<void> getLogin(Usuario userLogin) async {
+  Future<UserCredential?> getLogin(Usuario userLogin) async {
     try {
       UserCredential userCredential =
           await firebaseAuth.signInWithEmailAndPassword(
               email: userLogin.email, password: userLogin.password);
+
+        return userCredential;
     } on FirebaseException catch (e) {
       if (e.code == 'user-not-found') {
         return Future.error('Usuario no Existe');
@@ -79,6 +82,7 @@ class FirebaseLogin extends GetxController {
         return Future.error('Contraseña incorrecta');
       }
     }
+    return null;
   }
 
   Future<void> logout() async {

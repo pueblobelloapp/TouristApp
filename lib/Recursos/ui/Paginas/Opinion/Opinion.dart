@@ -1,4 +1,6 @@
 // import 'package:app_turismo_usuario/Recursos/Paginas/Opinion/OpinionController.dart';
+import 'package:app_turismo_usuario/Recursos/controllers/LoginControllers.dart';
+import 'package:app_turismo_usuario/Recursos/controllers/sitioController.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -6,12 +8,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
 
-class Opinion extends GetView {
+import '../../../utils/NotificationValidation.dart';
 
-  final estrellas = 0.0.obs;
+
+class Opinion extends StatefulWidget {
+  final List comentarios;
+  final String idSitio;
+  const Opinion({super.key, required this.comentarios, required this.idSitio});
+
+  @override
+  State<Opinion> createState() => _OpinionState();
+}
+
+class _OpinionState extends State<Opinion> {
+  final estrellas = 1.0.obs;
   final TextEditingController textoOpinion = TextEditingController();
-  
-  Opinion({super.key});
+  final ControllerLogin _login = Get.find();
+
+  @override
+  void initState() {
+    for (var element in widget.comentarios) {
+      if(element['uid']==_login.usuario.value.id){
+        estrellas.value = element['calificacion'].toDouble();
+        textoOpinion.text = element['comentario'];
+      }
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +43,7 @@ class Opinion extends GetView {
       elevation: 0,
       content: Container(
         color: Colors.transparent,
-        height: 350,
+        height: 400,
         width: Get.width,
         padding: const EdgeInsets.all(10),
         child: Container(
@@ -31,6 +54,7 @@ class Opinion extends GetView {
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Puntuación',
@@ -98,29 +122,46 @@ class Opinion extends GetView {
                 ),
                 const SizedBox(width: 10.0,),
                 //ElevatedButton publicar
-                Expanded(
-                  child: SizedBox(
-                    height: 44.4,
-                    child: CustomElevatedButton(
-                      color: AppBasicColors.rgb,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                      onPressed: () {
-                        print(estrellas.value);
-                        // NotificationMessage notificationMessage =
-                        //     NotificationMessage(
-                        //         imagePath: 'Assets/Img/thumb-down.gif',
-                        //         title: 'Ok',
-                        //         message: 'Mensaje',
-                        //         flipVertical: true,
-                        //         onPressed: () {
-                        //           Get.back();
-                        //         });
-                        // notificationMessage.showNotification(context);
-                      },
-                      text: 'Publicar'
-                    )
-                  ),
+                GetBuilder<SitioController>(
+                  builder: (sitio){
+                    return Expanded(
+                      child: SizedBox(
+                        height: 44.4,
+                        child: CustomElevatedButton(
+                          color: AppBasicColors.rgb,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          onPressed: () async{
+
+                            print(textoOpinion.text);
+
+                            Map punutacion = {
+                              'uid': _login.usuario.value.id,
+                              'calificacion': estrellas.value.round(), 
+                              'comentario': textoOpinion.text,
+                            };
+                            dynamic resp = await sitio.agregarComentarios(widget.idSitio, punutacion);
+
+                            if(resp){
+                              NotificationMessage notificationMessage =
+                                NotificationMessage(
+                                    imagePath: 'Assets/Img/thumb-down.gif',
+                                    title: 'Ok',
+                                    message: 'Mensaje',
+                                    flipVertical: true,
+                                    onPressed: () {
+                                      Get.back();
+                                    });
+                              notificationMessage.showNotification(context);
+
+                            }
+
+                          },
+                          text: 'Publicar'
+                        )
+                      ),
+                    );
+                  }
                 )
               ],
             )

@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Entity/sitio.dart';
 import 'package:app_turismo_usuario/Recursos/controllers/sitioController.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
@@ -82,21 +83,15 @@ class SiteListPage extends GetView<SitioController> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return Obx(() => Visibility(
-                            visible: snapshot.data![index]!.titulo
-                                .toLowerCase()
-                                .contains(sitio.textBuscar),
+                      return Obx((){
+                        return Visibility(
+                            visible: snapshot.data![index]!.titulo.toLowerCase().contains(sitio.textBuscar),
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
-                              child: TarjetaTuristica(
-                                  id: snapshot.data![index]!.id,
-                                  titulo: snapshot.data![index]!.titulo,
-                                  descripcion:
-                                      snapshot.data![index]!.descripcion,
-                                  icono: BootstrapIcons.star_fill,
-                                  imageUrl: snapshot.data![index]!.fotos[0]),
+                              child: TarjetaTuristica(sitio: snapshot.data![index]!,),
                             ),
-                          ));
+                          );
+                      });
                     });
               }));
     });

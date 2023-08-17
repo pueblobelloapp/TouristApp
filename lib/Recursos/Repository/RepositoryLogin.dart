@@ -1,12 +1,13 @@
 
 import 'package:app_turismo_usuario/Recursos/Entity/Usuario.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../controllers/DataFirebaseLogin.dart';
 
 abstract class RepositoryLogin {
 
-  Future<void> loginUser(Usuario user);
+  Future<UserCredential?> loginUser(Usuario user);
   Future<void> registerUser(Usuario user);
   Future<void> registerUserWithGoogle(Usuario userLogin);
   Future<void> signOut();
@@ -18,9 +19,9 @@ class RepositoryLoginImp extends RepositoryLogin {
     // final FirebaseLogin _firebaseLogin = getIt();
 
   @override
-  Future<void> loginUser(Usuario user) {
+  Future<UserCredential?> loginUser(Usuario user){
     // TODO: implement loginUser
-    return _firebaseLogin.getLogin(user);
+    return  _firebaseLogin.getLogin(user);
   }
 
   @override
