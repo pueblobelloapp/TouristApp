@@ -55,7 +55,7 @@ class TarjetaTuristica extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 2),
                   child: Icon(
                     BootstrapIcons.star_fill, 
-                    color: index <= sitio.calificacion ? AppBasicColors.yellow : AppBasicColors.greyRgba,
+                    color: index < sitio.calificacion ? AppBasicColors.yellow : AppBasicColors.greyRgba,
                     size: 20.0,
                   ),
                 ),

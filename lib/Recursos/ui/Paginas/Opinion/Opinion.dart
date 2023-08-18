@@ -133,8 +133,6 @@ class _OpinionState extends State<Opinion> {
                           fontSize: 20.0,
                           onPressed: () async{
 
-                            print(textoOpinion.text);
-
                             Map punutacion = {
                               'uid': _login.usuario.value.id,
                               'calificacion': estrellas.value.round(), 
@@ -143,6 +141,7 @@ class _OpinionState extends State<Opinion> {
                             dynamic resp = await sitio.agregarComentarios(widget.idSitio, punutacion);
 
                             if(resp){
+                              Get.back();
                               NotificationMessage notificationMessage =
                                 NotificationMessage(
                                     imagePath: 'Assets/Img/thumb-down.gif',
