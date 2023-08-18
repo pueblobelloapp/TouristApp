@@ -69,12 +69,6 @@ class DetalleSitio extends StatelessWidget {
                 children: [
                   CardImageList(
                     imageList: sitio.fotos.map((e) => e.toString()).toList(),
-                    // imageList: [
-                    //   'https://picsum.photos/536/354',
-                    //   'https://picsum.photos/536/354',
-                    //   'https://picsum.photos/536/354',
-                    //   'https://picsum.photos/536/354',
-                    // ],
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10),
@@ -157,7 +151,6 @@ class DetalleSitio extends StatelessWidget {
                                 }
                               )
                             );
-                            
                           },
                           buttonText: 'Calificar',
                           buttonFontSize: 20.0,
@@ -208,7 +201,7 @@ class ItemComentario extends StatelessWidget {
           stream: sitio.obtenerUsuario(comentario['uid']),
           builder: (context, snapshot){
             if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
+              return const SizedBox();
             }
       
             if(snapshot.hasError){

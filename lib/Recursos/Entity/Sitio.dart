@@ -69,7 +69,13 @@ class Sitio {
   }
 
   get calificacion{
+
+    if(puntuacion.isEmpty){
+      return 0;
+    }
+
     int suma = 0;
+    
     for (var element in puntuacion) {
       suma += int.parse('${element['calificacion'] ?? '0' }');
     }
