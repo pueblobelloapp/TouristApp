@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PerfilController extends GetxController {
-
   final controllerLogin = Get.put<FirebaseLogin>(FirebaseLogin());
   final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
 
@@ -22,16 +21,15 @@ class PerfilController extends GetxController {
     userLogin.birthDate = birthdateControllerP.text;
     userLogin.email = emailControllerP.text;
     userLogin.name = nameControllerP.text;
-    userLogin.image = imgUrlControllerP.text.isEmpty ?
-                      "" : imgUrlControllerP.text;
+    userLogin.image =
+        imgUrlControllerP.text.isEmpty ? "" : imgUrlControllerP.text;
 
     Get.back();
-
-
   }
 
   Future<void> dataPerfil() async {
-    Stream<QuerySnapshot<Map<String, dynamic>>> usuarioLogin = controllerLogin.getUser();
+    Stream<QuerySnapshot<Map<String, dynamic>>> usuarioLogin =
+        controllerLogin.getUser();
 
     print("Mostrando elementos");
     usuarioLogin.forEach((element) {
@@ -47,9 +45,10 @@ class PerfilController extends GetxController {
 
   Future<DateTime?> selectDate(BuildContext context) async {
     return showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2006),
-        lastDate: DateTime.now());
+      context: context,
+      firstDate: DateTime(1943),
+      initialDate: DateTime(2000),
+      lastDate: DateTime(DateTime.now().year - 18),
+    );
   }
 }

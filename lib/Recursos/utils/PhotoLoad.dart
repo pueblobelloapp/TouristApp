@@ -35,4 +35,9 @@ class PhotoLoad extends GetxController {
     imagePerfilUrl.value = urlImage;
     update();
   }
+
+  void resetPhoto() {
+    selectedPhoto.value = XFile('');
+    update();
+  }
 }

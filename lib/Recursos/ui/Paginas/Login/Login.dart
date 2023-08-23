@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
 
   Widget titleLogin() {
     return const Padding(
-      padding:  EdgeInsets.fromLTRB(94.0, 70.0, 94.0, 0),
+      padding: EdgeInsets.fromLTRB(94.0, 70.0, 94.0, 0),
       child: Column(
         children: [
           Text(
@@ -153,10 +153,10 @@ class _LoginState extends State<Login> {
                               content: SizedBox(
                                 height: 200,
                                 width: Get.width,
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     CircularProgressIndicator(),
                                     SizedBox(
                                       height: 10,
@@ -178,7 +178,7 @@ class _LoginState extends State<Login> {
                         setState(() {});
                       }
                     },
-                    text: 'Iniciando sesion',
+                    text: 'Iniciar sesion',
                   )),
               const SizedBox(height: 18.0),
               _optionSesion()

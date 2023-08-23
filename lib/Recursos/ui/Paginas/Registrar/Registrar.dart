@@ -51,20 +51,19 @@ class Registrar extends GetView<RegistrarController> {
             top: 50,
             left: 10,
             child: GestureDetector(
-              onTap: ()=>Get.back(),
+              onTap: () => Get.back(),
               child: Container(
-                height: 30.0,
-                width: 30.0,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(178, 190, 195, 1),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                ),
-                child: const Icon(
+                  height: 30.0,
+                  width: 30.0,
+                  decoration: const BoxDecoration(
+                    color: Color.fromRGBO(178, 190, 195, 1),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: const Icon(
                     BootstrapIcons.arrow_left,
                     color: AppBasicColors.black,
                     size: 20.0,
-                  )
-              ),
+                  )),
             ),
           ),
         ],
@@ -253,18 +252,17 @@ Widget _btonRegistration(BuildContext context) {
       },
       text: 'Registrarme',
       child: controller.isLoading
-          ? Center(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                  SizedBox(
-                      height: 20.0,
-                      width: 20.0,
-                      child: CircularProgressIndicator(color: Colors.white)),
-                  SizedBox(width: 10.5),
-                  Text("Cargando datos")
-                ]))
-          : Center(child: Text("Registrarme")),
+          ? const Center(
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SizedBox(
+                  height: 20.0,
+                  width: 20.0,
+                  child: CircularProgressIndicator(color: Colors.white)),
+              SizedBox(width: 10.5),
+              Text("Cargando datos")
+            ]))
+          : const Center(child: Text("Registrarme")),
     ),
   );
 }

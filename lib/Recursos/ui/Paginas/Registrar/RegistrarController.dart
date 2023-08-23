@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../utils/PhotoLoad.dart';
+
 class RegistrarController extends GetxController {
   final RepositoryLogin _repositoryLogin = Get.find();
   // final RepositoryLogin _repositoryLogin = getIt();
@@ -106,6 +108,7 @@ class RegistrarController extends GetxController {
     // ignore: use_build_context_synchronously
     notificationMessage.showNotification(context);
     cleanField();
+    Get.find<PhotoLoad>().resetPhoto();
   }
 
   void cleanField() {
@@ -118,9 +121,10 @@ class RegistrarController extends GetxController {
 
   Future<DateTime?> selectDate(BuildContext context) async {
     return showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2006),
-        lastDate: DateTime.now());
+      context: context,
+      firstDate: DateTime(1943),
+      initialDate: DateTime(2000),
+      lastDate: DateTime(DateTime.now().year - 18),
+    );
   }
 }
