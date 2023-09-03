@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:app_turismo_usuario/Recursos/Entity/Usuario.dart';
-import 'package:app_turismo_usuario/Recursos/controllers/LoginControllers.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,7 +26,8 @@ class FirebaseLogin extends GetxController {
 
   Future<void> registerUser(Usuario userLogin) async {
     try {
-      UserCredential credential = await _auth.createUserWithEmailAndPassword(email: userLogin.email, password: userLogin.password);
+      UserCredential credential = await _auth.createUserWithEmailAndPassword(
+          email: userLogin.email, password: userLogin.password);
 
       await credential.user!.getIdToken();
       postDetailsToFirestore(userLogin).then((value) {
@@ -74,7 +74,7 @@ class FirebaseLogin extends GetxController {
           await firebaseAuth.signInWithEmailAndPassword(
               email: userLogin.email, password: userLogin.password);
 
-        return userCredential;
+      return userCredential;
     } on FirebaseException catch (e) {
       if (e.code == 'user-not-found') {
         return Future.error('Usuario no Existe');
