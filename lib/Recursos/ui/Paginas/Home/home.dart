@@ -8,12 +8,14 @@ import 'package:get/get.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/tarjeta_turistica.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/tarjeta_turistica_mini.dart';
 
+import '../../../theme/app_theme.dart';
 import '../../Widget/AppbarPersonalizada.dart';
-import '../../Widget/BotonesInfoMunicipio.dart';
 import '../../Widget/ContainerText.dart';
+import '../Detalles/detail.dart';
 
-class Home extends GetView {
+class Home extends StatefulWidget {
   const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

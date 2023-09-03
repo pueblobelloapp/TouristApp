@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CardImageList extends StatefulWidget {
-  final List<String> imageList;
+  final List imageList;
+  final bool radiusBottom;
 
-  const CardImageList({super.key, required this.imageList});
+  const CardImageList({super.key, required this.imageList, this.radiusBottom = true});
 
   @override
   State<CardImageList> createState() => _CardImageListState();
@@ -14,6 +15,7 @@ class CardImageList extends StatefulWidget {
 
 class _CardImageListState extends State<CardImageList> {
   final PageController _pageController = PageController();
+  
   int currentIndex = 0;
   @override
   void initState() {
@@ -33,6 +35,11 @@ class _CardImageListState extends State<CardImageList> {
 
   @override
   Widget build(BuildContext context) {
+
+    if(widget.imageList.isEmpty){
+      return const SizedBox();
+    }
+
     return SizedBox(
       height: 282.0,
       child: Stack(children: [
@@ -43,6 +50,7 @@ class _CardImageListState extends State<CardImageList> {
               return CardImage(
                 widget.imageList[index],
                 key: UniqueKey(),
+                radiusBottom: widget.radiusBottom,
               );
             })),
         Align(

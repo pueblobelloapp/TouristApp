@@ -174,6 +174,7 @@ class _LoginState extends State<Login> {
                         Get.back();
                         Get.back();
                       } else {
+                        Get.back();
                         isLoading = false;
                         setState(() {});
                       }
