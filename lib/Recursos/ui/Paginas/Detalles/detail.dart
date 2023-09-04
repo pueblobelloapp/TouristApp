@@ -1,146 +1,103 @@
 import 'package:app_turismo_usuario/Recursos/ui/Widget/Card/card_image_list.dart';
-// import 'package:app_turismo_usuario/Recursos/Paginas/Detalles/detailController.dart';
-import 'package:app_turismo_usuario/Recursos/ui/Widget/custom_back_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Detail extends GetView {
-  const Detail({super.key});
+  
+  final String categoria;
+
+  const Detail({super.key, required this.categoria});
 
   @override
   Widget build(BuildContext context) {    
-
-    List<String> imagePaths = [
-      'https://picsum.photos/536/354',
-      'https://picsum.photos/536/354',
-    ];
-
     return Scaffold(
-      body: Column(
-        children: [
-          _containerPhoto(imagePaths),
-          const SizedBox(
-            height: 8.0,
-          ),
-          Expanded(child: SingleChildScrollView(child: _containerDescripcion()))
-        ],
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('dataTurismo').where('subCategoria',isEqualTo: categoria).snapshots(),
+        builder: (context, snapshot){
+          
+          // if(){
+          //   return const Center(
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         CircularProgressIndicator(),
+          //         SizedBox(height: 20,),
+          //         Text('Cargando información...')
+          //       ],
+          //     ),
+          //   );
+          // }
+
+          dynamic data = snapshot.data!.docs.first;
+
+          return ListView(
+            children: [
+              CardImageList(imageList: data['photos']),
+              const SizedBox(
+                height: 8.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:  [
+                    Text(
+                      data['nombre'],
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    Text(
+                      data['descripcion'],
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    Column(
+                      children: List.generate(
+                       data['subTitulos'] == null ? 0 : data['subTitulos'].length, 
+                       (index){
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data['subTitulos'][index]['titulo'],
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8.0,),
+                              CardImageList(imageList: data['subTitulos'][index]['listPhotos'], radiusBottom: false,),
+                              const SizedBox(height: 8.0,),
+                              Text(
+                                data['subTitulos'][index]['descripcion'],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10,),
+                            ],
+                          );
+                        }
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          );
+        },
       ),
     );
   }
-}
-
-Widget _containerPhoto(List<String> imagePaths) {
-  // final controller = Get.put<DetailController>(DetailController());
-  return Stack(children: [
-    SafeArea(child: CardImageList(imageList: imagePaths)),
-    _btnArrowBack()
-  ]);
-}
-
-Widget _btnArrowBack() {
-  return Positioned(
-    top: 50.0,
-    left: 10.0,
-    child: CustomBackButton(onPressed: () {
-      Get.back();
-    }),
-  );
-}
-
-Widget _containerDescripcion() {
-  return Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text(
-          'Título',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: 8.0,
-        ),
-        Text(
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
-          textAlign: TextAlign.justify,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 30.0,
-        ),
-        Text(
-          'Subtitulo 1',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: 8.0,
-        ),
-        Text(
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
-          textAlign: TextAlign.justify,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 30.0,
-        ),
-        Text(
-          'Subtitulo 2',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: 8.0,
-        ),
-        Text(
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
-          textAlign: TextAlign.justify,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 30.0,
-        ),
-        Text(
-          'Subtitulo 3',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: 8.0,
-        ),
-        Text(
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
-          textAlign: TextAlign.justify,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 30.0,
-        ),
-        Text(
-          'Subtitulo 4',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(
-          height: 8.0,
-        ),
-        Text(
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dignissimos numquam hic deserunt asperiores id obcaecati dicta repudiandae nihil magnam neque nostrum laborum, ullam distinctio voluptatem tenetur eveniet blanditiis ducimus.',
-          textAlign: TextAlign.justify,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-        ),
-      ],
-    ),
-  );
 }

@@ -153,10 +153,10 @@ class _LoginState extends State<Login> {
                               content: SizedBox(
                                 height: 200,
                                 width: Get.width,
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     CircularProgressIndicator(),
                                     SizedBox(
                                       height: 10,
@@ -174,6 +174,7 @@ class _LoginState extends State<Login> {
                         Get.back();
                         Get.back();
                       } else {
+                        Get.back();
                         isLoading = false;
                         setState(() {});
                       }

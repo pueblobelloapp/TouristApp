@@ -10,32 +10,49 @@ import 'package:get/get.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/tarjeta_turistica.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/tarjeta_turistica_mini.dart';
 
+import '../../../theme/app_theme.dart';
 import '../../Widget/AppbarPersonalizada.dart';
-import '../../Widget/BotonesInfoMunicipio.dart';
 import '../../Widget/ContainerText.dart';
+import '../Detalles/detail.dart';
 
-class Home extends GetView {
+class Home extends StatefulWidget {
   const Home({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(110),
-        child: SafeArea(
-          child: Column(
-            children: [
-              AppbarPersonalizada(
-                onTapBuscar: (){
-                  Get.toNamed(Routes.ListSitio, arguments: {'esBuscar': true});
-                },
-              ),
-              const SizedBox(height: 10,),
-              BotonesInfoMunicipio(),
-            ],
-          ),
-        ),
-      ),
-      body: ListView(
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int currentPageIndex = 0;
+
+  final List vistas = [
+    {
+      'color': AppBasicColors.blueMess,
+      'selected-color': AppBasicColors.white,
+      'icon': BootstrapIcons.book,
+      'text': 'Municipio',
+      'vista': const Detail(categoria: 'municipio',)
+    },
+    {
+      'color': AppBasicColors.yellow,
+      'selected-color': AppBasicColors.black,
+      'icon': BootstrapIcons.brightness_alt_high,
+      'text': 'Cultura',
+      'vista': const Detail(categoria: 'Culturas',)
+    },
+    {
+      'color': AppBasicColors.rgb,
+      'selected-color': AppBasicColors.white,
+      'icon': BootstrapIcons.bicycle,
+      'text': 'Etnoturismo',
+      'vista': const Detail(categoria: 'municipio',)
+    },
+    {
+      'icon': BootstrapIcons.house,
+      'text': 'Sitios',
+      'color': AppBasicColors.green,
+      'selected-color': AppBasicColors.black,
+      'vista': ListView(
         children: const[
           ListaTarjetasCategoria(tipo: Categorias.sitioInteres, titulo: 'Sitios de interés', mostrarCardsGrandes: true,),
           ListaTarjetasCategoria(tipo: Categorias.sitioTuristico, titulo: 'Sitios turisticos',),
@@ -45,6 +62,45 @@ class Home extends GetView {
           SizedBox(height: 10,)
         ],
       )
+    }
+  ];
+
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: vistas[currentPageIndex]['color'],
+        animationDuration: const Duration(seconds: 1),
+        selectedIndex: currentPageIndex,
+        destinations: vistas.map(
+          (e) => NavigationDestination(
+            selectedIcon: Icon(e['icon'], color: vistas[currentPageIndex]['selected-color'],),
+            icon: Icon(e['icon'], color: e['color'],),
+            label: e['text'],
+          )
+        ).toList(),
+      ),
+      appBar: currentPageIndex==3 ? PreferredSize(
+        preferredSize: const Size.fromHeight(80),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: AppbarPersonalizada(
+              onTapBuscar: (){
+                Get.toNamed(Routes.ListSitio, arguments: {'esBuscar': true});
+              },
+            ),
+          ),
+        ),
+      ):null,
+      body: vistas[currentPageIndex]['vista']
     );
   }
 }
