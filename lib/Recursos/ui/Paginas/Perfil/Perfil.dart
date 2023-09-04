@@ -123,7 +123,7 @@ class ProfileDialog extends GetView<PerfilController> {
                   const SizedBox(height: 20.0),
                   SizedBox(
                     width: double.infinity,
-                    height: 40.0,
+                    height: 45.0,
                     child: CustomElevatedButton(
                         color: AppBasicColors.rgb,
                         fontSize: 15.0,

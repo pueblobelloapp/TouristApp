@@ -79,15 +79,22 @@ class ControllerLogin extends GetxController {
         usuario.value.id = userCredential.user!.uid;
         usuario.refresh();
 
-        await _repositoryLogin
-            .registerUserWithGoogle(userLogin)
-            .then((value) => Get.back());
+        await _repositoryLogin.registerUserWithGoogle(userLogin).then((value) {
+          // Limpia los campos después de un inicio de sesión exitoso
+          cleanField();
+          Get.back();
+        });
       }
     } catch (e) {
       print(e);
       notificationMessage.message = "Ups ocurrio un error.";
       notificationMessage.showNotification(context);
     }
+  }
+
+  void cleanField() {
+    emailL.clear();
+    passwordL.clear();
   }
 
   // final RepositoryLogin _repositoryLogin = getIt();
@@ -126,17 +133,15 @@ class ControllerLogin extends GetxController {
         userLogin.password = passwordL.text.trim();
         userLogin.email = emailL.text.trim();
 
-        return await accessLoginUser(userLogin)
-            .then((value){
-              if(value!=null){
-                usuario.value.id = value!.user!.uid;
-                usuario.refresh();
-                return true;
-              }else{
-                return false;
-              }
-            })
-            .catchError((onError) {
+        return await accessLoginUser(userLogin).then((value) {
+          if (value != null) {
+            usuario.value.id = value!.user!.uid;
+            usuario.refresh();
+            return true;
+          } else {
+            return false;
+          }
+        }).catchError((onError) {
           if (onError == "wrong-password") {
             notificationMessage.message = "Correo o contraseña son incorrectos";
           } else if (onError == "user-not-found") {
