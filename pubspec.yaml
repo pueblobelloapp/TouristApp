@@ -35,6 +35,7 @@ dependencies:
   flutter_rating_stars: ^1.0.3+4
   flutter_launcher_icons: ^0.10.0
   webviewx: ^0.2.2
+  animated_bottom_navigation_bar: ^1.2.0
 
 dev_dependencies:
   flutter_test:

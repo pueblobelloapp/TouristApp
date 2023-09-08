@@ -138,14 +138,45 @@ class _LoginState extends State<Login> {
               SizedBox(
                   width: double.infinity,
                   height: 50.0,
-                  child: CustomElevatedButton(
-                    color: AppBasicColors.rgb,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    onPressed: () async {
-                      isLoading = true;
-                      setState(() {});
-                      showDialog(
+                  child: isLoading
+                      ? Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: AppBasicColors.rgb,
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Cargando',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppBasicColors.white),
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                                width: 15.0,
+                                child: CircularProgressIndicator(
+                                  color: AppBasicColors.white,
+                                  //strokeWidth: 2.0,
+                                ),
+                              ),
+                            ],
+                          ))
+                      : CustomElevatedButton(
+                          color: AppBasicColors.rgb,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          onPressed: () async {
+                            if (isLoading) {
+                              return;
+                            }
+                            isLoading = true;
+                            setState(() {});
+                            /*showDialog(
                           context: context,
                           barrierDismissible: false,
                           builder: (builder) {
@@ -166,21 +197,24 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                             );
-                          });
+                          }
+                          );*/
 
-                      bool resp = await _controllerLogin.getLoginUser(context);
+                            bool resp =
+                                await _controllerLogin.getLoginUser(context);
 
-                      if (resp) {
-                        Get.back();
-                        Get.back();
-                      } else {
-                        Get.back();
-                        isLoading = false;
-                        setState(() {});
-                      }
-                    },
-                    text: 'Iniciar sesion',
-                  )),
+                            if (resp) {
+                              Get.back();
+                              Get.back();
+                            } else {
+                              isLoading = false;
+                              //Get.back();
+                              //Get.back();
+                              setState(() {});
+                            }
+                          },
+                          text: 'Iniciar sesion',
+                        )),
               const SizedBox(height: 18.0),
               _optionSesion()
             ],
