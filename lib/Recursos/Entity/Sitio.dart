@@ -1,4 +1,3 @@
-
 class Sitio {
   String id;
   String titulo;
@@ -13,26 +12,27 @@ class Sitio {
   List puntuacion;
   String longitud;
   String latitud;
+  Map contacto;
 
-  Sitio({
-    this.id = '',
-    this.titulo = '',
-    this.descripcion = '',
-    this.direccion = '',
-    this.twitter = '',
-    this.facebook = '',
-    this.messenger = '',
-    this.instagram = '',
-    this.whatsapp = '',
-    this.fotos = const [],
-    this.puntuacion = const [],
-    this.longitud = '',
-    this.latitud = '',
-  });
+  Sitio(
+      {this.id = '',
+      this.titulo = '',
+      this.descripcion = '',
+      this.direccion = '',
+      this.twitter = '',
+      this.facebook = '',
+      this.messenger = '',
+      this.instagram = '',
+      this.whatsapp = '',
+      this.fotos = const [],
+      this.puntuacion = const [],
+      this.longitud = '',
+      this.latitud = '',
+      this.contacto = const {}});
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
     result.addAll({'titulo': titulo});
     result.addAll({'descripcion': descripcion});
@@ -46,41 +46,40 @@ class Sitio {
     result.addAll({'puntuacion': puntuacion});
     result.addAll({'longitud': longitud});
     result.addAll({'latitud': latitud});
-  
+    result.addAll({'contacto': contacto});
+
     return result;
   }
 
   factory Sitio.fromMap(Map<String, dynamic> map, id) {
     return Sitio(
-      id: id,
-      titulo: map['nombre'] ?? '',
-      descripcion: map['descripcion'] ?? '',
-      direccion: map['direccion'] ?? '',
-      twitter: map['twitter'] ?? '',
-      facebook: map['facebook'] ?? '',
-      messenger: map['messenger'] ?? '',
-      instagram: map['instagram'] ?? '',
-      whatsapp: map['whatsapp'] ?? '',
-      fotos: List.from(map['foto']),
-      puntuacion: List.from(map['puntuacion']),
-      longitud: map['longitud'] ?? '',
-      latitud: map['latitud'] ?? '',
-    );
+        id: id,
+        titulo: map['nombre'] ?? '',
+        descripcion: map['descripcion'] ?? '',
+        direccion: map['direccion'] ?? '',
+        twitter: map['twitter'] ?? '',
+        facebook: map['facebook'] ?? '',
+        messenger: map['messenger'] ?? '',
+        instagram: map['instagram'] ?? '',
+        whatsapp: map['whatsapp'] ?? '',
+        fotos: List.from(map['foto']),
+        puntuacion: List.from(map['puntuacion']),
+        longitud: map['ubicacion']['long'] ?? '',
+        latitud: map['ubicacion']['lat'] ?? '',
+        contacto: map['contacto'] ?? {});
   }
 
-  get calificacion{
-
-    if(puntuacion.isEmpty){
+  get calificacion {
+    if (puntuacion.isEmpty) {
       return 0;
     }
 
     int suma = 0;
-    
+
     for (var element in puntuacion) {
-      suma += int.parse('${element['calificacion'] ?? '0' }');
+      suma += int.parse('${element['calificacion'] ?? '0'}');
     }
 
     return (suma / puntuacion.length).round();
   }
-  
 }

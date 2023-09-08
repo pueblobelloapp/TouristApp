@@ -17,45 +17,42 @@ import '../../../Entity/sitio.dart';
 import '../../Widget/custom_back_button.dart';
 
 class SitioPage extends GetView<SitioController> {
-  
   const SitioPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SitioController>(
-      builder: (sitio){
-        return Scaffold(
-          body: StreamBuilder(
+    return GetBuilder<SitioController>(builder: (sitio) {
+      return Scaffold(
+        body: StreamBuilder(
             stream: sitio.cargarSitio(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
-        
-              if(snapshot.hasError){
+
+              if (snapshot.hasError) {
                 return const Center(child: Text(''));
               }
-              
-              if(snapshot.data==null){
+
+              if (snapshot.data == null) {
                 return const Center(child: Text(''));
               }
-              
-              return DetalleSitio(sitio: snapshot.data!,);
-            }
-          ),
-        );
-      }
-    );
-    
+
+              return DetalleSitio(
+                sitio: snapshot.data!,
+              );
+            }),
+      );
+    });
   }
 }
 
 class DetalleSitio extends StatelessWidget {
-
   final Sitio sitio;
 
   const DetalleSitio({
-    super.key, required this.sitio,
+    super.key,
+    required this.sitio,
   });
 
   @override
@@ -84,12 +81,14 @@ class DetalleSitio extends StatelessWidget {
                         ),
                         Row(
                           children: List.generate(
-                            5, 
+                            5,
                             (index) => Padding(
                               padding: const EdgeInsets.only(right: 2),
                               child: Icon(
-                                BootstrapIcons.star_fill, 
-                                color: index <= sitio.calificacion ? AppBasicColors.yellow : AppBasicColors.greyRgba,
+                                BootstrapIcons.star_fill,
+                                color: index <= sitio.calificacion
+                                    ? AppBasicColors.yellow
+                                    : AppBasicColors.greyRgba,
                               ),
                             ),
                           ),
@@ -98,7 +97,10 @@ class DetalleSitio extends StatelessWidget {
                         Text(
                           sitio.descripcion,
                           textAlign: TextAlign.justify,
-                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              height: 1.2),
                         ),
                         const SizedBox(height: 10.0),
                         // SizedBox(
@@ -110,9 +112,9 @@ class DetalleSitio extends StatelessWidget {
                           width: Get.width,
                           height: 300,
                           initialContent: Uri.dataFromString(
-                            '<iframe style="width: 100%; height: 100%; border: none" src="https://maps.google.com/maps?q=10.4482712,-73.2639527&z=15&t=m&output=embed"></iframe>', 
-                            mimeType: 'text/html'
-                          ).toString(),
+                                  '<iframe style="width: 100%; height: 100%; border: none" src="https://maps.google.com/maps?q=${sitio.latitud},${sitio.longitud}&z=15&t=m&output=embed"></iframe>',
+                                  mimeType: 'text/html')
+                              .toString(),
                           javascriptMode: JavascriptMode.unrestricted,
                         ),
 
@@ -120,20 +122,23 @@ class DetalleSitio extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TextButton(
-                              onPressed: ()async{
-                                if (!await launchUrl(Uri.parse('https://www.google.com/maps/place/80+%2330-363+a+30-107,+Valledupar,+Cesar/@10.4482712,-73.2639527,17z/data=!3m1!4b1!4m15!1m8!3m7!1s0x8e8ab9b5d6cf71d7:0x84a43625b14c234a!2sValledupar,+Cesar!3b1!8m2!3d10.4742449!4d-73.2436335!16zL20vMDMxNWJx!3m5!1s0x8e8ab9f1b164e675:0x47ddcefaf834ce05!8m2!3d10.4482659!4d-73.2613778!16s%2Fg%2F11c67qczfw?entry=ttu'), mode: LaunchMode.externalApplication)) {
-                                  Get.snackbar(
-                                    'Error', 
-                                    'No se ha podido completar la acción',
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    margin: const EdgeInsets.all(10),
-                                    backgroundColor: AppBasicColors.white
-                                  );
-                                }
-
-                              }, 
-                              child: const Text('Ver en Google Maps', style: TextStyle(color: AppBasicColors.blueMess, fontWeight: FontWeight.bold))
-                          )],
+                                onPressed: () async {
+                                  if (!await launchUrl(
+                                      Uri.parse(
+                                          'https://maps.google.com/?ll=${sitio.latitud},${sitio.longitud}&z=14'),
+                                      mode: LaunchMode.externalApplication)) {
+                                    Get.snackbar('Error',
+                                        'No se ha podido completar la acción',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        margin: const EdgeInsets.all(10),
+                                        backgroundColor: AppBasicColors.white);
+                                  }
+                                },
+                                child: const Text('Ver en Google Maps',
+                                    style: TextStyle(
+                                        color: AppBasicColors.blueMess,
+                                        fontWeight: FontWeight.bold)))
+                          ],
                         ),
 
                         WidgetText(
@@ -142,30 +147,35 @@ class DetalleSitio extends StatelessWidget {
                           onPressed: () {
                             ControllerLogin _login = Get.find();
                             _login.validarPermisosAccion(
-                              accion: ()=> showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Align(
-                                    child: FractionallySizedBox(widthFactor: 15.0, child: Opinion(comentarios: sitio.puntuacion, idSitio: sitio.id,))
-                                  );
-                                }
-                              )
-                            );
+                                accion: () => showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Align(
+                                          child: FractionallySizedBox(
+                                              widthFactor: 15.0,
+                                              child: Opinion(
+                                                comentarios: sitio.puntuacion,
+                                                idSitio: sitio.id,
+                                              )));
+                                    }));
                           },
                           buttonText: 'Calificar',
                           buttonFontSize: 20.0,
                         ),
-                        
+
                         Column(
                           children: List.generate(
-                            sitio.puntuacion.length, (index) => ItemComentario(comentario: sitio.puntuacion[index]),
+                            sitio.puntuacion.length,
+                            (index) => ItemComentario(
+                                comentario: sitio.puntuacion[index]),
                           ),
                         )
-                        
                       ],
                     ),
                   ),
-                  const SizedBox(height: 100,)
+                  const SizedBox(
+                    height: 100,
+                  )
                 ],
               ),
             ),
@@ -179,13 +189,14 @@ class DetalleSitio extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: const BotonFlotanteContacto(),
+      floatingActionButton: BotonFlotanteContacto(
+        redes: sitio.contacto,
+      ),
     );
   }
 }
 
 class ItemComentario extends StatelessWidget {
-
   final Map comentario;
 
   const ItemComentario({
@@ -195,20 +206,20 @@ class ItemComentario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SitioController>(
-      builder: (sitio){
-        return StreamBuilder(
+    return GetBuilder<SitioController>(builder: (sitio) {
+      return StreamBuilder(
           stream: sitio.obtenerUsuario(comentario['uid']),
-          builder: (context, snapshot){
+          builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const SizedBox();
             }
-      
-            if(snapshot.hasError){
-              return const Center(child: Text('Ocurrio un error al cargar este comentario'));
+
+            if (snapshot.hasError) {
+              return const Center(
+                  child: Text('Ocurrio un error al cargar este comentario'));
             }
-            
-            if(snapshot.data==null){
+
+            if (snapshot.data == null) {
               return const SizedBox();
             }
 
@@ -225,20 +236,21 @@ class ItemComentario extends StatelessWidget {
                 Text(
                   comentario['comentario'] ?? 'Sin comentario',
                   textAlign: TextAlign.justify,
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],
             );
-          }
-        );
-      }
-    );
+          });
+    });
   }
 }
 
 class BotonFlotanteContacto extends StatefulWidget {
+  final dynamic redes;
   const BotonFlotanteContacto({
     Key? key,
+    this.redes,
   }) : super(key: key);
 
   @override
@@ -246,18 +258,15 @@ class BotonFlotanteContacto extends StatefulWidget {
 }
 
 class _BotonFlotanteContactoState extends State<BotonFlotanteContacto> {
-
   final ControllerLogin _login = Get.find();
 
   Future<void> _launchUrl(url) async {
-    if (!await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication)) {
-      Get.snackbar(
-        'Error', 
-        'No se ha podido completar la acción',
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.all(10),
-        backgroundColor: AppBasicColors.white
-      );
+    if (!await launchUrl(Uri.parse(url),
+        mode: LaunchMode.externalApplication)) {
+      Get.snackbar('Error', 'No se ha podido completar la acción',
+          snackPosition: SnackPosition.BOTTOM,
+          margin: const EdgeInsets.all(10),
+          backgroundColor: AppBasicColors.white);
     }
   }
 
@@ -265,31 +274,41 @@ class _BotonFlotanteContactoState extends State<BotonFlotanteContacto> {
 
   @override
   void initState() {
+    dynamic redes = widget.redes;
     iconos = [
       {
         'icono': BootstrapIcons.whatsapp,
         'background': AppBasicColors.greenWhat,
-        'accion': () => _login.validarPermisosAccion(accion:()=>_launchUrl('https://wa.me'))
+        'accion': () => _login.validarPermisosAccion(
+            accion: () => _launchUrl('https://wa.me'))
       },
       {
         'icono': BootstrapIcons.instagram,
         'background': AppBasicColors.redInst,
-        'accion': () => _login.validarPermisosAccion(accion:()=>_launchUrl('https://www.instagram.com/'))
+        'accion': () => _login.validarPermisosAccion(
+            accion: () =>
+                _launchUrl('https://www.instagram.com/${redes['instagram']}'))
       },
       {
         'icono': BootstrapIcons.messenger,
         'background': AppBasicColors.blueMess,
-        'accion': () => _login.validarPermisosAccion(accion:()=>_launchUrl('https://www.messenger.com/'))
+        'accion': () => _login.validarPermisosAccion(
+            accion: () =>
+                _launchUrl('https://www.messenger.com/${redes['messenger']}'))
       },
       {
         'icono': BootstrapIcons.facebook,
         'background': AppBasicColors.purpFace,
-        'accion': () => _login.validarPermisosAccion(accion:()=>_launchUrl('https://www.facebook.com/'))
+        'accion': () => _login.validarPermisosAccion(
+            accion: () =>
+                _launchUrl('https://www.facebook.com/${redes['facebook']}'))
       },
       {
         'icono': BootstrapIcons.twitter,
         'background': AppBasicColors.blueTwit,
-        'accion': () => _login.validarPermisosAccion(accion:()=>_launchUrl('https://www.twitter.com/'))
+        'accion': () => _login.validarPermisosAccion(
+            accion: () =>
+                _launchUrl('https://www.twitter.com/${redes['twitter']}'))
       },
     ];
     super.initState();
@@ -302,15 +321,14 @@ class _BotonFlotanteContactoState extends State<BotonFlotanteContacto> {
       activeBackgroundColor: AppBasicColors.redInst,
       closeManually: true,
       children: List.generate(
-        iconos.length, 
+        iconos.length,
         (index) => SpeedDialChild(
-          child: Icon(
-            iconos[index]['icono'],
-            color: AppBasicColors.white,
-          ),
-          backgroundColor: iconos[index]['background'],
-          onTap: iconos[index]['accion']
-        ),
+            child: Icon(
+              iconos[index]['icono'],
+              color: AppBasicColors.white,
+            ),
+            backgroundColor: iconos[index]['background'],
+            onTap: iconos[index]['accion']),
       ),
       backgroundColor: AppBasicColors.rgb,
       child: const Icon(

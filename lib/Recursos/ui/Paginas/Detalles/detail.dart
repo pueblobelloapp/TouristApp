@@ -65,7 +65,10 @@ class Detail extends GetView {
                     Text(
                       data['descripcion'],
                       textAlign: TextAlign.justify,
-                      style: const TextStyle(fontSize: 12, height: 1.5),
+                      style: const TextStyle(
+                        fontSize: 12.5,
+                        height: 1.5,
+                      ),
                     ),
                     const SizedBox(
                       height: 30.0,
@@ -100,7 +103,8 @@ class Detail extends GetView {
                             Text(
                               data['subTitulos'][index]['descripcion'],
                               textAlign: TextAlign.justify,
-                              style: const TextStyle(fontSize: 12, height: 1.5),
+                              style:
+                                  const TextStyle(fontSize: 12.5, height: 1.5),
                             ),
                             const SizedBox(
                               height: 10,

@@ -199,7 +199,10 @@ class ListaTarjetasCategoria extends StatelessWidget {
         ),
         StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('sites').snapshots(),
-            // stream: FirebaseFirestore.instance.collection('sites').where('tipoTurismo', isEqualTo: tipo).snapshots(),
+            /*stream: FirebaseFirestore.instance
+                .collection('sites')
+                .where('tipoTurismo', isEqualTo: tipo)
+                .snapshots(),*/
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
