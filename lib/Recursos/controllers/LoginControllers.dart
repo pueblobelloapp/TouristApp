@@ -137,6 +137,7 @@ class ControllerLogin extends GetxController {
           if (value != null) {
             usuario.value.id = value!.user!.uid;
             usuario.refresh();
+            cleanField();
             return true;
           } else {
             return false;

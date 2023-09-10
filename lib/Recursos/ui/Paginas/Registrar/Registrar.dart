@@ -38,7 +38,7 @@ class Registrar extends GetView<RegistrarController> {
                   const SizedBox(
                     height: 20,
                   ),
-                  _containerPhoto(),
+                  // _containerPhoto(),
                   _formRegistration(context),
                   const SizedBox(
                     height: 20,
