@@ -22,7 +22,8 @@ class ProfileDialog extends GetView<PerfilController> {
     controllerPerfil.dataPerfil();
 
     return AlertDialog(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
       contentPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
       content: SingleChildScrollView(
         child: Stack(
@@ -36,18 +37,22 @@ class ProfileDialog extends GetView<PerfilController> {
                       child: Obx(() => Container(
                             width: 148.0,
                             height: 151.0,
-                            color: controllerPhoto.selectedPhotoUser.value.path.isEmpty &&
+                            color: controllerPhoto
+                                        .selectedPhotoUser.value.path.isEmpty &&
                                     controllerPhoto.imagePerfilUrl.value.isEmpty
                                 ? AppBasicColors.rgb
                                 : AppBasicColors.rgbTransparent,
                             child: Center(
-                              child: controllerPhoto.selectedPhotoUser.value.path.isNotEmpty
+                              child: controllerPhoto
+                                      .selectedPhotoUser.value.path.isNotEmpty
                                   ? Image.file(
-                                      File(controllerPhoto.selectedPhotoUser.value.path),
+                                      File(controllerPhoto
+                                          .selectedPhotoUser.value.path),
                                       fit: BoxFit.cover,
                                     )
                                   : controllerPhoto.imagePerfilUrl.isNotEmpty
-                                      ? Image.network(controllerPhoto.imagePerfilUrl.value)
+                                      ? Image.network(
+                                          controllerPhoto.imagePerfilUrl.value)
                                       : const Icon(
                                           BootstrapIcons.person,
                                           size: 60.0,
@@ -103,13 +108,16 @@ class ProfileDialog extends GetView<PerfilController> {
                     fillColor: AppBasicColors.colorTextFormField,
                     readOnly: true,
                     onTap: () async {
-                      DateTime? pickedDate = await controllerPerfil.selectDate(context);
+                      DateTime? pickedDate =
+                          await controllerPerfil.selectDate(context);
 
                       if (pickedDate != null) {
                         print(pickedDate);
 
-                        String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                        controllerPerfil.birthdateControllerP.text = formattedDate;
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                        controllerPerfil.birthdateControllerP.text =
+                            formattedDate;
                       }
                     },
                   ),
