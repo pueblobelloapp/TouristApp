@@ -38,7 +38,7 @@ class RegistrarController extends GetxController {
       });
 
   // Variable para guardar la foto
-  var selectedPhoto = XFile('').obs;
+  var selectedPhotoRegister = XFile('').obs;
   var imagePerfilUrl = ''.obs;
 
   // Método para seleccionar una foto
@@ -49,7 +49,7 @@ class RegistrarController extends GetxController {
 
     if (pickedImage != null) {
       // print("Tomando valor de fotografia.");
-      selectedPhoto.value = pickedImage;
+      selectedPhotoRegister.value = pickedImage;
       update();
     }
   }

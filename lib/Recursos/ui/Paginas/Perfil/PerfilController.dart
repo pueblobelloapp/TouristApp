@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Repository/RepositoryLogin.dart';
 import 'package:app_turismo_usuario/Recursos/controllers/DataFirebaseLogin.dart';
 import 'package:app_turismo_usuario/Recursos/Entity/Usuario.dart';
 import 'package:app_turismo_usuario/Recursos/utils/PhotoLoad.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 class PerfilController extends GetxController {
   final controllerLogin = Get.put<FirebaseLogin>(FirebaseLogin());
   final controllerPhoto = Get.put<PhotoLoad>(PhotoLoad());
+  final RepositoryLogin _repositoryLogin = Get.find();
 
   TextEditingController emailControllerP = TextEditingController();
   TextEditingController nameControllerP = TextEditingController();
@@ -24,6 +26,7 @@ class PerfilController extends GetxController {
     userLogin.image =
         imgUrlControllerP.text.isEmpty ? "" : imgUrlControllerP.text;
 
+    _repositoryLogin.savePerfilUser(userLogin);
     Get.back();
   }
 

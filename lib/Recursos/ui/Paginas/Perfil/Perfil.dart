@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_turismo_usuario/Recursos/Repository/RepositoryLogin.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Paginas/Perfil/PerfilController.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/Custom_elevated_button.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/custom_textFormField.dart';
@@ -37,7 +38,7 @@ class ProfileDialog extends GetView<PerfilController> {
                             width: 148.0,
                             height: 151.0,
                             color: controllerPhoto
-                                        .selectedPhoto.value.path.isEmpty &&
+                                        .selectedPhotoUser.value.path.isEmpty &&
                                     controllerPhoto.imagePerfilUrl.value.isEmpty
                                 ? AppBasicColors.rgb
                                 : AppBasicColors.rgbTransparent,
@@ -46,10 +47,10 @@ class ProfileDialog extends GetView<PerfilController> {
                                   ? Image.network(
                                       controllerPhoto.imagePerfilUrl.value)
                                   : controllerPhoto
-                                          .selectedPhoto.value.path.isNotEmpty
+                                          .selectedPhotoUser.value.path.isNotEmpty
                                       ? Image.file(
                                           File(controllerPhoto
-                                              .selectedPhoto.value.path),
+                                              .selectedPhotoUser.value.path),
                                           fit: BoxFit.cover,
                                         )
                                       : const Icon(

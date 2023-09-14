@@ -64,12 +64,7 @@ class _CardImageListState extends State<CardImageList> {
                     activeDotColor: AppBasicColors.rgb,
                     dotColor: AppBasicColors.lightGrey,
                     dotHeight: 9,
-                    dotWidth: 9),
-                /* onDotClicked: ((index) {
-                _pageController.animateToPage(index,
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut);
-            }),*/
+                    dotWidth: 9)
               ),
             ))
       ]),

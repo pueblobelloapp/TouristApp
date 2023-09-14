@@ -99,14 +99,14 @@ Widget _containerPhoto() {
             width: 148.0,
             height: 151.0,
             decoration: BoxDecoration(
-                color: controllerPhoto.selectedPhoto.value.path == ""
+                color: controllerPhoto.selectedPhotoUser.value.path == ""
                     ? AppBasicColors.rgb
                     : AppBasicColors.rgbTransparent,
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
-              child: controllerPhoto.selectedPhoto.value.path != ""
+              child: controllerPhoto.selectedPhotoUser.value.path != ""
                   ? Image.memory(
-                      File(controllerPhoto.selectedPhoto.value.path)
+                      File(controllerPhoto.selectedPhotoUser.value.path)
                           .readAsBytesSync(),
                       fit: BoxFit.cover)
                   : const Icon(

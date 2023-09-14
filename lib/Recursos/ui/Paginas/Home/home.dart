@@ -192,17 +192,13 @@ class ListaTarjetasCategoria extends StatelessWidget {
         Center(
           child: WidgetText(
             text: titulo,
-            onPressed: () => Get.toNamed(Routes.ListSitio,
-                arguments: {'titulo': titulo, 'esBuscar': false}),
+            onPressed: ()=>Get.toNamed(Routes.ListSitio, arguments: {'titulo': titulo, 'esBuscar': false}),
             buttonText: 'Ver más',
           ),
         ),
         StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('sites').snapshots(),
-            /*stream: FirebaseFirestore.instance
-                .collection('sites')
-                .where('tipoTurismo', isEqualTo: tipo)
-                .snapshots(),*/
+            // stream: FirebaseFirestore.instance.collection('sites').where('tipoTurismo', isEqualTo: tipo).snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -251,29 +247,36 @@ class ListaTarjetasCategoria extends StatelessWidget {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: List.generate(data.length, (index) {
-                      return Container(
-                        width: Get.width,
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: List.generate(data[index].length, (jdex) {
-                            Sitio sitio = Sitio.fromMap(
-                                data[index][jdex].data(), data[index][jdex].id);
-                            return TarjetaTuristicaMini(
-                                id: sitio.id,
-                                imageUrl: sitio.fotos[0],
-                                title: sitio.titulo,
-                                descripcion: sitio.descripcion,
-                                rating: sitio.calificacion);
-                          }),
-                        ),
-                      );
-                    }),
+                    children: List.generate(
+                        data.length,
+                            (index){
+                          return Container(
+                            width: Get.width,
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: List.generate(
+                                  data[index].length,
+                                      (jdex) {
+                                    Sitio sitio  = Sitio.fromMap(data[index][jdex].data(), data[index][jdex].id);
+                                    return TarjetaTuristicaMini(
+                                        id: sitio.id,
+                                        imageUrl: sitio.fotos[0],
+                                        title: sitio.titulo,
+                                        descripcion: sitio.descripcion,
+                                        rating: sitio.calificacion
+                                    );
+                                  }
+                              ),
+                            ),
+                          );
+                        }
+                    ),
                   ),
                 ),
               );
-            }),
+            }
+        ),
       ],
     );
   }
@@ -283,14 +286,16 @@ class ListaTarjetasCategoria extends StatelessWidget {
       height: 150,
       child: Center(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          mostrarCargando
-              ? const CircularProgressIndicator()
-              : const SizedBox(),
-          Text(texto, style: const TextStyle(fontWeight: FontWeight.bold)),
-        ],
-      )),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              mostrarCargando ? const CircularProgressIndicator() : const SizedBox(),
+              Text(
+                  texto,
+                  style: const TextStyle(fontWeight: FontWeight.bold)
+              ),
+            ],
+          )
+      ),
     );
   }
 

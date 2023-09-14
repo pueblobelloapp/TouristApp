@@ -93,23 +93,35 @@ class FirebaseLogin extends GetxController {
     }
   }
 
+  Future<void> updatePerfilUser(Usuario usuario) async {
+    User myusuario = currentUser;
+    final ref = firebaseFiresTore.doc('users/${myusuario.uid}');
+    saveImageProfile();
+    await ref.update({
+      'birthDate' : usuario.birthDate,
+      'name' : usuario.name
+    }).then((value) => {
+      messageController.messageInfo("Perfil", "Datos actualizada"),
+    });
+  }
+
   Future<void> saveImageProfile() async {
     User myusuario = currentUser;
     String urlPhoto;
     print("Usuario registrado: ${currentUser.uid}");
     //Validacion si existe una fotografia seleccionada.
-    print("Con url de photo ${controllerPhoto.selectedPhoto.value.path}");
-    if (controllerPhoto.selectedPhoto.value.path.isNotEmpty) {
+    print("Con url de photo ${controllerPhoto.selectedPhotoUser.value.path}");
+    if (controllerPhoto.selectedPhotoUser.value.path.isNotEmpty) {
       final ref = firebaseFiresTore.doc('users/${myusuario.uid}');
       urlPhoto =
-          await uploadPhoto(controllerPhoto.selectedPhoto.value, myusuario.uid);
+          await uploadPhoto(controllerPhoto.selectedPhotoUser.value, myusuario.uid);
       print("Foto subida: $urlPhoto");
 
-      final fileName = controllerPhoto.selectedPhoto.value.name;
+      final fileName = controllerPhoto.selectedPhotoUser.value.name;
       final imagePath = '${currentUser.uid}/mySiteImages/$fileName';
 
       final storageRef = storage.ref(imagePath);
-      await storageRef.putFile(File(controllerPhoto.selectedPhoto.value.path));
+      await storageRef.putFile(File(controllerPhoto.selectedPhotoUser.value.path));
       final url = await storageRef.getDownloadURL();
       await ref
           .update({'image': url})

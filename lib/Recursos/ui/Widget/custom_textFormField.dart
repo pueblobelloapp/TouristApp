@@ -34,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText,
       readOnly: readOnly,
       onTap: onTap,
+      enabled: true,
       decoration: InputDecoration(
           prefixIcon: Padding(
             padding: const EdgeInsets.only(

@@ -11,6 +11,7 @@ abstract class RepositoryLogin {
   Future<void> registerUser(Usuario user);
   Future<void> registerUserWithGoogle(Usuario userLogin);
   Future<void> signOut();
+  Future<void> savePerfilUser(Usuario userLogin);
 
 }
 
@@ -39,6 +40,11 @@ class RepositoryLoginImp extends RepositoryLogin {
   @override
   Future<void> registerUserWithGoogle(Usuario userLogin) async {
     return _firebaseLogin.postDetailsToFirestore(userLogin);
+  }
+
+  @override
+  Future<void> savePerfilUser(Usuario usuario) {
+    return _firebaseLogin.updatePerfilUser(usuario);
   }
 
 }
