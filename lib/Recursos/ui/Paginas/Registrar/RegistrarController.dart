@@ -105,10 +105,8 @@ class RegistrarController extends GetxController {
       notificationMessage.message = "Minimo 6 caracteres y maximo 8.";
     }
 
-    // ignore: use_build_context_synchronously
     notificationMessage.showNotification(context);
     cleanField();
-    Get.find<PhotoLoad>().resetPhoto();
   }
 
   void cleanField() {
@@ -117,6 +115,7 @@ class RegistrarController extends GetxController {
     passwordConfR.clear();
     nameR.clear();
     dateOfBirthR.clear();
+    Get.find<PhotoLoad>().resetPhoto();
   }
 
   Future<DateTime?> selectDate(BuildContext context) async {

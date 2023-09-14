@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 class PhotoLoad extends GetxController {
   // Variable para guardar la foto
   var selectedPhotoUser = XFile('').obs;
+  var photoUserRegister = XFile('').obs;
   var imagePerfilUrl = ''.obs;
 
   // Método para seleccionar una foto galeria
@@ -14,6 +15,7 @@ class PhotoLoad extends GetxController {
 
     if (pickedImage != null) {
       selectedPhotoUser.value = pickedImage;
+      photoUserRegister.value = pickedImage;
       update();
     }
   }
@@ -37,7 +39,7 @@ class PhotoLoad extends GetxController {
   }
 
   void resetPhoto() {
-    selectedPhotoUser.value = XFile('');
+    photoUserRegister.value = XFile('');
     update();
   }
 }

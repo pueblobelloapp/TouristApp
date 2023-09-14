@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   final Color? fillColor;
   final bool readOnly;
   final VoidCallback? onTap;
+  final bool? enable;
 
   const CustomTextFormField(
       {super.key,
@@ -24,7 +25,8 @@ class CustomTextFormField extends StatelessWidget {
       this.fillColor = AppBasicColors.white,
       this.msgError,
       this.readOnly = false,
-      this.onTap});
+      this.onTap,
+      this.enable});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText,
       readOnly: readOnly,
       onTap: onTap,
-      enabled: true,
+      enabled: enable,
       decoration: InputDecoration(
           prefixIcon: Padding(
             padding: const EdgeInsets.only(

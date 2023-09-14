@@ -35,8 +35,10 @@ class Registrar extends GetView<RegistrarController> {
                     height: 80,
                   ),
                   _title(),
+                  const SizedBox(height: 10),
+                  _containerPhoto(),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   // _containerPhoto(),
                   _formRegistration(context),
@@ -99,14 +101,14 @@ Widget _containerPhoto() {
             width: 148.0,
             height: 151.0,
             decoration: BoxDecoration(
-                color: controllerPhoto.selectedPhotoUser.value.path == ""
+                color: controllerPhoto.photoUserRegister.value.path == ""
                     ? AppBasicColors.rgb
                     : AppBasicColors.rgbTransparent,
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
-              child: controllerPhoto.selectedPhotoUser.value.path != ""
+              child: controllerPhoto.photoUserRegister.value.path != ""
                   ? Image.memory(
-                      File(controllerPhoto.selectedPhotoUser.value.path)
+                      File(controllerPhoto.photoUserRegister.value.path)
                           .readAsBytesSync(),
                       fit: BoxFit.cover)
                   : const Icon(
