@@ -1,4 +1,6 @@
+import 'package:app_turismo_usuario/Recursos/theme/app_theme.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/Card/card_image_list.dart';
+import 'package:app_turismo_usuario/Recursos/ui/Widget/expandableText.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class Detail extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: AppBasicColors.colorTextFormField,
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('dataTurismo')
@@ -57,21 +60,36 @@ class Detail extends GetView {
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: AppBasicColors.rgb,
+                        //decoration: TextDecoration.underline,
                       ),
                     ),
                     const SizedBox(
                       height: 8.0,
                     ),
-                    Text(
+                    data['descripcion'].length > 500
+                        ? ExpandableText(
+                            text: data['descripcion'],
+                            textAlign: TextAlign.justify,
+                            textStyle:
+                                const TextStyle(fontSize: 12.5, height: 1.5),
+                          )
+                        : Text(data['descripcion'],
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 12.5,
+                              height: 1.5,
+                            )),
+                    /* Text(
                       data['descripcion'],
                       textAlign: TextAlign.justify,
                       style: const TextStyle(
                         fontSize: 12.5,
                         height: 1.5,
                       ),
-                    ),
+                    ),*/
                     const SizedBox(
-                      height: 30.0,
+                      height: 20.0,
                     ),
                     Column(
                       children: List.generate(
@@ -87,6 +105,8 @@ class Detail extends GetView {
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
+                                color: AppBasicColors.rgb,
+                                //decoration: TextDecoration.underline
                               ),
                             ),
                             const SizedBox(
@@ -100,12 +120,21 @@ class Detail extends GetView {
                             const SizedBox(
                               height: 8.0,
                             ),
-                            Text(
-                              data['subTitulos'][index]['descripcion'],
-                              textAlign: TextAlign.justify,
-                              style:
-                                  const TextStyle(fontSize: 12.5, height: 1.5),
-                            ),
+                            data['subTitulos'][index]['descripcion'].length >
+                                    500
+                                ? ExpandableText(
+                                    text: data['subTitulos'][index]
+                                        ['descripcion'],
+                                    textAlign: TextAlign.justify,
+                                    textStyle: const TextStyle(
+                                        fontSize: 12.5, height: 1.5),
+                                  )
+                                : Text(
+                                    data['subTitulos'][index]['descripcion'],
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                        fontSize: 12.5, height: 1.5),
+                                  ),
                             const SizedBox(
                               height: 10,
                             ),

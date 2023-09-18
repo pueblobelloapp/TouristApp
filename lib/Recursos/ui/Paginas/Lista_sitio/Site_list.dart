@@ -83,14 +83,18 @@ class SiteListPage extends GetView<SitioController> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return Obx((){
+                      return Obx(() {
                         return Visibility(
-                            visible: snapshot.data![index]!.titulo.toLowerCase().contains(sitio.textBuscar),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: TarjetaTuristica(sitio: snapshot.data![index]!,),
+                          visible: snapshot.data![index]!.titulo
+                              .toLowerCase()
+                              .contains(sitio.textBuscar),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: TarjetaTuristica(
+                              sitio: snapshot.data![index]!,
                             ),
-                          );
+                          ),
+                        );
                       });
                     });
               }));

@@ -290,11 +290,10 @@ class _BotonFlotanteContactoState extends State<BotonFlotanteContacto> {
                 _launchUrl('https://www.instagram.com/${redes['instagram']}'))
       },
       {
-        'icono': BootstrapIcons.messenger,
+        'icono': BootstrapIcons.globe2,
         'background': AppBasicColors.blueMess,
         'accion': () => _login.validarPermisosAccion(
-            accion: () =>
-                _launchUrl('https://www.messenger.com/${redes['messenger']}'))
+            accion: () => _launchUrl('https://www.${redes['pagina']}.com/'))
       },
       {
         'icono': BootstrapIcons.facebook,
@@ -332,8 +331,9 @@ class _BotonFlotanteContactoState extends State<BotonFlotanteContacto> {
       ),
       backgroundColor: AppBasicColors.rgb,
       child: const Icon(
-        BootstrapIcons.telephone,
+        BootstrapIcons.plus_lg,
         color: AppBasicColors.white,
+        size: 30.0,
       ),
     );
   }
