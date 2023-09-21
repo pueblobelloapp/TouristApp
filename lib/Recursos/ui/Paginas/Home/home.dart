@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:app_turismo_usuario/Recursos/Entity/categorias.dart';
 import 'package:app_turismo_usuario/Recursos/Entity/sitio.dart';
 import 'package:app_turismo_usuario/Recursos/routes/app_pages.dart';
+import 'package:app_turismo_usuario/Recursos/ui/Paginas/Registrar/Registrar.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/tarjeta_turistica.dart';
 import 'package:app_turismo_usuario/Recursos/ui/Widget/tarjeta_turistica_mini.dart';
 
+import '../../../controllers/LoginControllers.dart';
 import '../../../theme/app_theme.dart';
 import '../../Widget/AppbarPersonalizada.dart';
 import '../../Widget/ContainerText.dart';
@@ -23,6 +25,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final ControllerLogin _login = Get.find();
   int currentPageIndex = 0;
 
   final List vistas = [
@@ -92,31 +95,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: AppBasicColors.lightGrey,
-      bottomNavigationBar: /*NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        indicatorColor: vistas[currentPageIndex]['color'],
-        animationDuration: const Duration(seconds: 1),
-        selectedIndex: currentPageIndex,
-        destinations: vistas
-            .map((e) => NavigationDestination(
-                  selectedIcon: Icon(
-                    e['icon'],
-                    color: vistas[currentPageIndex]['selected-color'],
-                  ),
-                  icon: Icon(
-                    e['icon'],
-                    color: e['color'],
-                  ),
-                  label: e['text'],
-                ))
-            .toList(),
-      ),*/
-          AnimatedBottomNavigationBar.builder(
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         itemCount: vistas.length,
         tabBuilder: (int index, bool isActive) {
           final vista = vistas[index];
@@ -130,8 +109,10 @@ class _HomeState extends State<Home> {
                   size: 30,
                   color: isActive ? vista['color'] : AppBasicColors.lightBlack),
               Text(vista['text'] as String,
+                  maxLines: 1,
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 11,
+                      overflow: TextOverflow.ellipsis,
                       color: isActive
                           ? vista['color']
                           : AppBasicColors.lightBlack))
@@ -159,11 +140,68 @@ class _HomeState extends State<Home> {
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),
-                  child: AppbarPersonalizada(
-                    onTapBuscar: () {
-                      Get.toNamed(Routes.ListSitio,
-                          arguments: {'esBuscar': true});
-                    },
+                  child: Stack(
+                    children: [
+                      AppbarPersonalizada(
+                        onTapBuscar: () {
+                          Get.toNamed(Routes.ListSitio,
+                              arguments: {'esBuscar': true});
+                        },
+                      ),
+                      Obx(() {
+                        return Visibility(
+                            visible: _login.usuario.value.id.isEmpty,
+                            child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 48, left: 10, right: 10),
+                                child: Center(
+                                  child: SizedBox(
+                                    //height: 30.0,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Aún no has iniciado sesión...',
+                                          style: TextStyle(
+                                              fontStyle: FontStyle.italic,
+                                              fontWeight: FontWeight.bold,
+                                              overflow: TextOverflow.ellipsis),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        SizedBox(
+                                          width: 100,
+                                          child: ElevatedButton(
+                                              style: const ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStatePropertyAll(
+                                                          AppBasicColors.rgb)),
+
+                                              //elevation: 0.0,
+                                              onPressed: () {
+                                                Get.toNamed(Routes.Login);
+                                              },
+                                              child: const FittedBox(
+                                                fit: BoxFit.scaleDown,
+                                                child: Text(
+                                                  'Crear cuenta',
+                                                  style: TextStyle(
+                                                      color:
+                                                          AppBasicColors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 13.0),
+                                                ),
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )));
+                      })
+                    ],
                   ),
                 ),
               ),

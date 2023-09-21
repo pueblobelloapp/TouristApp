@@ -17,15 +17,14 @@ class AppbarPersonalizada extends StatelessWidget {
   final FocusNode? focusNode;
   final Function(String str)? accionBuscar;
 
-  AppbarPersonalizada({
-    Key? key,
-    this.focusNode,
-    this.onTapBuscar,
-    this.controller,
-    this.readOnly = true,
-    this.mostrarBotonAtras = false,
-    this.accionBuscar
-  })
+  AppbarPersonalizada(
+      {Key? key,
+      this.focusNode,
+      this.onTapBuscar,
+      this.controller,
+      this.readOnly = true,
+      this.mostrarBotonAtras = false,
+      this.accionBuscar})
       : super(key: key);
 
   @override
@@ -64,21 +63,20 @@ class AppbarPersonalizada extends StatelessWidget {
             Obx(
               () {
                 return Container(
-                  height: 30.0,
-                  width: 30.0,
-                  decoration: const BoxDecoration(
-                      color: Color.fromRGBO(45, 52, 54, 1),
-                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                  child: _login.usuario.value.id.isEmpty
-                      ? IconButton(
-                          onPressed: ()=>Get.to(const Login()),
-                          padding: EdgeInsets.zero,
-                          icon: const Icon(
-                            BootstrapIcons.person,
-                            color: AppBasicColors.white,
-                          ))
-                      : PopUpMenuPerfil()
-                  );
+                    height: 30.0,
+                    width: 30.0,
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(45, 52, 54, 1),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                    child: _login.usuario.value.id.isEmpty
+                        ? IconButton(
+                            onPressed: () => Get.to(const Login()),
+                            padding: EdgeInsets.zero,
+                            icon: const Icon(
+                              BootstrapIcons.person,
+                              color: AppBasicColors.white,
+                            ))
+                        : PopUpMenuPerfil());
               },
             )
           ],

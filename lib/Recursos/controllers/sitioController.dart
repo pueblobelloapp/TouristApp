@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../Entity/sitio.dart';
 
 class SitioController extends GetxController {
-
   final SitioRepository repository;
 
   SitioController(this.repository);
@@ -18,11 +17,11 @@ class SitioController extends GetxController {
 
   @override
   void onInit() {
-    if(Get.arguments['esBuscar']!=null){
+    if (Get.arguments['esBuscar'] != null) {
       esBuscar = Get.arguments["esBuscar"];
-      if(!esBuscar){
+      if (!esBuscar) {
         titulo = Get.arguments["titulo"];
-      }else{
+      } else {
         focusNode = FocusNode();
         focusNode!.requestFocus();
       }
@@ -36,19 +35,19 @@ class SitioController extends GetxController {
     super.onClose();
   }
 
-  Stream<Sitio?> cargarSitio(){
+  Stream<Sitio?> cargarSitio() {
     return repository.getId(Get.arguments['id']);
   }
-  Stream<Map?> obtenerUsuario(id){
+
+  Stream<Map?> obtenerUsuario(id) {
     return repository.getUsuario(id);
   }
 
-  Stream<List<Sitio?>?> listarSitios(){
+  Stream<List<Sitio?>?> listarSitios() {
     return repository.getAll();
   }
-  
-  agregarComentarios(idSitio, nuevaPuntuacion)async{
+
+  agregarComentarios(idSitio, nuevaPuntuacion) async {
     return await repository.addComentario(idSitio, nuevaPuntuacion);
   }
-  
 }

@@ -7,7 +7,7 @@ class NotificationMessage {
   late String message;
   final bool flipVertical;
   late bool shouldTransform;
-  final VoidCallback? onPressed;
+  late final VoidCallback? onPressed;
 
   NotificationMessage(
       {required this.imagePath,

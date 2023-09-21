@@ -1,5 +1,6 @@
 import 'package:app_turismo_usuario/Recursos/Entity/Usuario.dart';
 import 'package:app_turismo_usuario/Recursos/Repository/RepositoryLogin.dart';
+import 'package:app_turismo_usuario/Recursos/routes/app_pages.dart';
 import 'package:app_turismo_usuario/Recursos/utils/GextUtils.dart';
 import 'package:app_turismo_usuario/Recursos/utils/NotificationValidation.dart';
 import 'package:app_turismo_usuario/Recursos/utils/ValidationsUtils.dart';
@@ -73,13 +74,14 @@ class RegistrarController extends GetxController {
               ? "Sin definir"
               : userRegister["name"]!;
 
-          await _repositoryLogin
-              .registerUser(user)
-              .then((value) => {
-                    notificationMessage.message = "Registro exitoso",
-                    notificationMessage.imagePath = "Assets/Img/thumb-down.gif",
-                    notificationMessage.shouldTransform = false
-                  })
+          await _repositoryLogin.registerUser(user).then((value) {
+            notificationMessage.message = "Registro exitoso";
+            notificationMessage.imagePath = "Assets/Img/thumb-down.gif";
+            notificationMessage.shouldTransform = false;
+            /* notificationMessage.onPressed = () {
+              Get.toNamed(Routes.Login);
+            };*/
+          })
               // ignore: body_might_complete_normally_catch_error
               .catchError((onError) {
             if (onError == "email-already-in-use") {

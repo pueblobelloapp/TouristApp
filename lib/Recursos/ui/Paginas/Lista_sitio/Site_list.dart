@@ -43,7 +43,7 @@ class SiteListPage extends GetView<SitioController> {
                                 maxLines: 1,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 24.0),
+                                    fontSize: 23.0),
                               ),
                             )
                           ],
@@ -56,11 +56,11 @@ class SiteListPage extends GetView<SitioController> {
               stream: sitio.listarSitios(),
               builder: (BuildContext context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         CircularProgressIndicator(),
                         SizedBox(
                           height: 10,

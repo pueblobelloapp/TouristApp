@@ -11,19 +11,18 @@ class TarjetaTuristicaMini extends StatelessWidget {
   final int rating;
   final String id;
 
-  const TarjetaTuristicaMini({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.descripcion,
-    required this.rating, 
-    required this.id
-  });
+  const TarjetaTuristicaMini(
+      {super.key,
+      required this.imageUrl,
+      required this.title,
+      required this.descripcion,
+      required this.rating,
+      required this.id});
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>Get.toNamed(Routes.Sitio, arguments: {'id': id}),
+      onTap: () => Get.toNamed(Routes.Sitio, arguments: {'id': id}),
       child: Card(
         color: AppBasicColors.greyMun,
         elevation: 2.0,
@@ -36,8 +35,9 @@ class TarjetaTuristicaMini extends StatelessWidget {
             children: <Widget>[
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                  child: ColorFiltered(
-                  colorFilter: ColorFilter.mode(AppBasicColors.black.withOpacity(0.1), BlendMode.darken),
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                      AppBasicColors.black.withOpacity(0.1), BlendMode.darken),
                   child: Image.network(
                     imageUrl,
                     fit: BoxFit.cover,
@@ -49,7 +49,8 @@ class TarjetaTuristicaMini extends StatelessWidget {
               const SizedBox(width: 10.0),
               Expanded(
                   child: Padding(
-                padding: const EdgeInsets.only(right: 5.0, bottom: 2.0, top: 2.0),
+                padding:
+                    const EdgeInsets.only(right: 5.0, bottom: 2.0, top: 2.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -64,12 +65,14 @@ class TarjetaTuristicaMini extends StatelessWidget {
                     ),
                     Row(
                       children: List.generate(
-                        5, 
+                        5,
                         (index) => Padding(
                           padding: const EdgeInsets.only(right: 2),
                           child: Icon(
-                            BootstrapIcons.star_fill, 
-                            color: index < rating ? AppBasicColors.yellow : AppBasicColors.greyRgba,
+                            BootstrapIcons.star_fill,
+                            color: index < rating
+                                ? AppBasicColors.yellow
+                                : AppBasicColors.greyRgba,
                             size: 20.0,
                           ),
                         ),

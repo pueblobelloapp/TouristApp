@@ -100,7 +100,7 @@ class DetalleSitio extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              height: 1.2),
+                              height: 1.3),
                         ),
                         const SizedBox(height: 10.0),
                         // SizedBox(
@@ -275,41 +275,50 @@ class _BotonFlotanteContactoState extends State<BotonFlotanteContacto> {
   @override
   void initState() {
     dynamic redes = widget.redes;
-    iconos = [
-      {
+
+    if (redes['whatsapp'] != '') {
+      iconos.add({
         'icono': BootstrapIcons.whatsapp,
         'background': AppBasicColors.greenWhat,
         'accion': () => _login.validarPermisosAccion(
-            accion: () => _launchUrl('https://wa.me'))
-      },
-      {
+            accion: () => _launchUrl('https://wa.me/${redes['whatsapp']}')),
+      });
+    }
+    if (redes['instagram'] != '') {
+      iconos.add({
         'icono': BootstrapIcons.instagram,
         'background': AppBasicColors.redInst,
         'accion': () => _login.validarPermisosAccion(
             accion: () =>
-                _launchUrl('https://www.instagram.com/${redes['instagram']}'))
-      },
-      {
+                _launchUrl('https://www.instagram.com/${redes['instagram']}')),
+      });
+    }
+    if (redes['pagina'] != '') {
+      iconos.add({
         'icono': BootstrapIcons.globe2,
         'background': AppBasicColors.blueMess,
         'accion': () => _login.validarPermisosAccion(
-            accion: () => _launchUrl('https://www.${redes['pagina']}.com/'))
-      },
-      {
+            accion: () => _launchUrl('${redes['pagina']}')),
+      });
+    }
+    if (redes['facebook'] != '') {
+      iconos.add({
         'icono': BootstrapIcons.facebook,
         'background': AppBasicColors.purpFace,
         'accion': () => _login.validarPermisosAccion(
             accion: () =>
-                _launchUrl('https://www.facebook.com/${redes['facebook']}'))
-      },
-      {
+                _launchUrl('https://www.facebook.com/${redes['facebook']}')),
+      });
+    }
+    if (redes['twitter'] != '') {
+      iconos.add({
         'icono': BootstrapIcons.twitter,
         'background': AppBasicColors.blueTwit,
         'accion': () => _login.validarPermisosAccion(
             accion: () =>
-                _launchUrl('https://www.twitter.com/${redes['twitter']}'))
-      },
-    ];
+                _launchUrl('https://www.twitter.com/${redes['twitter']}')),
+      });
+    }
     super.initState();
   }
 
