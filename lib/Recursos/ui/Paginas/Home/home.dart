@@ -161,12 +161,15 @@ class _HomeState extends State<Home> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Text(
-                                          'Aún no has iniciado sesión...',
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.italic,
-                                              fontWeight: FontWeight.bold,
-                                              overflow: TextOverflow.ellipsis),
+                                        const Expanded(
+                                          child: Text(
+                                            'Aún no has iniciado sesión...',
+                                            style: TextStyle(
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.bold,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                          ),
                                         ),
                                         const SizedBox(
                                           width: 10,

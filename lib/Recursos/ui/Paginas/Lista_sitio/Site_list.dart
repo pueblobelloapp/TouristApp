@@ -86,8 +86,11 @@ class SiteListPage extends GetView<SitioController> {
                       return Obx(() {
                         return Visibility(
                           visible: snapshot.data![index]!.titulo
-                              .toLowerCase()
-                              .contains(sitio.textBuscar),
+                                  .toLowerCase()
+                                  .contains(sitio.textBuscar) ||
+                              snapshot.data![index]!.actividades
+                                  .toLowerCase()
+                                  .contains(sitio.textBuscar),
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: TarjetaTuristica(

@@ -54,12 +54,16 @@ class _LoginState extends State<Login> {
                       colorFilter: ColorFilter.mode(
                           AppBasicColors.black.withOpacity(0.5),
                           BlendMode.darken))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: ListView(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
                     height: screenHeight * 0.4,
                     child: titleLogin(),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
                   ),
                   SizedBox(
                       // height: screenHeight * 0.4,
@@ -87,13 +91,15 @@ class _LoginState extends State<Login> {
                 fontWeight: FontWeight.bold,
                 fontSize: 72.0),
           ),
-          Text(
+          Expanded(
+              child: Text(
             'Pueblo Bello',
+            textAlign: TextAlign.center,
             style: TextStyle(
                 color: AppBasicColors.white,
                 //fontWeight: FontWeight.bold,
                 fontSize: 24.0),
-          )
+          ))
         ],
       ),
     );

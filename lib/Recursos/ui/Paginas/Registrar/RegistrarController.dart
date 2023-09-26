@@ -73,15 +73,31 @@ class RegistrarController extends GetxController {
           user.name = userRegister["name"]!.isEmpty
               ? "Sin definir"
               : userRegister["name"]!;
+          // notificationMessage.onPressed = () {
+          //   Get.back();
+          // };
 
           await _repositoryLogin.registerUser(user).then((value) {
-            notificationMessage.message = "Registro exitoso";
+            /* notificationMessage.message = "Registro exitoso";
             notificationMessage.imagePath = "Assets/Img/thumb-down.gif";
             notificationMessage.shouldTransform = false;
-            /* notificationMessage.onPressed = () {
+            notificationMessage.onPressed = () {
               Get.toNamed(Routes.Login);
             };*/
+            cleanField();
+            NotificationMessage(
+                imagePath: 'Assets/Img/thumb-down.gif',
+                title: 'Registro de usuario',
+                message: 'Registro exitoso',
+                flipVertical: true,
+                shouldTransform: false,
+                onPressed: () {
+                  //Get.toNamed(Routes.Login);
+                  Get.back();
+                  Get.back();
+                }).showNotification(context);
           })
+
               // ignore: body_might_complete_normally_catch_error
               .catchError((onError) {
             if (onError == "email-already-in-use") {
@@ -99,16 +115,16 @@ class RegistrarController extends GetxController {
           });
         } else {
           notificationMessage.message = "Correo no cumple los requisitos.";
+          notificationMessage.showNotification(context);
         }
       } else {
         notificationMessage.message = "Contraseñas no coinciden.";
+        notificationMessage.showNotification(context);
       }
     } else {
       notificationMessage.message = "Minimo 6 caracteres y maximo 8.";
+      notificationMessage.showNotification(context);
     }
-
-    notificationMessage.showNotification(context);
-    cleanField();
   }
 
   void cleanField() {

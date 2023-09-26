@@ -1,6 +1,7 @@
 class Sitio {
   String id;
   String titulo;
+  String actividades;
   String descripcion;
   String direccion;
   String twitter;
@@ -17,6 +18,7 @@ class Sitio {
   Sitio(
       {this.id = '',
       this.titulo = '',
+      this.actividades = '',
       this.descripcion = '',
       this.direccion = '',
       this.twitter = '',
@@ -35,6 +37,7 @@ class Sitio {
 
     result.addAll({'id': id});
     result.addAll({'titulo': titulo});
+    result.addAll({'actividades': actividades});
     result.addAll({'descripcion': descripcion});
     result.addAll({'direccion': direccion});
     result.addAll({'twitter': twitter});
@@ -55,6 +58,7 @@ class Sitio {
     return Sitio(
         id: id,
         titulo: map['nombre'] ?? '',
+        actividades: map['actividades'] ?? '',
         descripcion: map['descripcion'] ?? '',
         direccion: map['direccion'] ?? '',
         twitter: map['twitter'] ?? '',
