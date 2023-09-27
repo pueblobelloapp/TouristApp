@@ -14,6 +14,7 @@ class SitioController extends GetxController {
   TextEditingController search = TextEditingController();
   FocusNode? focusNode;
   final textBuscar = ''.obs;
+  final tipo = ''.obs;
 
   @override
   void onInit() {
@@ -21,6 +22,7 @@ class SitioController extends GetxController {
       esBuscar = Get.arguments["esBuscar"];
       if (!esBuscar) {
         titulo = Get.arguments["titulo"];
+        tipo.value = Get.arguments["tipo"];
       } else {
         focusNode = FocusNode();
         focusNode!.requestFocus();

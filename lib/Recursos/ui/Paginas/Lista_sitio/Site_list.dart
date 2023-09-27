@@ -1,6 +1,7 @@
 import 'package:app_turismo_usuario/Recursos/Entity/sitio.dart';
 import 'package:app_turismo_usuario/Recursos/controllers/sitioController.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -53,7 +54,26 @@ class SiteListPage extends GetView<SitioController> {
             ),
           ),
           body: StreamBuilder(
-              stream: sitio.listarSitios(),
+              stream: sitio.esBuscar
+                  ? sitio.listarSitios()
+                  : FirebaseFirestore.instance
+                      .collection('sites')
+                      .where('tipoTurismo', isEqualTo: sitio.tipo.value)
+                      .snapshots()
+                      .map((snapshot) {
+                      if (snapshot.docs.isNotEmpty) {
+                        return snapshot.docs.map((e) {
+                          if (e.exists) {
+                            dynamic data = e.data();
+                            return Sitio.fromMap(data, e.id);
+                          } else {
+                            return null;
+                          }
+                        }).toList();
+                      } else {
+                        return null;
+                      }
+                    }),
               builder: (BuildContext context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(

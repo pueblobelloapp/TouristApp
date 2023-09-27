@@ -235,16 +235,18 @@ class ListaTarjetasCategoria extends StatelessWidget {
           child: WidgetText(
             text: titulo,
             onPressed: () => Get.toNamed(Routes.ListSitio,
-                arguments: {'titulo': titulo, 'esBuscar': false}),
+                arguments: {'titulo': titulo, 'esBuscar': false, 'tipo': tipo}),
             buttonText: 'Ver más',
           ),
         ),
         StreamBuilder<QuerySnapshot>(
             //stream: FirebaseFirestore.instance.collection('sites').snapshots(),
-            stream: FirebaseFirestore.instance
-                .collection('sites')
-                .where('tipoTurismo', isEqualTo: tipo)
-                .snapshots(),
+            stream: tipo == Categorias.sitioInteres
+                ? FirebaseFirestore.instance.collection('sites').snapshots()
+                : FirebaseFirestore.instance
+                    .collection('sites')
+                    .where('tipoTurismo', isEqualTo: tipo)
+                    .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
