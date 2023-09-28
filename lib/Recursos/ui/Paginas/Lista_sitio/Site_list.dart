@@ -1,3 +1,4 @@
+import 'package:app_turismo_usuario/Recursos/Entity/Categorias.dart';
 import 'package:app_turismo_usuario/Recursos/Entity/sitio.dart';
 import 'package:app_turismo_usuario/Recursos/controllers/sitioController.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -54,27 +55,29 @@ class SiteListPage extends GetView<SitioController> {
             ),
           ),
           body: StreamBuilder(
-              stream: sitio.esBuscar
-                  ? sitio.listarSitios()
-                  : FirebaseFirestore.instance
-                      .collection('sites')
-                      .where('tipoTurismo', isEqualTo: sitio.tipo.value)
-                      .snapshots()
-                      .map((snapshot) {
-                      if (snapshot.docs.isNotEmpty) {
-                        return snapshot.docs.map((e) {
-                          if (e.exists) {
-                            dynamic data = e.data();
-                            return Sitio.fromMap(data, e.id);
+              stream:
+                  sitio.esBuscar || sitio.tipo.value == Categorias.sitioInteres
+                      ? sitio.listarSitios()
+                      : FirebaseFirestore.instance
+                          .collection('sites')
+                          .where('tipoTurismo', isEqualTo: sitio.tipo.value)
+                          .snapshots()
+                          .map((snapshot) {
+                          if (snapshot.docs.isNotEmpty) {
+                            return snapshot.docs.map((e) {
+                              if (e.exists) {
+                                dynamic data = e.data();
+                                return Sitio.fromMap(data, e.id);
+                              } else {
+                                return null;
+                              }
+                            }).toList();
                           } else {
                             return null;
                           }
-                        }).toList();
-                      } else {
-                        return null;
-                      }
-                    }),
+                        }),
               builder: (BuildContext context, snapshot) {
+                //print('IMPRIMIENDO SITIO: ${sitio.tipo.value}');
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: Column(
@@ -90,6 +93,11 @@ class SiteListPage extends GetView<SitioController> {
                     ),
                   );
                 }
+                if (snapshot.data == null) {
+                  return const Center(
+                    child: Text('Si data para mostrar'),
+                  );
+                }
                 if (snapshot.hasError) {
                   return const Center(
                       child: Text('Lo sentimos se ha producido un error.'));
@@ -99,6 +107,7 @@ class SiteListPage extends GetView<SitioController> {
                     child: Text("Sin datos para mostrar"),
                   );
                 }
+
                 return ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     itemCount: snapshot.data!.length,
