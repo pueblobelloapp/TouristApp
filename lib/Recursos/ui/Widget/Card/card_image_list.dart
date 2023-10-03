@@ -67,19 +67,22 @@ class _CardImageListState extends State<CardImageList> {
                 //radiusBottom: widget.radiusBottom,
               );
             })),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: SmoothPageIndicator(
-                  controller: _pageController,
-                  count: widget.imageList.length,
-                  effect: const WormEffect(
-                      activeDotColor: AppBasicColors.rgb,
-                      dotColor: AppBasicColors.lightGrey,
-                      dotHeight: 9,
-                      dotWidth: 9)),
-            ))
+        Visibility(
+          visible: widget.imageList.length > 1,
+          child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: SmoothPageIndicator(
+                    controller: _pageController,
+                    count: widget.imageList.length,
+                    effect: const WormEffect(
+                        activeDotColor: AppBasicColors.rgb,
+                        dotColor: AppBasicColors.lightGrey,
+                        dotHeight: 9,
+                        dotWidth: 9)),
+              )),
+        )
       ]),
     );
   }
