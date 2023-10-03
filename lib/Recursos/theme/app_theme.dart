@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppBasicColors {
   static const white = Color.fromRGBO(255, 255, 255, 1);
   static final green = Colors.green.shade600;
-  static const rgb = Color.fromRGBO(0, 184, 148, 1);
+  static const rgb = Color(0xFF00B894);
   static const rgbTransparent = Color.fromRGBO(0, 184, 148, 0);
   static final lightGreen = Colors.green.shade400;
   static const lightGrey = Color(0xFFBBBBBB);

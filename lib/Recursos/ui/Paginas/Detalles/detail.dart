@@ -68,18 +68,44 @@ class Detail extends GetView {
                       height: 8.0,
                     ),
                     data['descripcion'].length > 500
-                        ? ExpandableText(
-                            text: data['descripcion'],
-                            textAlign: TextAlign.justify,
-                            textStyle:
-                                const TextStyle(fontSize: 12.5, height: 1.5),
+                        ? Container(
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                                color: AppBasicColors.colorTextFormField,
+                                borderRadius: BorderRadius.circular(10.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color:
+                                          AppBasicColors.black.withOpacity(0.4),
+                                      offset: const Offset(0, 2),
+                                      blurRadius: 3)
+                                ]),
+                            child: ExpandableText(
+                              text: data['descripcion'],
+                              textAlign: TextAlign.justify,
+                              textStyle:
+                                  const TextStyle(fontSize: 12.5, height: 1.5),
+                            ),
                           )
-                        : Text(data['descripcion'],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 12.5,
-                              height: 1.5,
-                            )),
+                        : Container(
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                                color: AppBasicColors.colorTextFormField,
+                                borderRadius: BorderRadius.circular(10.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color:
+                                          AppBasicColors.black.withOpacity(0.4),
+                                      offset: const Offset(0, 2),
+                                      blurRadius: 3)
+                                ]),
+                            child: Text(data['descripcion'],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 12.5,
+                                  height: 1.5,
+                                )),
+                          ),
                     /* Text(
                       data['descripcion'],
                       textAlign: TextAlign.justify,
@@ -91,6 +117,7 @@ class Detail extends GetView {
                     const SizedBox(
                       height: 20.0,
                     ),
+                    //coleccion de subtitulos
                     Column(
                       children: List.generate(
                           data['subTitulos'] == null
@@ -122,18 +149,48 @@ class Detail extends GetView {
                             ),
                             data['subTitulos'][index]['descripcion'].length >
                                     500
-                                ? ExpandableText(
-                                    text: data['subTitulos'][index]
-                                        ['descripcion'],
-                                    textAlign: TextAlign.justify,
-                                    textStyle: const TextStyle(
-                                        fontSize: 12.5, height: 1.5),
+                                ? Container(
+                                    padding: const EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            AppBasicColors.colorTextFormField,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: AppBasicColors.black
+                                                  .withOpacity(0.4),
+                                              offset: const Offset(0, 2),
+                                              blurRadius: 3)
+                                        ]),
+                                    child: ExpandableText(
+                                      text: data['subTitulos'][index]
+                                          ['descripcion'],
+                                      textAlign: TextAlign.justify,
+                                      textStyle: const TextStyle(
+                                          fontSize: 12.5, height: 1.5),
+                                    ),
                                   )
-                                : Text(
-                                    data['subTitulos'][index]['descripcion'],
-                                    textAlign: TextAlign.justify,
-                                    style: const TextStyle(
-                                        fontSize: 12.5, height: 1.5),
+                                : Container(
+                                    padding: const EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                        color: AppBasicColors
+                                            .colorTextFormField, //Color(0xFF9DF09E),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: AppBasicColors.black
+                                                  .withOpacity(0.4),
+                                              offset: Offset(0, 2),
+                                              blurRadius: 3)
+                                        ]),
+                                    child: Text(
+                                      data['subTitulos'][index]['descripcion'],
+                                      textAlign: TextAlign.justify,
+                                      style: const TextStyle(
+                                          fontSize: 12.5, height: 1.5),
+                                    ),
                                   ),
                             const SizedBox(
                               height: 10,
