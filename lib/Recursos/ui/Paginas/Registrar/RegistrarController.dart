@@ -139,6 +139,7 @@ class RegistrarController extends GetxController {
   Future<DateTime?> selectDate(BuildContext context) async {
     return showDatePicker(
       context: context,
+      locale: const Locale('es', 'ES'),
       firstDate: DateTime(1943),
       initialDate: DateTime(2000),
       lastDate: DateTime(DateTime.now().year - 18),

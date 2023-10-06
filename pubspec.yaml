@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.2
   firebase_core: ^2.4.1
@@ -29,7 +31,7 @@ dependencies:
   bootstrap_icons: ^1.10.5+2
   email_validator: ^2.1.17
   get_it: ^7.2.0
-  intl: ^0.18.1
+  intl: ^0.18.0
   flutter_speed_dial: ^3.0.1
   url_launcher: ^6.1.11
   flutter_rating_stars: ^1.0.3+4
