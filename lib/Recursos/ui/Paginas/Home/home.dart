@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
     {
       'color': AppBasicColors.rgb,
       'selected-color': AppBasicColors.white,
-      'icon': BootstrapIcons.bicycle,
+      'icon': BootstrapIcons.flower1,
       'text': 'Etnoturismo',
       'vista': const Detail(
         categoria: 'Etnoturismo',
