@@ -76,7 +76,7 @@ class Detail extends GetView {
                                 boxShadow: [
                                   BoxShadow(
                                       color:
-                                          AppBasicColors.black.withOpacity(0.4),
+                                          AppBasicColors.black.withOpacity(0.3),
                                       offset: const Offset(0, 2),
                                       blurRadius: 3)
                                 ]),
@@ -95,7 +95,7 @@ class Detail extends GetView {
                                 boxShadow: [
                                   BoxShadow(
                                       color:
-                                          AppBasicColors.black.withOpacity(0.4),
+                                          AppBasicColors.black.withOpacity(0.3),
                                       offset: const Offset(0, 2),
                                       blurRadius: 3)
                                 ]),
@@ -136,16 +136,37 @@ class Detail extends GetView {
                                 //decoration: TextDecoration.underline
                               ),
                             ),
-                            const SizedBox(
-                              height: 8.0,
+                            Visibility(
+                              visible: data['subTitulos'][index]
+                                          ['listPhotos'] !=
+                                      null &&
+                                  data['subTitulos'][index]['listPhotos']
+                                      .isNotEmpty,
+                              child: const SizedBox(
+                                height: 8.0,
+                              ),
                             ),
-                            CardImageList(
-                              imageList: data['subTitulos'][index]
-                                  ['listPhotos'],
-                              radiusBottom: false,
+                            Visibility(
+                              visible: data['subTitulos'][index]
+                                          ['listPhotos'] !=
+                                      null &&
+                                  data['subTitulos'][index]['listPhotos']
+                                      .isNotEmpty,
+                              child: CardImageList(
+                                imageList: data['subTitulos'][index]
+                                    ['listPhotos'],
+                                radiusBottom: false,
+                              ),
                             ),
-                            const SizedBox(
-                              height: 8.0,
+                            Visibility(
+                              visible: data['subTitulos'][index]
+                                          ['listPhotos'] !=
+                                      null &&
+                                  data['subTitulos'][index]['listPhotos']
+                                      .isNotEmpty,
+                              child: const SizedBox(
+                                height: 8.0,
+                              ),
                             ),
                             data['subTitulos'][index]['descripcion'].length >
                                     500
@@ -159,7 +180,7 @@ class Detail extends GetView {
                                         boxShadow: [
                                           BoxShadow(
                                               color: AppBasicColors.black
-                                                  .withOpacity(0.4),
+                                                  .withOpacity(0.3),
                                               offset: const Offset(0, 2),
                                               blurRadius: 3)
                                         ]),
@@ -181,7 +202,7 @@ class Detail extends GetView {
                                         boxShadow: [
                                           BoxShadow(
                                               color: AppBasicColors.black
-                                                  .withOpacity(0.4),
+                                                  .withOpacity(0.3),
                                               offset: Offset(0, 2),
                                               blurRadius: 3)
                                         ]),
